@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    stylesheet="code-reuse.xsl">
+
+    <!--
+        Sample code for "Code Reuse in XSpec: How to Use x:like"
+        https://medium.com/@xspectacles/code-reuse-in-xspec-c51a59d1a709
+    -->
+
+    <!-- Example Showing Repetition -->
+
+    <x:scenario label="Tests for topic template (no reuse)">
+        <x:scenario label="Title outside info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:expect label="Check overall structure">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <title>...</title>
+                    </head>
+                    <body>
+                        <h1>...</h1>
+                    </body>
+                </html>
+            </x:expect>
+            <x:expect label="head title contains prefixed title text"
+                test="$x:result/h:head/h:title">
+                <title>Topic: title content</title>
+            </x:expect>
+            <x:expect label="h1 contains unprefixed title text"
+                test="$x:result/h:body/h:h1">
+                <h1>title content</h1>
+            </x:expect>            
+        </x:scenario>
+        <x:scenario label="Title in info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <info>
+                        <title>title content</title>
+                    </info>
+                </topic>
+            </x:context>
+            <x:expect label="Check overall structure">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <title>...</title>
+                    </head>
+                    <body>
+                        <h1>...</h1>
+                    </body>
+                </html>
+            </x:expect>
+            <x:expect label="head title contains prefixed title text"
+                test="$x:result/h:head/h:title">
+                <title>Topic: title content</title>
+            </x:expect>
+            <x:expect label="h1 contains unprefixed title text"
+                test="$x:result/h:body/h:h1">
+                <h1>title content</h1>
+            </x:expect>            
+        </x:scenario>
+    </x:scenario>
+
+    <!-- How to Implement Reuse -->
+
+    <x:scenario label="Tests for topic template (with reuse)">
+        <x:scenario label="Title outside info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Title in info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <info>
+                        <title>title content</title>
+                    </info>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+    </x:scenario>
+
+    <x:scenario shared="yes" label="Check structure, title, and h1">
+        <x:expect label="Check overall structure">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>...</title>
+                </head>
+                <body>
+                    <h1>...</h1>
+                </body>
+            </html>
+        </x:expect>
+        <x:expect label="head title contains prefixed title text"
+            test="$x:result/h:head/h:title">
+            <title>Topic: title content</title>
+        </x:expect>
+        <x:expect label="h1 contains unprefixed title text"
+            test="$x:result/h:body/h:h1">
+            <h1>title content</h1>
+        </x:expect>            
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
