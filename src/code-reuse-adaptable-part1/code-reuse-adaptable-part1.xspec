@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xv="my-xspec-variables"
+    stylesheet="code-reuse-adaptable-part1.xsl">
+
+    <!--
+        Sample code for "Adaptable Code Reuse in XSpec, Part 1: Value Templates"
+        https://medium.com/@xspectacles/adaptable-code-reuse-in-xspec-part-1-3cf896d61bbb
+    -->
+
+    <!-- Example Showing Near-Repetition -->
+
+    <x:scenario label="Tests for topic template (no reuse)">
+        <x:scenario label="Title outside info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:expect label="Check overall structure">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <title>...</title>
+                    </head>
+                    <body>
+                        <h1>...</h1>
+                    </body>
+                </html>
+            </x:expect>
+            <x:expect label="head title contains prefixed title text"
+                test="$x:result/h:head/h:title">
+                <title>Topic: title content</title>
+            </x:expect>
+            <x:expect label="h1 contains unprefixed title text"
+                test="$x:result/h:body/h:h1">
+                <h1>title content</h1>
+            </x:expect>            
+        </x:scenario>
+        <x:scenario label="Title in info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <info>
+                        <title>title content</title>
+                    </info>
+                </topic>
+            </x:context>
+            <x:expect label="Check overall structure">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <title>...</title>
+                    </head>
+                    <body>
+                        <h1>...</h1>
+                    </body>
+                </html>
+            </x:expect>
+            <x:expect label="head title contains prefixed title text"
+                test="$x:result/h:head/h:title">
+                <title>Topic: title content</title>
+            </x:expect>
+            <x:expect label="h1 contains unprefixed title text"
+                test="$x:result/h:body/h:h1">
+                <h1>title content</h1>
+            </x:expect>            
+        </x:scenario>
+        <x:scenario label="Nondefault prefix for head title">
+            <x:context>
+                <x:param name="head-prefix" select="'Custom Prefix: '"/>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:expect label="head title contains custom-prefixed title text"
+                test="$x:result/h:head/h:title">
+                <title>Custom Prefix: title content</title>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- Using x:variable to Provide Adaptability -->
+
+    <x:scenario label="Tests for topic template (with reuse)">
+        <x:variable name="xv:test-head-prefix" select="'Topic: '"/>
+        <x:scenario label="Title outside info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Title in info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <info>
+                        <title>title content</title>
+                    </info>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Nondefault prefix for head title">
+            <x:variable name="xv:test-head-prefix" select="'Custom Prefix: '"/>
+            <x:context>
+                <x:param name="head-prefix" select="$xv:test-head-prefix"/>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- Scenario containing <x:like> must have $xv:test-head-prefix --> 
+    <x:scenario shared="yes" label="Check structure, title, and h1">
+        <x:expect label="Check overall structure">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>...</title>
+                </head>
+                <body>
+                    <h1>...</h1>
+                </body>
+            </html>
+        </x:expect>
+        <x:expect label="head title contains prefixed title text"
+            test="$x:result/h:head/h:title">
+            <title x:expand-text="1">{$xv:test-head-prefix}title content</title>
+        </x:expect>
+        <x:expect label="h1 contains unprefixed title text"
+            test="$x:result/h:body/h:h1">
+            <h1>title content</h1>
+        </x:expect>            
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

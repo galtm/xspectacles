@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xv="my-xspec-variables"
+    stylesheet="code-reuse-adaptable-part1-avt.xsl">
+
+    <!--
+        Sample code for "Adaptable Code Reuse in XSpec, Part 1: Value Templates"
+        https://medium.com/@xspectacles/adaptable-code-reuse-in-xspec-part-1-3cf896d61bbb
+    -->
+
+    <!-- Variation Using Attribute Value Templates -->
+
+    <x:scenario label="Tests for topic template (with reuse)">
+        <x:variable name="xv:test-head-prefix" select="'Topic: '"/>
+        <x:variable name="xv:h1-class" select="'standard-h1'"/>
+        <x:scenario label="Title outside info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Title in info">
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <info>
+                        <title>title content</title>
+                    </info>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Nondefault prefix for head title">
+            <x:variable name="xv:test-head-prefix" select="'Custom Prefix: '"/>
+            <x:context>
+                <x:param name="head-prefix" select="$xv:test-head-prefix"/>
+                <topic xmlns="http://docbook.org/ns/docbook">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+        </x:scenario>
+        <x:scenario label="Special topic">
+            <x:variable name="xv:h1-class" select="'special-h1'"/>
+            <x:context>
+                <topic xmlns="http://docbook.org/ns/docbook" xml:id="special">
+                    <title>title content</title>
+                </topic>
+            </x:context>
+            <x:like label="Check structure, title, and h1"/>
+            <x:like label="Variation Foreshadowing an XPath Approach"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- Scenario containing <x:like> must have $xv:test-head-prefix
+        and $xv:h1-class -->
+    <x:scenario shared="yes" label="Check structure, title, and h1">
+        <x:expect label="Check overall structure">
+            <html xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <title>...</title>
+                </head>
+                <body>
+                    <h1 class="...">...</h1>
+                </body>
+            </html>
+        </x:expect>
+        <x:expect label="head title contains prefixed title text"
+            test="$x:result/h:head/h:title">
+            <title x:expand-text="1">{$xv:test-head-prefix}title content</title>
+        </x:expect>
+        <x:expect label="h1 has correct class and unprefixed title text"
+            test="$x:result/h:body/h:h1">
+            <h1 class="{$xv:h1-class}">title content</h1>
+        </x:expect>
+    </x:scenario>
+
+    <!-- Variation Foreshadowing an XPath Approach -->
+    <!-- Scenario containing <x:like> must have $xv:h1-class -->
+    <x:scenario shared="yes" label="Variation Foreshadowing an XPath Approach">
+        <x:expect label="h1 has correct class"
+            test="$x:result/h:body/h:h1/@class/string()"
+            select="$xv:h1-class"/>
+        <x:expect label="h1 contains unprefixed title text"
+            test="$x:result/h:body/h:h1">
+            <h1 class="...">title content</h1>
+        </x:expect>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
