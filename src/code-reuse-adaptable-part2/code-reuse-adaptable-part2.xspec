@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:mf="urn:x-xspectacles:functions"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xv="urn:x-xspectacles:xspec:variables"
+    stylesheet="code-reuse-adaptable-part2.xsl">
+
+    <!--
+        Sample code for "Adaptable Code Reuse in XSpec, Part 2: XPath Matching"
+        https://medium.com/@xspectacles/adaptable-code-reuse-in-xspec-part-2-8820b1cd255d
+    -->
+
+    <!-- Example Checking a Map -->
+
+    <x:scenario label="Tests for mf:options function (incomplete)">
+        <x:scenario label="Ignore duplicates">
+            <x:call function="mf:options">
+                <x:param select="true()"/>
+            </x:call>
+            <!-- x:expect elements go here -->
+        </x:scenario>
+        <x:scenario label="Error on duplicates">
+            <x:call function="mf:options">
+                <x:param select="false()"/>
+            </x:call>
+            <!-- x:expect elements go here -->
+        </x:scenario>
+    </x:scenario>
+
+    <!--
+        In the entire-map x:expect, we have found a way to
+        insert the variable into the expression.
+
+        In the single-item x:expect, we focus on a small
+        enough piece of the XSLT result that the select
+        attribute can equal an XSpec variable.
+    -->
+
+    <!-- Scenario containing <x:like> must have $xv:duplicates -->
+    <x:scenario shared="yes" label="Check map">
+        <x:expect label="Check entire map"
+            select="map{
+                'duplicates': $xv:duplicates,
+                'escape': false()
+            }"/>
+        <!-- The next <x:expect> element is from the
+            "Matching a Piece of the Result" section.
+            -->
+        <x:expect label="Approach 2: Check 'duplicates' value"
+            test="$x:result('duplicates')"
+            select="$xv:duplicates"/>
+    </x:scenario>
+
+    <x:scenario label="Tests for mf:options function">
+        <x:scenario label="Ignore duplicates">
+            <x:call function="mf:options">
+                <x:param select="true()"/>
+            </x:call>
+            <x:variable name="xv:duplicates" select="'use-last'"/>
+            <x:like label="Check map"/>
+        </x:scenario>
+        <x:scenario label="Error on duplicates">
+            <x:call function="mf:options">
+                <x:param select="false()"/>
+            </x:call>
+            <x:variable name="xv:duplicates" select="'reject'"/>
+            <x:like label="Check map"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- =========== -->
+
+    <!-- Example Matching XML Subtree -->
+
+    <x:scenario label="Tests for mf:json-processing function (with repetition)"
+        xmlns="http://www.w3.org/2005/xpath-functions">
+        <x:scenario label="String values for all properties">
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string">
+                    {
+                    "year": "1900",
+                    "isbn": "978-0470192740"
+                    }
+                </x:param>
+            </x:call>
+            <x:expect label="map with 3 string children">
+                <map>
+                    <string key="revision">1.0</string>
+                    <string key="year">1900</string>
+                    <string key="isbn">978-0470192740</string>
+                </map>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Array value for isbn">
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string">
+                    {
+                    "year": "1900",
+                    "isbn": ["0764547763","978-0764547768"]
+                    }
+                </x:param>
+            </x:call>
+            <x:expect label="map with 2 string children and 1 array child">
+                <map>
+                    <string key="revision">1.0</string>
+                    <string key="year">1900</string>
+                    <array key="isbn">
+                        <string>0764547763</string>
+                        <string>978-0764547768</string>
+                    </array>
+                </map>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+    <!--
+        We use @test to divide the tree in $x:result so that a small
+        enough piece becomes an XSpec variable that can go in @select.
+    -->
+
+    <!-- Scenario containing <x:like> must have $xv:isbn-in-xml -->
+    <x:scenario shared="yes" label="Check 'map' element"
+        xmlns="http://www.w3.org/2005/xpath-functions">
+        <x:expect label="Result is a map element">
+            <map>...</map>
+        </x:expect>
+        <x:expect label="Check children other than isbn"
+            test="$x:result/*[not(@key='isbn')]">
+            <string key="revision">1.0</string>
+            <string key="year">1900</string>
+        </x:expect>
+        <x:expect label="Check isbn"
+            test="$x:result/*[@key='isbn']"
+            select="$xv:isbn-in-xml"/>
+    </x:scenario>
+
+    <x:scenario label="Tests for mf:json-processing function (some reuse)"
+        xmlns="http://www.w3.org/2005/xpath-functions">
+        <x:scenario label="String values for all properties">
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string">
+                    {
+                    "year": "1900",
+                    "isbn": "978-0470192740"
+                    }
+                </x:param>
+            </x:call>
+            <x:variable name="xv:isbn-in-xml">
+                <string key="isbn">978-0470192740</string>
+            </x:variable>
+            <x:like label="Check 'map' element"/>
+        </x:scenario>
+        <x:scenario label="Array in isbn">
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string">
+                    {
+                    "year": "1900",
+                    "isbn": ["0764547763","978-0764547768"]
+                    }
+                </x:param>
+            </x:call>
+            <x:variable name="xv:isbn-in-xml">
+                <array key="isbn">
+                    <string>0764547763</string>
+                    <string>978-0764547768</string>
+                </array>
+            </x:variable>
+            <x:like label="Check 'map' element"/>
+        </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="Tests for mf:json-processing function (more reuse)"
+        xmlns="http://www.w3.org/2005/xpath-functions">
+        <x:scenario label="String values for all properties">
+            <x:variable name="xv:isbn-value" select="'978-0470192740'"/>
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string" expand-text="1">
+                    {{
+                    "year": "1900",
+                    "isbn": "{$xv:isbn-value}"
+                    }}
+                </x:param>
+            </x:call>
+            <x:variable name="xv:isbn-in-xml" expand-text="1">
+                <string key="isbn">{$xv:isbn-value}</string>
+            </x:variable>
+            <x:like label="Check 'map' element"/>
+        </x:scenario>
+        <x:scenario label="Array in isbn">
+            <x:variable name="xv:isbn-value1" select="'0764547763'"/>
+            <x:variable name="xv:isbn-value2" select="'978-0764547768'"/>
+            <x:call function="mf:json-processing">
+                <x:param as="xs:string" expand-text="1">
+                    {{
+                    "year": "1900",
+                    "isbn": ["{$xv:isbn-value1}","{$xv:isbn-value2}"]
+                    }}
+                </x:param>
+            </x:call>
+            <x:variable name="xv:isbn-in-xml" expand-text="1">
+                <array key="isbn">
+                    <string>{$xv:isbn-value1}</string>
+                    <string>{$xv:isbn-value2}</string>
+                </array>
+            </x:variable>
+            <x:like label="Check 'map' element"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!--
+        Example with Boolean Test:
+        Sample code is taken from
+        https://github.com/usnistgov/xslt3-functions/blob/c44124e1f54ec8e267e4fb31f2c3b2f109efc07f/random-util/tests/random-util.xspec#L192
+    -->
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
