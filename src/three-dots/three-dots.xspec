@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="three-dots.xsl"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for 'Saying "Whatever" in XSpec: How, Why, When'
+        https://medium.com/@xspectacles/saying-whatever-in-xspec-how-why-when-979ef97294e
+    -->
+
+    <x:scenario label="Tests for product-row template">
+        <x:scenario label="Single product">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                </x:param>
+            </x:call>
+            <x:expect>
+                <x:label>
+                    Table row with 'Products' in first cell
+                    and product name in second cell
+                </x:label>
+                <tr>
+                    <td>
+                        <strong class="plabel">Products</strong>
+                    </td>
+                    <td>
+                        <span class="pname">Rolled oats</span>
+                    </td>
+                </tr>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Multiple products">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                    <db:productname>All-purpose flour</db:productname>
+                </x:param>
+            </x:call>
+            <!-- The next x:expect is straightforward but repetitive. -->
+            <x:expect>
+                <x:label>Product names in list in second cell</x:label>
+                <tr>
+                    <td>
+                        <strong class="plabel">Products</strong>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <span class="pname">Rolled oats</span>
+                            </li>
+                            <li>
+                                <span class="pname">All-purpose flour</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </x:expect>
+            <!-- Variation on x:expect above, using ... in first td -->
+            <x:expect>
+                <x:label>Product names in list in second cell</x:label>
+                <tr>
+                    <td>...</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <span class="pname">Rolled oats</span>
+                            </li>
+                            <li>
+                                <span class="pname">All-purpose flour</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </x:expect>
+            <x:expect label="First td is not empty"
+                test="exists($x:result/h:td[1]/node())"
+                xmlns:h="http://www.w3.org/1999/xhtml"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- At Most One Node -->
+    <x:scenario label="Tests for product-row template, variation">
+        <x:scenario label="Single product">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                </x:param>
+            </x:call>
+            <x:expect>
+                <x:label>Table row with 'Products' in first cell</x:label>
+                <tr>
+                    <td>
+                        <strong class="plabel">Products</strong>
+                    </td>
+                    <td>...</td>
+                </tr>
+            </x:expect>
+            <x:expect>
+                <x:label>and product name in second cell</x:label>
+                <tr>
+                    <td>...</td>
+                    <td>
+                        <span class="pname">Rolled oats</span>
+                    </td>
+                </tr>
+            </x:expect>
+            <!-- Variation #1 on 1st x:expect -->
+            <x:expect>
+                <x:label>
+                    Table row with 'Products' in first cell
+                    and one unnamed following sibling
+                    (Note: no white space around ...)
+                </x:label>
+                <tr>
+                    <td>
+                        <strong class="plabel">Products</strong>
+                    </td>...</tr>
+            </x:expect>
+            <!-- Variation #2 on 1st x:expect -->
+            <x:expect expand-text="1">
+                <x:label>
+                    Table row with 'Products' in first cell
+                    and one unnamed following sibling
+                    (text value template offers flexibility with space)
+                </x:label>
+                <tr>
+                    <td>
+                        <strong class="plabel">Products</strong>
+                    </td>{
+                    '...'
+                }</tr>
+            </x:expect>
+            <!-- Variation #3 on 1st x:expect; works with any number of following siblings -->
+            <x:expect test="$x:result/h:td[1]"
+                label="First table cell says 'Products'"
+                xmlns:h="http://www.w3.org/1999/xhtml">
+                <td>
+                    <strong class="plabel">Products</strong>
+                </td>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Multiple products">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                    <db:productname>All-purpose flour</db:productname>
+                </x:param>
+            </x:call>
+            <x:expect>
+                <x:label>Product names in list in second cell</x:label>
+                <tr>
+                    <td>...</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <span class="pname">Rolled oats</span>
+                            </li>
+                            <li>
+                                <span class="pname">All-purpose flour</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

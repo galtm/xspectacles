@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="three-dots-layered.xsl"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for 'Saying "Whatever" in XSpec: How, Why, When'
+        https://medium.com/@xspectacles/saying-whatever-in-xspec-how-why-when-979ef97294e
+    -->
+
+    <!-- Layering Tests for Dependent Code Units -->
+
+    <x:scenario label="Tests for product-row template">
+        <x:scenario label="Single product">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                </x:param>
+            </x:call>
+            <!-- <h:span class="pname">...</h:span> here is
+                because the content will be tested in a different
+                top-level scenario -->
+            <x:expect>
+                <x:label>
+                    Table row with 'Products' in first cell
+                    and product name in second cell
+                </x:label>
+                <h:tr>
+                    <h:td>
+                        <h:strong class="plabel">Products</h:strong>
+                    </h:td>
+                    <h:td>
+                        <h:span class="pname">...</h:span>
+                    </h:td>
+                </h:tr>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Multiple products">
+            <x:call template="product-row">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                    <db:productname>All-purpose flour</db:productname>
+                </x:param>
+            </x:call>
+            <!-- <h:ul>...</h:ul> here is because the content will
+                be tested in a different top-level scenario -->
+            <x:expect>
+                <x:label>List in second cell</x:label>
+                <h:tr>
+                    <h:td>
+                        <h:strong class="plabel">Products</h:strong>
+                    </h:td>
+                    <h:td>
+                        <h:ul>...</h:ul>
+                    </h:td>
+                </h:tr>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="Tests for product-name-or-list template">
+        <x:scenario label="Single product">
+            <x:call template="product-name-or-list">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                </x:param>
+            </x:call>
+            <x:expect label="Span with pname class">
+                <h:span class="pname">...</h:span>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Multiple products">
+            <x:call template="product-name-or-list">
+                <x:param name="products">
+                    <db:productname>Rolled oats</db:productname>
+                    <db:productname>All-purpose flour</db:productname>
+                </x:param>
+            </x:call>
+            <x:expect>
+                <x:label>List of product names</x:label>
+                <h:ul>
+                    <h:li>
+                        <h:span class="pname">...</h:span>
+                    </h:li>
+                    <h:li>
+                        <h:span class="pname">...</h:span>
+                    </h:li>
+                </h:ul>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+    <x:scenario label="Tests for match=productname template">
+        <x:scenario label="No trademarks">
+            <x:context>
+                <db:productname>Xyz</db:productname>
+            </x:context>
+            <x:expect label="Span with class=pname and content">
+                <h:span class="pname">Xyz</h:span>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Trademark">
+            <x:context>
+                <db:productname>
+                    <db:trademark class="registered">Xyz</db:trademark>
+                </db:productname>
+            </x:context>
+            <x:expect label="Span with class=pname, content, and (R)">
+                <h:span class="pname">Xyz<h:span>®</h:span></h:span>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Flagship product - trademark symbol is important">
+            <!-- Note: White space in the file referenced by href
+                is preserved. More on white space handling in another
+                post... -->
+            <x:context href="product-catalog.xml"
+                select="//db:productname[@code='IO']"/>
+            <!-- Shows ... for attribute value and one sibling node -->
+            <x:expect label="Outer span and inner span with '(R)'">
+                <h:span class="...">...<h:span>®</h:span></h:span>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
