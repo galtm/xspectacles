@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product-catalog xmlns:db="http://docbook.org/ns/docbook">
+    <db:productname code="RO">Rolled oats</db:productname>
+    <db:productname code="AP">All-purpose flour</db:productname>
+    <!-- Note: Do not add a line break or indentation before
+        <trademark> or after </trademark> in this file.
+        White space handling will be described in another post. -->
+    <db:productname code="IO"><db:trademark
+        class="registered">Instantaneous Oats</db:trademark></db:productname>
+</product-catalog>
