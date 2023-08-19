@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product-catalog>
+    <productname code="RO">Rolled oats</productname>
+    <productname code="AP">All-purpose flour</productname>
+    <productname code="IO">
+        <trademark>Instantaneous Oats</trademark>
+    </productname>
+    <productname code="EIEIO">
+        <trademark>EIE</trademark>
+        <trademark>Instantaneous Oats</trademark>
+    </productname>
+</product-catalog>

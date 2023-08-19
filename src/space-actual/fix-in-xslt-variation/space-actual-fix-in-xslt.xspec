@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="space-actual-fix-in-xslt.xsl"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Fixing Surprise Spaces in XSpec Actual Result"
+        https://medium.com/@xspectacles/fixing-surprise-spaces-in-xspec-actual-result-3d4463eeb9a1
+    -->
+
+    <x:scenario label="Tests for match=productname template">
+        <x:scenario label="Product name with two trademarks">
+            <x:context href="product-catalog.xml"
+                select="//productname[@code='EIEIO']"/>
+            <x:expect label="Two trademark symbols">
+                <x:text>EIE</x:text>
+                <h:span>®</h:span> Instantaneous Oats<h:span>®</h:span>
+            </x:expect>
+        </x:scenario>        
+
+        <!-- Alternatives -->
+        <x:scenario label="Product name with two trademarks, alternative XML structure">
+            <x:context href="product-catalog.xml"
+                select="//productname[@code='EIEIO2']"/>
+            <x:expect label="Two trademark symbols">
+                <x:text>EIE</x:text>
+                <h:span>®</h:span> Instantaneous Oats<h:span>®</h:span>
+            </x:expect>
+        </x:scenario>
+        <x:scenario label="Product name with two trademarks, another alternative XML structure">
+            <x:context href="product-catalog.xml"
+                select="//productname[@code='EIEIO3']"/>
+            <x:expect label="Two trademark symbols">
+                <x:text>EIE</x:text>
+                <h:span>®</h:span> Instantaneous Oats<h:span>®</h:span>
+            </x:expect>
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

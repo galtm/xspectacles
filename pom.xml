@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.galtm</groupId>
-    <artifactId>learn-xspec</artifactId>
+    <artifactId>xspectacles</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <name>Learn XSpec</name>
     <description>Examples for learning XSpec</description>
     <scm>
-        <url>https://github.com/galtm/learn-xspec</url>
-        <developerConnection>scm:git:https://github.com/galtm/learn-xspec</developerConnection>
+        <url>https://github.com/galtm/xspectacles</url>
+        <developerConnection>scm:git:https://github.com/galtm/xspectacles</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <properties>
@@ -51,6 +51,11 @@
                     <addDependenciesToClasspath>true</addDependenciesToClasspath>
                     <generateSurefireReport>true</generateSurefireReport>
                     <testDir>${project.basedir}/src</testDir>
+                    <excludes>
+                        <!-- Exclude tests that fail to illustrate a problem. -->
+                        <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
+                        <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
