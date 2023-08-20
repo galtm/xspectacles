@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description
+    stylesheet="code-reuse.xsl"
+    xslt-version="3.0"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://www.w3.org/1999/xhtml"
-    xmlns:x="http://www.jenitennison.com/xslt/xspec"
-    stylesheet="code-reuse.xsl">
+    xmlns:x="http://www.jenitennison.com/xslt/xspec">
 
     <!--
         Sample code for "Code Reuse in XSpec: How to Use x:like"
