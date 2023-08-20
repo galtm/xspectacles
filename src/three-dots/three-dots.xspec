@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description stylesheet="three-dots.xsl"
+    xslt-version="3.0"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:db="http://docbook.org/ns/docbook"
     xmlns:x="http://www.jenitennison.com/xslt/xspec"
