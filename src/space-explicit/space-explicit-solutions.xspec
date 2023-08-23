@@ -40,7 +40,14 @@
                 </out>
             </x:expect>
 
-            <!-- Solution 3, matching strings instead of embedded content.
+            <!-- Solution 3, via @xml:space and numeric character references. -->
+            <x:expect
+                label="xml:space, numeric character references, and lack of indentation"
+                select="/out" xml:space="preserve">
+                <out>&#10;<element/>abc&#10;</out>
+            </x:expect>
+
+            <!-- Solution 4, matching strings instead of embedded content.
                 If the content were long, ability to concatenate
                 string fragments using desired indentation outside
                 the delimiters would be handy. -->
