@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="space-explicit.xsl"
+    xslt-version="3.0"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Testing Explicit Whitespace in XSpec"
+        https://medium.com/@xspectacles/testing-explicit-whitespace-in-xspec-3da21af64ab6
+    -->
+
+    <x:scenario label="Simple test for match=/ template"
+        pending="Assertions fail due to whitespace mismatches">
+        <x:context select="/">
+            <input>abc</input>
+        </x:context>
+        <x:expect label="out containing element and input content">
+            <out>
+                <element/>abc
+            </out>
+        </x:expect>
+        <x:expect label="Line breaks and lack of indentation">
+            <out>
+                <element/>abc
+</out>
+        </x:expect>
+        <x:expect label="Numeric character references and lack of indentation">
+            <out>&#10;<element/>abc&#10;</out>
+        </x:expect>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

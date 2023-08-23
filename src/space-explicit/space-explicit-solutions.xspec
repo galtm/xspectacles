@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="space-explicit.xsl"
+    xslt-version="3.0"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Testing Explicit Whitespace in XSpec"
+        https://medium.com/@xspectacles/testing-explicit-whitespace-in-xspec-3da21af64ab6
+    -->
+
+    <x:scenario label="Simple test for match=/ template">
+        <x:context select="/">
+            <input>abc</input>
+        </x:context>
+        <x:scenario label="Recommended solutions">
+            <!-- Solution 1, via @href and numeric character references. -->
+            <x:expect label="File matches space using numeric character reference"
+                href="expected-output-numeric.xml"
+                select="/out"/>
+
+            <!-- Solution 2, via <x:text> and numeric character references. -->
+            <!-- These three <x:expect> elements accomplish the same thing. -->
+            <x:expect label="Numeric character reference inside x:text">
+                <out>
+                    <x:text>&#10;</x:text><element/>abc<x:text>&#10;</x:text>
+                </out>
+            </x:expect>
+            <x:expect label="Numeric character reference inside x:text">
+                <out>
+                    <x:text>&#10;</x:text>
+                    <element/>abc<x:text>&#10;</x:text>
+                </out>
+            </x:expect>
+            <x:expect label="Numeric character reference inside x:text">
+                <out>
+                    <x:text>&#10;</x:text>
+                    <element/>
+                    <x:text>abc&#10;</x:text>
+                </out>
+            </x:expect>
+
+            <!-- Solution 3, matching strings instead of embedded content.
+                If the content were long, ability to concatenate
+                string fragments using desired indentation outside
+                the delimiters would be handy. -->
+            <!-- Use these <x:expect> elements together. -->
+            <x:expect label="Check for out element">
+                <out>...</out>
+            </x:expect>
+            <x:expect label="with 'element' child"
+                test="$x:result/*"><element/></x:expect>
+            <x:expect label="preceded by line feed"
+                test="$x:result/element[count(preceding-sibling::node())=1]/
+                preceding-sibling::text()/string()"
+                select="'&#10;'"/>
+            <x:expect label="and followed by exact string content"
+                test="$x:result/element[count(following-sibling::node())=1]/
+                following-sibling::text()/string()"
+                select="concat(
+                    'abc',
+                    '&#10;'
+                    )"/>
+        </x:scenario>
+
+        <x:scenario label="Nonrecommended solutions for this problem">
+            <!-- The careful spacing is readable but easily disrupted
+                by reformatting. -->
+            <x:expect label="File matches space using visible line breaks"
+                href="expected-output-lf-char.xml"
+                select="/out"/>
+
+            <!-- Nonrecommended solution for this problem, because
+                careful spacing is less readable and is easily
+                disrupted by reformatting. -->
+            <x:expect label="Line breaks inside x:text and lack of indentation">
+                <out><x:text>
+</x:text><element/>abc<x:text>
+</x:text></out>
+            </x:expect>
+            <x:pending>
+                <x:label>Automatic reformatting below changes the
+                    space inside x:text, so assertion fails</x:label>
+                <x:expect label="Automatic reformatting of space inside x:text">
+                    <out><x:text>
+                    </x:text><element/>abc<x:text>
+                    </x:text></out>
+                </x:expect>
+            </x:pending>
+
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
