@@ -6,7 +6,7 @@
     xmlns:x="http://www.jenitennison.com/xslt/xspec"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:my-xq="x-urn:my-xq"
-    query="x-urn:my-xq" 
+    query="x-urn:my-xq"
     query-at="three-dots-module.xqm">
 
     <!--
@@ -172,5 +172,5 @@
     </x:scenario>
 
 </x:description>
-  
+
 <!-- Copyright © 2023 by Amanda Galtman. -->
