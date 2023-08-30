@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    query="urn:x-xspectacles:xquery:modules"
+    query-at="space-preformatted-module.xqm"
+    xmlns:my-xq="urn:x-xspectacles:xquery:modules"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+    <!--
+        Sample code for "Testing Preformatted or Codelike Text in XSpec"
+        https://medium.com/@xspectacles/testing-preformatted-or-codelike-text-in-xspec-ee0fa8e8bee8
+    -->
+
+    <x:scenario label="Simple test for ul function">
+        <x:call function="my-xq:ul">
+            <x:param>
+                <ul>
+                    <li>An item</li>
+                    <li>Another item</li>
+                </ul>
+            </x:param>
+        </x:call>
+
+        <x:scenario label="Recommended solutions">
+            <x:expect label="Result is a sequence of text nodes"
+                test="$x:result instance of text()+"/>
+            <x:variable name="xv:actual-as-string" as="xs:string"
+                select="string-join($x:result,'')"/>
+
+            <!-- Solution 1, via separate file. -->
+            <x:variable name="xv:file-content-as-string"
+                as="xs:string"
+                select="'expected-output-ul.md'
+                => resolve-uri($x:xspec-uri)
+                => unparsed-text()
+                => replace('&#13;','')
+                "/>
+            <x:expect label="Separate .md file; compare text nodes"
+                expand-text="1">{ $xv:file-content-as-string }</x:expect>
+            <x:expect label="Separate .md file; compare strings"
+                test="$xv:actual-as-string"
+                select="$xv:file-content-as-string"/>
+            <x:pending label="Fails if .md file has Windows line endings">
+                <x:expect label="Troubleshooting technique: Compare codepoints"
+                    test="$xv:actual-as-string => string-to-codepoints()"
+                    select="'expected-output-ul.md'
+                    => resolve-uri($x:xspec-uri)
+                    => unparsed-text()
+                    => string-to-codepoints()"/>
+            </x:pending>
+
+            <!-- Solution 2, via strings in XSpec file. -->
+            <x:variable name="xv:lf" select="'&#10;'" as="xs:string"/>
+            <x:variable name="xv:expected-as-string" as="xs:string"
+                select="concat(
+                $xv:lf,
+                $xv:lf,'* An item',
+                $xv:lf,'* Another item'
+                )"/>
+            <x:expect label="Build string; compare text nodes"
+                expand-text="1">{ $xv:expected-as-string }</x:expect>
+            <x:expect label="Build string; compare strings"
+                test="$xv:actual-as-string"
+                select="$xv:expected-as-string"/>
+            <x:expect label="Divide actual string"
+                test="tokenize($xv:actual-as-string, $xv:lf)"
+                select="(
+                '',
+                '',
+                '* An item',
+                '* Another item'
+                )"/>
+        </x:scenario>
+
+        <x:scenario label="Nonrecommended solution for this problem">
+            <!-- Nonrecommended solution for this problem, because
+            the careful spacing is less readable and is easily
+            disrupted by reformatting. -->
+            <x:expect label="Text with line breaks in the right spots">
+
+* An item
+* Another item</x:expect>
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
