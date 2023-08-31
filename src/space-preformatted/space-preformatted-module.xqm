@@ -20,7 +20,7 @@ declare function my-xq:li($li as element(li)+) as text() {
         return
         '&#10;* ' || my-xq:li-content($item/node())
     return
-    text { string-join($strings,'') }
+    text { string-join($strings) }
 };
 
 (: For simplicity, use string contents only. :)

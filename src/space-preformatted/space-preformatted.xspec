@@ -22,7 +22,7 @@
             <x:expect label="Result is a sequence of text nodes"
                 test="$x:result instance of text()+"/>
             <x:variable name="xv:actual-as-string" as="xs:string"
-                select="string-join($x:result,'')"/>
+                select="string-join($x:result)"/>
 
             <!-- Solution 1, via separate file. -->
             <x:variable name="xv:file-content-as-string"
