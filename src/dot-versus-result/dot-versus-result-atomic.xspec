@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="dot-versus-result-atomic.xsl"
+    xslt-version="3.0"
+    xmlns:mf="urn:x-xspectacles:functions"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+    <!--
+        Sample code for "Ways to Access XSLT Result in XSpec Testing"
+        https://medium.com/@xspectacles/ways-to-access-xslt-result-in-xspec-testing-fd3aa22184e0
+    -->
+
+    <x:scenario label="Check length of mf:positives result">
+        <x:scenario label="One positive number input">
+            <x:call function="mf:positives">
+                <x:param select="(-1 to 1)"/>
+            </x:call>
+            <x:expect label="One result ($x:result)"
+                test="count($x:result)" select="1"/>
+            <x:expect label="One result (.)"
+                test="count(.)" select="1"/>
+        </x:scenario>
+        <x:scenario label="Multiple positive numbers in input">
+            <x:call function="mf:positives">
+                <x:param select="(-100 to 100)"/>
+            </x:call>
+            <x:expect label="Multiple results ($x:result)"
+                test="count($x:result)" select="100"/>
+            <x:pending label="Error because . does not exist">
+                <x:expect label="Multiple results (.)"
+                    test="count(.)" select="100"/>
+            </x:pending>
+        </x:scenario>
+        <x:scenario label="No positive numbers in input">
+            <x:call function="mf:positives">
+                <x:param select="(-100 to 0)"/>
+            </x:call>
+            <x:expect label="No results ($x:result)"
+                test="count($x:result)" select="0"/>
+            <x:pending label="Error because . does not exist">
+                <x:expect label="No results (.)"
+                    test="count(.)" select="0"/>
+            </x:pending>
+        </x:scenario>
+    </x:scenario>
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

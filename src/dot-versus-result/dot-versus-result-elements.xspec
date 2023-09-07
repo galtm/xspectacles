@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="dot-versus-result-elements.xsl"
+    xslt-version="3.0"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+    <!--
+        Sample code for "Ways to Access XSLT Result in XSpec Testing"
+        https://medium.com/@xspectacles/ways-to-access-xslt-result-in-xspec-testing-fd3aa22184e0
+    -->
+
+    <x:scenario label="Template produces multiple element nodes">
+        <x:context mode="multiple-elements">
+            <ul>
+                <li xml:id="i1">An item</li>
+                <li xml:id="i2">Another item</li>
+            </ul>
+        </x:context>
+        <x:expect label=". is a document node,"
+            test=". instance of document-node()"/>
+        <x:expect label="containing three child nodes,"
+            test="count(./node())" select="3"/>
+        <x:expect label="all of which are element nodes."
+            test="./node() instance of element()+"/>
+        <x:expect label="$x:result is a sequence of three items,"
+            test="count($x:result)" select="3"/>
+        <x:expect label="all of which are element nodes."
+            test="$x:result instance of element()+"/>
+
+        <!-- Check links by walking the document tree. -->
+        <x:expect label="Check that 1st link points to 1st target (.)"
+            test="substring-after(./links/link[1]/@href,'#') =
+            ./links/following-sibling::item[1]/@id"/>
+        <x:expect label="Check that links point to targets (.)"
+            test="every $href in one-or-more(./links/link/@href)
+            satisfies substring-after($href,'#') =
+            $href/ancestor::links/following-sibling::item/@id"/>
+
+        <!-- Check links by walking multiple element trees. -->
+        <x:expect label="Check that 1st links point to 1st target ($x:result)"
+            test="substring-after($x:result/link[1]/@href,'#') =
+            $x:result[self::item][1]/@id"/>
+        <x:expect label="Check that links point to targets ($x:result)"
+            test="every $href in one-or-more($x:result/link/@href)
+            satisfies substring-after($href,'#') =
+            $x:result[self::item]/@id"/>
+    </x:scenario>
+
+    <x:scenario label="Template produces one document node">
+        <x:context mode="one-document-node">
+            <ul>
+                <li xml:id="i1">An item</li>
+                <li xml:id="i2">Another item</li>
+            </ul>
+        </x:context>
+        <x:expect label=". is a document node,"
+            test=". instance of document-node()"/>
+        <x:expect label="containing three child nodes,"
+            test="count(./node())" select="3"/>
+        <x:expect label="all of which are element nodes."
+            test="./node() instance of element()+"/>
+        <x:expect label="$x:result is the same."
+            test="deep-equal(.,$x:result)"/>
+
+        <!-- Check links by walking the document tree. -->
+        <x:expect label="Check that 1st links point to 1st target (.)"
+            test="substring-after(./descendant::link[1]/@href,'#') =
+            ./descendant::item[1]/@id"/>
+        <x:expect label="Check that links point to targets (.)"
+            test="every $href in ./descendant::link/@href satisfies
+            substring-after($href,'#') = ./descendant::item/@id"/>
+    </x:scenario>
+
+    <x:scenario label="Template produces empty sequence">
+        <x:context>
+            <ul/>
+        </x:context>
+        <x:expect label="$x:result is an empty sequence."
+            test="empty($x:result)"/>
+        <x:expect label="Another way to test for empty sequence output"
+            select="()"/>
+        <x:pending label="Error because . does not exist">
+            <!-- XPDY0002  The context item is absent -->
+            <x:expect label="Is . empty?"
+                test="empty(.)"/>
+        </x:pending>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
