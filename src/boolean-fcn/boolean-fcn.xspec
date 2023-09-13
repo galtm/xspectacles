@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="boolean-fcn.xsl"
+    xslt-version="3.0"
+    xmlns:mf="urn:x-xspectacles:functions"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample Code for "Testing Boolean-Valued Functions"
+        https://medium.com/@xspectacles/testing-boolean-valued-functions-xspec-blooper-4c27b2055f0b
+    -->
+
+    <x:scenario label="Boolean-valued function">
+        <x:scenario label="Expect true result">
+            <x:call function="mf:is-pos">
+                <x:param select="3"/>
+            </x:call>
+            <x:scenario label="Incorrect syntax">
+                <x:expect label="Incorrect: Passes regardless of actual result"
+                    test="true()"/>
+                <x:pending label="Error">
+                    <!-- Boolean @test must not be accompanied by @as, @href, @select, or child node. -->
+                    <x:expect label="Incorrect: Produces error"
+                        test="$x:result" select="true()"/>
+                    <x:expect label="Incorrect: Produces error"
+                        test="." select="true()"/>
+                </x:pending>
+            </x:scenario>
+            <x:scenario label="Correct syntax">
+                <x:expect label="Boolean condition in test attribute"
+                    test="$x:result"/>
+                <x:expect label="Boolean condition in test attribute"
+                    test="."/>
+                <x:expect label="Boolean condition in test attribute"
+                    test="$x:result eq true()"/>
+                <x:expect label="Boolean condition in test attribute"
+                    test=". eq true()"/>
+                <x:expect label="Actual result matches select attribute"
+                    select="true()"/>
+            </x:scenario>
+        </x:scenario>
+        <x:scenario label="Expect false result">
+            <x:call function="mf:is-pos">
+                <x:param select="-3"/>
+            </x:call>
+            <x:scenario label="Incorrect syntax">
+                <x:pending label="Fails due to syntax blooper">
+                    <x:expect label="Incorrect: Fails regardless of actual result"
+                        test="false()"/>    
+                </x:pending>
+                <x:pending label="Error">
+                    <!-- Boolean @test must not be accompanied by @as, @href, @select, or child node. -->
+                    <x:expect label="Incorrect: Produces error"
+                        test="$x:result" select="false()"/>
+                    <x:expect label="Incorrect: Produces error"
+                        test="." select="false()"/>
+                </x:pending>
+            </x:scenario>
+            <x:scenario label="Correct syntax">
+                <x:expect label="Boolean condition in test attribute"
+                    test="not($x:result)"/>
+                <x:expect label="Boolean condition in test attribute"
+                    test="not(.)"/>
+                <x:expect label="Boolean condition in test attribute"
+                    test="$x:result eq false()"/>
+                <x:expect label="Boolean condition in test attribute"
+                    test=". eq false()"/>
+                <x:expect label="Actual result matches select attribute"
+                    select="false()"/>
+            </x:scenario>
+        </x:scenario>
+    </x:scenario>
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
