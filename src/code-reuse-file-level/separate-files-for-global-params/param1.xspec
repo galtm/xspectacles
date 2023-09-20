@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    stylesheet="../top-level1.xsl"
+    xslt-version="3.0"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+    <!--
+        Sample code for "Code Reuse at the File Level in XSpec"
+        https://medium.com/@xspectacles/code-reuse-at-the-file-level-in-xspec-78e5f631f8f9
+    -->
+
+    <x:param name="some-global-option" select="'c'"/>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

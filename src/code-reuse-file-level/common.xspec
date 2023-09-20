@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    stylesheet="top-level1.xsl"
+    xslt-version="3.0"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Code Reuse at the File Level in XSpec"
+        https://medium.com/@xspectacles/code-reuse-at-the-file-level-in-xspec-78e5f631f8f9
+    -->
+
+    <x:scenario label="Check topic output for legal footer">
+        <x:context>
+            <topic xmlns="http://docbook.org/ns/docbook"/>
+        </x:context>
+        <x:expect label="div with legal footer" test="//h:div">
+            <div class="legal-footer" xmlns="http://www.w3.org/1999/xhtml">
+                <p>...</p>
+            </div>
+        </x:expect>
+
+        <x:pending label="Remove pending tags to make report show global parameter value">
+            <!-- This <x:expect> assertion fails if you remove the <x:pending> tags.
+                The purpose is to make the HTML report show which value of the
+                "some-global-option" parameter is in use when the test runs.
+
+                After removing <x:pending> tags, run these tests:
+                * common.xspec (this file): Parameter value is from top-level1.xsl
+                * test2.xspec: Parameter value is from top-level2.xsl
+                * separate-files-for-global-params/top-level1.xspec: Parameter value
+                  is from separate-files-for-global-params/param1.xspec
+                * separate-files-for-global-params/top-level2.xspec: Parameter value
+                  is from separate-files-for-global-params/param2.xspec
+            -->
+            <x:expect label="Check which value of some-global-option is in use"
+                test="$some-global-option" select="'wrong-value'"/>
+        </x:pending>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
