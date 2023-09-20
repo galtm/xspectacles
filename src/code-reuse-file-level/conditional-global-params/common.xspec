@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    stylesheet="../top-level1.xsl"
+    xslt-version="3.0"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Code Reuse at the File Level in XSpec"
+        https://medium.com/@xspectacles/code-reuse-at-the-file-level-in-xspec-78e5f631f8f9
+    -->
+
+    <!-- "Solution 1: Logic for Defining Globals" -->
+    <!-- Set up possible values of global parameter -->
+    <x:variable name="some-global-option-value1"
+        as="xs:string">1</x:variable>
+    <x:variable name="some-global-option-value2"
+        as="xs:string" select="/stylesheet/@version">
+        <stylesheet version="2"/>
+    </x:variable>
+
+    <!-- Select a value based on which test is running. -->
+    <x:param name="some-global-option" select="
+        if (ends-with($x:xspec-uri,'/test2.xspec'))
+        then $some-global-option-value2
+        else $some-global-option-value1
+        "/>
+
+    <x:scenario label="Check topic output for legal footer">
+        <x:context>
+            <topic xmlns="http://docbook.org/ns/docbook"/>
+        </x:context>
+        <x:expect label="div with legal footer" test="//h:div">
+            <div class="legal-footer" xmlns="http://www.w3.org/1999/xhtml">
+                <p>...</p>
+            </div>
+        </x:expect>
+
+        <x:pending label="Remove pending tags to make report show global parameter value">
+            <!-- This <x:expect> assertion fails if you remove the <x:pending> tags.
+                The purpose is to make the HTML report show which value of the
+                "some-global-option" parameter is in use when the test runs. -->
+            <x:expect label="Check which value of some-global-option is in use"
+                test="$some-global-option" select="'wrong-value'"/>
+        </x:pending>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->

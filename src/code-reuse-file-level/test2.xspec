@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    stylesheet="top-level2.xsl"
+    xslt-version="3.0"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+    <!--
+        Sample code for "Code Reuse at the File Level in XSpec"
+        https://medium.com/@xspectacles/code-reuse-at-the-file-level-in-xspec-78e5f631f8f9
+    -->
+
+    <x:import href="common.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
