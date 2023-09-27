@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="space-actual-problem.xsl"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Fixing Surprise Spaces in XSpec Actual Result"
+        https://medium.com/@xspectacles/fixing-surprise-spaces-in-xspec-actual-result-3d4463eeb9a1
+    -->
+
+    <!--
+        Disadvantages of this approach:
+        a) Visual distraction of <x:text> tags and
+           numeric character references
+        b) The potential for test failures arising from
+           reformatting operations (manual or automated)
+           in this file or wherever the extra space
+           really comes from. Numeric character references
+           in this file partially mitigate this problem.
+    -->
+    <x:scenario label="Tests for match=productname template">
+        <x:scenario label="Product name with two trademarks">
+            <x:context href="product-catalog.xml"
+                select="//productname[@code='EIEIO']"/>
+
+            <x:expect label="Preserve whitespace in x:text">
+                <x:text>&#10;        </x:text>
+                <x:text>EIE®</x:text>
+                <x:text>&#10;        </x:text>
+                <x:text>Instantaneous Oats®</x:text>
+                <x:text>&#10;    </x:text>
+            </x:expect>
+
+            <x:expect label="Preserve whitespace in x:text">
+                <x:text>&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</x:text>
+                <x:text>EIE®</x:text>
+                <x:text>&#10;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</x:text>
+                <x:text>Instantaneous Oats®</x:text>
+                <x:text>&#10;&#32;&#32;&#32;&#32;</x:text>
+            </x:expect>
+
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
