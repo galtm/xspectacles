@@ -5,8 +5,8 @@
     <groupId>com.galtm</groupId>
     <artifactId>xspectacles</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>Learn XSpec</name>
-    <description>Examples for learning XSpec</description>
+    <name>XSpectacles</name>
+    <description>Examples from https://medium.com/@xspectacles</description>
     <scm>
         <url>https://github.com/galtm/xspectacles</url>
         <developerConnection>scm:git:https://github.com/galtm/xspectacles</developerConnection>
@@ -52,7 +52,7 @@
                     <generateSurefireReport>true</generateSurefireReport>
                     <testDir>${project.basedir}/src</testDir>
                     <excludes>
-                        <!-- Exclude tests that fail to illustrate a problem. -->
+                        <!-- Exclude tests that fail deliberately. -->
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
                     </excludes>
