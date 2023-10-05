@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:code-reuse-call"
+    query-at="code-reuse-call-module.xqm"
+    xmlns:mf="urn:x-xspectacles:functions:code-reuse-call"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        Sample code for "Inheritance as a Form of Reuse in XSpec"
+        https://medium.com/@xspectacles/inheritance-as-a-form-of-reuse-in-xspec-63dd3717bbe3
+    -->
+
+    <!-- "First Scenario for a Function Call" section-->
+    <x:scenario label="First test case">
+        <x:scenario label="Tree with various class=basic elements">
+            <x:call function="mf:id-by-name-and-class">
+                <x:param name="elem">
+                    <root>
+                        <item class="basic"/>
+                        <item class="basic" xml:id="x1"/>
+                        <item class="variation" xml:id="x2">
+                            <item class="basic" xml:id="x2.1"/>
+                        </item>
+                        <item xml:id="x3"/>
+                    </root>
+                </x:param>
+                <x:param name="localname" select="'item'"/>
+                <x:param name="class" select="'basic'"/>
+                <x:param name="flag" select="'all'"/>
+            </x:call>
+            <x:expect
+                label="IDs of item elements with class 'basic'"
+                select="('x1', 'x2.1')"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- "Varying a Flag Value in a Nested Scenario" section -->
+    <x:scenario label="First test case">
+        <x:scenario label="Tree with various class=basic elements">
+            <x:call function="mf:id-by-name-and-class">
+                <x:param name="elem">
+                    <root>
+                        <item class="basic"/>
+                        <item class="basic" xml:id="x1"/>
+                        <item class="variation" xml:id="x2">
+                            <item class="basic" xml:id="x2.1"/>
+                        </item>
+                        <item xml:id="x3"/>
+                    </root>
+                </x:param>
+                <x:param name="localname" select="'item'"/>
+                <x:param name="class" select="'basic'"/>
+                <x:param name="flag" select="'all'"/>
+            </x:call>
+            <x:expect
+                label="IDs of item elements with class 'basic'"
+                select="('x1', 'x2.1')"/>
+
+            <x:scenario label="Function call with flag='first'">
+                <x:call>
+                    <x:param name="flag" position="4" select="'first'"/>
+                </x:call>
+                <x:expect
+                    label="ID of 1st item element with class 'basic'"
+                    select="'x1'"/>
+            </x:scenario>
+
+        </x:scenario>
+    </x:scenario>
+
+    <!-- "Nested Scenarios for Various Flag Values" section -->
+    <x:scenario label="Tree with various class=basic elements">
+        <x:call function="mf:id-by-name-and-class">
+            <x:param name="elem">
+                <root>
+                    <item class="basic"/>
+                    <item class="basic" xml:id="x1"/>
+                    <item class="variation" xml:id="x2">
+                        <item class="basic" xml:id="x2.1"/>
+                    </item>
+                    <item xml:id="x3"/>
+                </root>
+            </x:param>
+            <x:param name="localname" select="'item'"/>
+            <x:param name="class" select="'basic'"/>
+        </x:call>
+        <x:scenario label="flag='all'">
+            <x:call>
+                <x:param name="flag" position="4" select="'all'"/>
+            </x:call>
+            <x:expect
+                label="IDs of item elements with class 'basic'"
+                select="('x1', 'x2.1')"/>
+        </x:scenario>
+        <x:scenario label="flag='first'">
+            <x:call>
+                <x:param name="flag" position="4" select="'first'"/>
+            </x:call>
+            <x:expect
+                label="ID of 1st item element with class 'basic'"
+                select="'x1'"/>
+        </x:scenario>
+        <x:scenario label="flag='last'">
+            <x:call>
+                <x:param name="flag" position="4" select="'last'"/>
+            </x:call>
+            <x:expect
+                label="ID of last item element with class 'basic'"
+                select="'x2.1'"/>
+        </x:scenario>
+        <x:scenario label="Unsupported value of flag">
+            <x:call>
+                <x:param name="flag" position="4" select="'not-supported'"/>
+            </x:call>
+            <x:expect
+                label="Empty sequence" select="()"/>
+        </x:scenario>
+    </x:scenario>
+
+    <!-- "Grouping Nested Scenarios" section -->
+    <x:scenario label="Tree with various class=basic elements">
+        <x:call function="mf:id-by-name-and-class">
+            <x:param name="elem">
+                <root>
+                    <item class="basic"/>
+                    <item class="basic" xml:id="x1"/>
+                    <item class="variation" xml:id="x2">
+                        <item class="basic" xml:id="x2.1"/>
+                    </item>
+                    <item xml:id="x3"/>
+                </root>
+            </x:param>
+            <x:param name="localname" select="'item'"/>
+            <x:param name="class" select="'basic'"/>
+            <x:param name="flag" select="'all'"/>
+        </x:call>
+        <x:scenario label="Vary elem parameter:">
+            <!-- Scenarios varying the elem parameter would go here -->
+        </x:scenario>
+        <x:scenario label="Vary localname parameter:">
+            <!-- Scenarios varying the localname parameter would go here -->
+        </x:scenario>
+        <x:scenario label="Vary class parameter:">
+            <x:scenario label="class='variation'">
+                <x:call>
+                    <x:param name="class" position="3" select="'variation'"/>
+                </x:call>
+                <x:expect
+                    label="IDs of item elements with class 'variation'"
+                    select="'x2'"/>
+            </x:scenario>
+            <x:scenario label="Multiple classes">
+                <x:call>
+                    <x:param name="class" position="3" select="('variation','basic')"/>
+                </x:call>
+                <x:expect
+                    label="IDs of item elements with class 'variation' or 'basic'"
+                    select="('x1','x2','x2.1')"/>
+            </x:scenario>
+        </x:scenario>
+        <x:scenario label="Vary flag parameter:">
+            <x:scenario label="flag='all'">
+                <x:call>
+                    <x:param name="flag" position="4" select="'all'"/>
+                </x:call>
+                <x:expect
+                    label="IDs of item elements with class 'basic'"
+                    select="('x1', 'x2.1')"/>
+            </x:scenario>
+            <x:scenario label="flag='first'">
+                <x:call>
+                    <x:param name="flag" position="4" select="'first'"/>
+                </x:call>
+                <x:expect
+                    label="ID of 1st item element with class 'basic'"
+                    select="'x1'"/>
+            </x:scenario>
+            <x:scenario label="flag='last'">
+                <x:call>
+                    <x:param name="flag" position="4" select="'last'"/>
+                </x:call>
+                <x:expect
+                    label="ID of last item element with class 'basic'"
+                    select="'x2.1'"/>
+            </x:scenario>
+            <x:scenario label="Unsupported value of flag">
+                <x:call>
+                    <x:param name="flag" position="4" select="'not-supported'"/>
+                </x:call>
+                <x:expect
+                    label="Empty sequence" select="()"/>
+            </x:scenario>
+        </x:scenario>
+    </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
