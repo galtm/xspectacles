@@ -51,6 +51,8 @@
         <x:expect label="Approach 2: Check 'duplicates' value"
             test="$x:result('duplicates')"
             select="$xv:duplicates"/>
+        <x:expect label="Check 'escape' value"
+            test="not($x:result('escape'))"/>
     </x:scenario>
 
     <x:scenario label="Tests for mf:options function">
@@ -78,7 +80,7 @@
         xmlns="http://www.w3.org/2005/xpath-functions">
         <x:scenario label="String values for all properties">
             <x:call function="mf:json-processing">
-                <x:param as="xs:string">
+                <x:param select="/string()">
                     {
                     "year": "1900",
                     "isbn": "978-0470192740"
@@ -95,7 +97,7 @@
         </x:scenario>
         <x:scenario label="Array value for isbn">
             <x:call function="mf:json-processing">
-                <x:param as="xs:string">
+                <x:param select="/string()">
                     {
                     "year": "1900",
                     "isbn": ["0764547763","978-0764547768"]
@@ -140,7 +142,7 @@
         xmlns="http://www.w3.org/2005/xpath-functions">
         <x:scenario label="String values for all properties">
             <x:call function="mf:json-processing">
-                <x:param as="xs:string">
+                <x:param select="/string()">
                     {
                     "year": "1900",
                     "isbn": "978-0470192740"
@@ -154,7 +156,7 @@
         </x:scenario>
         <x:scenario label="Array in isbn">
             <x:call function="mf:json-processing">
-                <x:param as="xs:string">
+                <x:param select="/string()">
                     {
                     "year": "1900",
                     "isbn": ["0764547763","978-0764547768"]
@@ -176,7 +178,7 @@
         <x:scenario label="String values for all properties">
             <x:variable name="xv:isbn-value" select="'978-0470192740'"/>
             <x:call function="mf:json-processing">
-                <x:param as="xs:string" expand-text="1">
+                <x:param expand-text="1" select="/string()">
                     {{
                     "year": "1900",
                     "isbn": "{$xv:isbn-value}"
@@ -192,7 +194,7 @@
             <x:variable name="xv:isbn-value1" select="'0764547763'"/>
             <x:variable name="xv:isbn-value2" select="'978-0764547768'"/>
             <x:call function="mf:json-processing">
-                <x:param as="xs:string" expand-text="1">
+                <x:param expand-text="1" select="/string()">
                     {{
                     "year": "1900",
                     "isbn": ["{$xv:isbn-value1}","{$xv:isbn-value2}"]
