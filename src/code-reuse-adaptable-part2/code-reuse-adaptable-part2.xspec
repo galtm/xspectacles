@@ -51,7 +51,7 @@
         <x:expect label="Approach 2: Check 'duplicates' value"
             test="$x:result('duplicates')"
             select="$xv:duplicates"/>
-        <x:expect label="Check 'escape' value"
+        <x:expect label="Check that 'escape' value is false"
             test="not($x:result('escape'))"/>
     </x:scenario>
 
