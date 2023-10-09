@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions"
+    query-at="code-reuse-adaptable-part2-module.xqm"
+    xmlns:mf="urn:x-xspectacles:functions"
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+    <!--
+        Sample code for "Adaptable Code Reuse in XSpec, Part 2: XPath Matching"
+        https://medium.com/@xspectacles/adaptable-code-reuse-in-xspec-part-2-8820b1cd255d
+    -->
+
+    <!--
+        Reuse scenarios from XSpec test for XSLT.
+        The difference between the two files is that this one
+        points to XQuery code in <x:description>, while the
+        imported file points to XSLT code.
+    -->
+    <x:import href="code-reuse-adaptable-part2.xspec"/>
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
