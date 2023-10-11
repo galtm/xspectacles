@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="similar-code-wrapper.xsl"
+  xslt-version="3.0"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook"
+  xmlns:h="http://www.w3.org/1999/xhtml"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Testing a Thin-Wrapper XSLT Template Without Excessive Repetition"
+    https://medium.com/@xspectacles/testing-a-thin-wrapper-xslt-template-without-excessive-repetition-e41d70ecaf19
+  -->
+
+  <x:scenario label="Tests for db:emphasis template">
+    <x:scenario label="Test case 1">
+      <x:context>
+        <db:emphasis xlink:href="target1"/>
+      </x:context>
+      <x:expect label="Result 1">
+        <em>
+          <a href="some-path/target1#some-anchor">some text</a>
+        </em>
+      </x:expect>
+    </x:scenario>
+    <x:scenario label="Test case 2">
+      <x:context>
+        <db:emphasis xlink:href="target2"/>
+      </x:context>
+      <x:expect label="Result 2">
+        <em>
+          <a href="some-path/target2#some-anchor">some text</a>
+        </em>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Tests for link-element template">
+    <x:call template="link-element"/>
+    <x:scenario label="with context that produces em">
+      <x:scenario label="Test case 1">
+        <x:context>
+          <db:emphasis xlink:href="target1"/>
+        </x:context>
+        <x:expect label="Result 1">
+          <a href="some-path/target1#some-anchor">some text</a>
+        </x:expect>
+      </x:scenario>
+      <x:scenario label="Test case 2">
+        <x:context>
+          <db:emphasis xlink:href="target2"/>
+        </x:context>
+        <x:expect label="Result 2">
+          <a href="some-path/target2#some-anchor">some text</a>
+        </x:expect>
+      </x:scenario>
+    </x:scenario>
+    <x:scenario label="with other contexts...">
+      <!-- Other scenarios go here -->
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
