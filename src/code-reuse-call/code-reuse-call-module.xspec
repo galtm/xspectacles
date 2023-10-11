@@ -12,7 +12,7 @@
 
     <!-- "First Scenario for a Function Call" section-->
     <x:scenario label="First test case">
-        <x:scenario label="Tree with various class=basic elements">
+        <x:scenario label="Find item elements with class=basic">
             <x:call function="mf:id-by-name-and-class">
                 <x:param name="elem">
                     <root>
@@ -36,7 +36,7 @@
 
     <!-- "Varying a Flag Value in a Nested Scenario" section -->
     <x:scenario label="First test case">
-        <x:scenario label="Tree with various class=basic elements">
+        <x:scenario label="Find item elements with class=basic">
             <x:call function="mf:id-by-name-and-class">
                 <x:param name="elem">
                     <root>
@@ -69,7 +69,7 @@
     </x:scenario>
 
     <!-- "Nested Scenarios for Various Flag Values" section -->
-    <x:scenario label="Tree with various class=basic elements">
+    <x:scenario label="Find item elements with class=basic">
         <x:call function="mf:id-by-name-and-class">
             <x:param name="elem">
                 <root>
@@ -118,7 +118,7 @@
     </x:scenario>
 
     <!-- "Grouping Nested Scenarios" section -->
-    <x:scenario label="Tree with various class=basic elements">
+    <x:scenario label="Find item elements with class=basic">
         <x:call function="mf:id-by-name-and-class">
             <x:param name="elem">
                 <root>
