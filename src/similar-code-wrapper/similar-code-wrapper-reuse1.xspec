@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="similar-code-wrapper.xsl"
+  xslt-version="3.0"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:db="http://docbook.org/ns/docbook"
+  xmlns:h="http://www.w3.org/1999/xhtml"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+  <!--
+    Sample code for "Testing a Thin-Wrapper XSLT Template Without Excessive Repetition"
+    https://medium.com/@xspectacles/testing-a-thin-wrapper-xslt-template-without-excessive-repetition-e41d70ecaf19
+  -->
+
+  <!-- Option 3: Reuse Test Code While Repeating Checks -->
+
+  <x:scenario label="Tests for db:emphasis template">
+    <!-- Define $xv:filter-path() function for use in reusable
+      "Test both db:emphasis and link-element templates" scenario.-->
+    <x:variable name="xv:filter-path" as="function(*)"
+      select="function($v as element(h:em)) as element(h:em)
+      { $v }"/>
+    <x:scenario label="Test both db:emphasis and link-element templates">
+      <!-- Reusable, but without shared="yes" because these scenarios
+        should run in this original location instead of being skipped. -->
+      <x:scenario label="Test case 1">
+        <x:context>
+          <db:emphasis xlink:href="target1"/>
+        </x:context>
+        <x:expect label="Result 1" select="$xv:filter-path(/*)">
+          <em>
+            <a href="some-path/target1#some-anchor">some text</a>
+          </em>
+        </x:expect>
+      </x:scenario>
+      <x:scenario label="Test case 2">
+        <x:context>
+          <db:emphasis xlink:href="target2"/>
+        </x:context>
+        <x:expect label="Result 2" select="$xv:filter-path(/*)">
+          <em>
+            <a href="some-path/target2#some-anchor">some text</a>
+          </em>
+        </x:expect>
+      </x:scenario>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Tests for link-element template">
+    <x:call template="link-element"/>
+    <x:scenario label="with context that produces em">
+      <!-- Define $xv:filter-path() function for use in reusable
+        "Test both db:emphasis and link-element templates" scenario.-->
+      <x:variable name="xv:filter-path" as="function(*)"
+        select="function($v as element(h:em)) as element(h:a)
+        { $v/h:a }"/>
+      <x:like label="Test both db:emphasis and link-element templates"/>
+    </x:scenario>
+    <x:scenario label="with other contexts...">
+      <!-- Other scenarios go here -->
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
