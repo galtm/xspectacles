@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  stylesheet="context-sequence.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Multiple Cases in One XSpec Scenario"
+    https://medium.com/@xspectacles/multiple-cases-in-one-xspec-scenario-8adf3d39a1cf
+  -->
+
+  <!-- Testing One Context -->
+  <x:scenario label="One vector format">
+    <x:context mode="graphic-format">
+      <image format="svg"/>
+    </x:context>
+    <x:expect label="Vector graphic PI">
+      <?process-vector-graphic?>
+    </x:expect>
+  </x:scenario>
+
+  <!-- Multiple-Element Context -->
+  <x:scenario label="Context is a sequence of elements">
+    <x:scenario label="Sequence of bitmap formats in tree">
+      <x:context mode="graphic-format" select="/image">
+        <image format="jpeg"/>
+        <image format="png"/>
+        <image format="gif"/>
+        <image format="tiff"/>
+        <image format="bmp"/>
+        <image format="pnm"/>
+      </x:context>
+      <x:expect label="Bitmap PI, for each context item">
+        <?process-bitmap-graphic?>
+        <?process-bitmap-graphic?>
+        <?process-bitmap-graphic?>
+        <?process-bitmap-graphic?>
+        <?process-bitmap-graphic?>
+        <?process-bitmap-graphic?>
+      </x:expect>
+    </x:scenario>
+    <x:scenario label="Sequence of bitmap formats in tree">
+      <x:context mode="graphic-format" select="/image">
+        <image format="jpeg"/>
+        <image format="png"/>
+        <image format="gif"/>
+        <image format="tiff"/>
+        <image format="bmp"/>
+        <image format="pnm"/>
+      </x:context>
+      <x:expect label="Bitmap PI, for each context item"
+        select="for $n in (1 to 6)
+          return /processing-instruction()">
+        <?process-bitmap-graphic?>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+  <!-- Example of copy-of or snapshot Workaround -->
+  <x:scenario label="copy-of() for distinct trees, with diagnostics">
+    <x:context mode="graphic-format" select="//image/copy-of()">
+      <x:param name="diagnostics" select="true()"/>
+      <ancestor>
+        <image format="jpeg"/>
+        <image format="png"/>
+        <image format="gif"/>
+        <image format="tiff"/>
+        <image format="bmp"/>
+        <image format="pnm"/>
+      </ancestor>
+    </x:context>
+    <x:expect label="copy-of() does not copy ancestor or siblings"
+      select="for $n in (1 to 6)
+      return /processing-instruction()">
+      <?process-bitmap-graphic Preceding siblings: 0, Ancestors: 0?>
+    </x:expect>
+  </x:scenario>
+  <x:scenario label="snapshot() for distinct trees, with diagnostics">
+    <x:context mode="graphic-format" select="//image/snapshot()">
+      <x:param name="diagnostics" select="true()"/>
+      <ancestor>
+        <image format="jpeg"/>
+        <image format="png"/>
+        <image format="gif"/>
+        <image format="tiff"/>
+        <image format="bmp"/>
+        <image format="pnm"/>
+      </ancestor>
+    </x:context>
+    <x:expect label="snapshot() retains ancestor but not siblings"
+      select="for $n in (1 to 6)
+      return /processing-instruction()">
+      <?process-bitmap-graphic Preceding siblings: 0, Ancestors: 1?>
+    </x:expect>
+  </x:scenario>
+
+  <!-- copy-of approach but without diagnostics -->
+  <x:scenario label="Sequence of bitmap formats not in same tree">
+    <x:context mode="graphic-format" select="//image/copy-of()">
+      <image format="jpeg"/>
+      <image format="png"/>
+      <image format="gif"/>
+      <image format="tiff"/>
+      <image format="bmp"/>
+      <image format="pnm"/>
+    </x:context>
+    <x:expect label="Bitmap PI, for each context item"
+      select="for $n in (1 to 6)
+      return /processing-instruction()">
+      <?process-bitmap-graphic?>
+    </x:expect>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
