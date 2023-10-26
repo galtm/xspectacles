@@ -19,7 +19,7 @@
     </x:expect>
   </x:scenario>
 
-  <!-- Multiple-Element Context -->
+  <!-- Multiple-Item Context -->
   <x:scenario label="Context is a sequence of elements">
     <x:scenario label="Sequence of bitmap formats in tree">
       <x:context mode="graphic-format" select="/image">

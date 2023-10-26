@@ -16,29 +16,18 @@
     mode="graphic-format" as="processing-instruction()">
     <xsl:param name="diagnostics" as="xs:boolean" select="false()"/>
     <xsl:processing-instruction name="process-bitmap-graphic">
-    <xsl:if test="$diagnostics">
-      <xsl:sequence select="concat(
+      <xsl:if test="$diagnostics">
+        <xsl:sequence select="concat(
           'Preceding siblings: ',
           count(preceding-sibling::*),
           ', Ancestors: ',
           count(ancestor::*)
         )"/>
-    </xsl:if>      
+      </xsl:if>
     </xsl:processing-instruction>
   </xsl:template>
 
   <xsl:template match="image[@format=('svg')]"
-    mode="graphic-format" as="processing-instruction()">
-    <xsl:processing-instruction name="process-vector-graphic"/>
-  </xsl:template>
-
-  <!-- Matching attributes -->
-  <xsl:template match="@format[.=('jpeg','png','gif','tiff','bmp','pnm')]"
-    mode="graphic-format" as="processing-instruction()">
-    <xsl:processing-instruction name="process-bitmap-graphic"/>
-  </xsl:template>
-  
-  <xsl:template match="@format[.=('svg')]"
     mode="graphic-format" as="processing-instruction()">
     <xsl:processing-instruction name="process-vector-graphic"/>
   </xsl:template>
