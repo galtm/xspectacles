@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description schematron="one-or-more.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "One-or-More Ways to Foil Empty-Sequence Surprises in XSpec"
+    https://medium.com/@xspectacles/one-or-more-ways-to-foil-empty-sequence-surprises-in-xspec-882e0af459ea
+  -->
+
+  <x:scenario label="Schematron does not fire any rules (FAIL)" pending="fails">
+    <x:context select="/article/section[2]">
+      <article>
+        <section>
+          <title>Title</title>
+        </section>
+      </article>
+    </x:context>
+    <x:expect-not-assert label="FAIL"/>
+    <x:expect-assert label="FAIL"/>
+    <x:expect-valid/><!-- FAIL -->
+  </x:scenario>
+  
+  <x:scenario label="Schematron fires rule but does not throw assert (@location is irrelevant)">
+    <x:context>
+      <article>
+        <section>
+          <title>Title</title>
+        </section>
+      </article>
+    </x:context>
+    <x:expect-not-assert label="PASS" location="/article/section[2]"/>
+    <x:expect-not-assert label="PASS" location="exactly-one(/article/section[2])"/>
+    <x:expect-assert label="FAIL" location="/article/section[2]" pending="fails"/>
+    <x:expect-assert label="FAIL" location="exactly-one(/article/section[2])" pending="fails"/>
+  </x:scenario>
+
+  <x:scenario label="Schematron throws assert" pending="errors">
+    <x:context>
+      <article>
+        <section/>
+      </article>
+    </x:context>
+    <x:expect-not-assert label="ERROR" location="/article/section[2]"/>
+    <x:expect-assert label="ERROR" location="/article/section[2]"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
