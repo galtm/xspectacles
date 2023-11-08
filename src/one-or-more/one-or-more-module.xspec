@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:one-or-more"
+  query-at="one-or-more-module.xqm"
+  xmlns:mf="urn:x-xspectacles:functions:one-or-more"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample Code for "One-or-More Ways to Foil Empty-Sequence Surprises in XSpec"
+    https://medium.com/@xspectacles/one-or-more-ways-to-foil-empty-sequence-surprises-in-xspec-882e0af459ea
+  -->
+
+  <!-- Example 1, tests that pass for the wrong reason.
+    "Expecting an Empty Result" -->
+  <x:scenario label="Check for absence of p or text() in div">
+    <x:scenario label="Uncoded assumption that the div exists">
+      <x:call function="mf:create-list"/>
+      <x:expect label="No paragraphs in div"
+        test="$x:result/div[@class='ul-style']/p"
+        select="()"/>
+      <x:expect label="No paragraphs in div"
+        test="empty($x:result/div[@class='ul-style']/p)"/>
+      <x:expect label="No bare text in div"
+        test="$x:result/div[@class='ul-style']/text()"
+        select="()"/>
+      <x:expect label="No bare text in div"
+        test="empty($x:result/div[@class='ul-style']/text())"/>
+    </x:scenario>
+
+    <x:scenario label="Checking that the div exists, or else test failure"
+      pending="First x:expect fails">
+      <x:call function="mf:create-list"/>
+      <!-- If first x:expect fails, the subsequent ones pass
+        for the wrong reason. -->
+      <x:expect label="div exists"
+        test="exists($x:result/div[@class='ul-style'])"/>
+
+      <x:expect label="No paragraphs in div"
+        test="$x:result/div[@class='ul-style']/p"
+        select="()"/>
+      <x:expect label="No paragraphs in div"
+        test="empty($x:result/div[@class='ul-style']/p)"/>
+      <x:expect label="No bare text in div"
+        test="$x:result/div[@class='ul-style']/text()"
+        select="()"/>
+      <x:expect label="No bare text in div"
+        test="empty($x:result/div[@class='ul-style']/text())"/>
+    </x:scenario>
+
+    <x:scenario label="Checking that the div exists, or else error"
+      pending="Each x:expect issues error message">
+      <x:call function="mf:create-list"/>
+      <x:expect label="No paragraphs in div"
+        test="one-or-more($x:result/div[@class='ul-style'])/p"
+        select="()"/>
+      <x:expect label="No paragraphs in div"
+        test="empty(
+          one-or-more($x:result/div[@class='ul-style'])/p
+        )"/>
+      <x:expect label="No bare text in div"
+        test="one-or-more($x:result/div[@class='ul-style'])/text()"
+        select="()"/>
+      <x:expect label="No bare text in div"
+        test="empty(
+          one-or-more($x:result/div[@class='ul-style'])/text()
+        )"/>
+    </x:scenario>
+
+    <x:scenario label="Checking that the div exists, or else error"
+      pending="Each x:expect issues error message">
+      <x:call function="mf:create-list"/>
+      <x:expect label="No paragraphs in div"
+        test="($x:result/div[@class='ul-style'] treat as element()+)/p"
+        select="()"/>
+      <x:expect label="No paragraphs in div"
+        test="empty(
+        ($x:result/div[@class='ul-style'] treat as element()+)/p
+        )"/>
+      <x:expect label="No bare text in div"
+        test="($x:result/div[@class='ul-style'] treat as element()+)/text()"
+        select="()"/>
+      <x:expect label="No bare text in div"
+        test="empty(
+        ($x:result/div[@class='ul-style'] treat as element()+)/text()
+        )"/>
+    </x:scenario>
+  </x:scenario>
+
+  <!-- Example 2, showing confusing failures.
+    "Similar Problem, with x:param" -->
+  <x:scenario label="Check that regexp is correct">
+    <x:scenario label="Mistake: x:param/@select does not select anything"
+      pending="x:expect fails">
+      <x:call function="mf:punct-only-content">
+        <x:param href="test-document.xml"
+          select="p[1]"/>
+      </x:call>
+      <x:expect label="Punctuation characters from paragraph"
+        select="':-)'"/>
+    </x:scenario>
+    <x:scenario label="Checking that the node exists, or else error from exactly-one"
+      pending="x:param issues error message">
+      <x:call function="mf:punct-only-content">
+        <x:param href="test-document.xml"
+          select="exactly-one(p[1])"/>
+      </x:call>
+      <x:expect label="Punctuation characters from paragraph"
+        select="':-)'"/>
+    </x:scenario>
+    <x:scenario label="Checking that the node exists, or else error from 'as'"
+      pending="x:param issues error message">
+      <x:call function="mf:punct-only-content">
+        <x:param href="test-document.xml"
+          as="element()"
+          select="p[1]"/>
+      </x:call>
+      <x:expect label="Punctuation characters from paragraph"
+        select="':-)'"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
