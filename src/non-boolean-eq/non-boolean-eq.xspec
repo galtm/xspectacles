@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="non-boolean-eq.xsl"
+  xslt-version="3.0"
+  xmlns:mf="urn:x-xspectacles:functions"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "The Equality Check that's Neither True Nor False"
+    https://medium.com/@xspectacles/the-equality-check-thats-neither-true-nor-false-c32a8d0de760
+  -->
+
+  <x:scenario label="Errors when node does not exist">
+    <x:call function="mf:stub"/>
+    <x:scenario label="Original: Error when 'eq' operand is an empty sequence"
+      pending="ERROR: Non-boolean @test must be accompanied by @as, @href, @select, or child node.">
+      <x:expect label="Original: Expression using eq"
+        test="$x:result/@id/string() eq 'abc'"/>
+    </x:scenario>
+    <x:scenario label="Alt #1: Different error message"
+      pending="ERROR: An empty sequence is not allowed as the first argument of fn:exactly-one()">
+      <x:expect label="Expression using exactly-one()"
+        test="exactly-one($x:result/@id) eq 'abc'"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Test failures when node does not exist"
+    pending="Remove pending attr to see how failures appear in report">
+    <x:call function="mf:stub"/>
+    <x:scenario label="Alt #2: Different XPath syntax">
+      <!-- Report shows result vs. Boolean condition in case of failure -->
+      <x:expect label="Expression using string() on outside"
+        test="string($x:result/@id) eq 'abc'"/>
+      <x:expect label="Expression using => string()"
+        test="($x:result/@id => string()) eq 'abc'"/>
+    </x:scenario>
+    <x:scenario label="Alt #3: Different XSpec syntax">
+      <!-- Report shows () vs. @select value in case of failure -->
+      <x:expect label="Filter result using @test and compare with @select"
+        test="$x:result/@id/string()" select="'abc'"/>
+      <!-- Report shows '' vs. @select value in case of failure -->
+      <x:expect label="Filter result using @test and compare with @select"
+        test="string($x:result/@id)" select="'abc'"/>
+    </x:scenario>
+  </x:scenario>
+  
+  <x:scenario label="Passing XSpec assertions when node exists">
+    <x:call function="mf:stub">
+      <x:param select="'abc'"/>
+    </x:call>
+    <x:like label="Original: Error when 'eq' operand is an empty sequence"/>
+    <x:like label="Alt #1: Different error message"/>
+    <x:like label="Alt #2: Different XPath syntax"/>
+    <x:like label="Alt #3: Different XSpec syntax"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
