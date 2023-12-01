@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description schematron="full-schema.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Testing Schematron Patterns in Isolation"
+    https://medium.com/@xspectacles/testing-schematron-patterns-in-isolation-06ee5e28a71f
+  -->
+
+  <x:param name="phase">#ALL</x:param>
+
+  <x:scenario>
+    <x:label>Fails when validation includes full schema</x:label>
+    <x:context>
+      <section>
+        <info><abstract/></info>
+        <title>Level 1</title>
+        <section>
+          <title>Level 2</title>
+        </section>
+      </section>
+    </x:context>
+    <x:expect label="Confirm more than one active pattern"
+      test="//*:active-pattern/@id => distinct-values() => count()"
+      select="2"/>
+    <x:scenario label="FAILS" pending="FAILS">
+      <x:expect-valid/>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2023 by Amanda Galtman. -->
