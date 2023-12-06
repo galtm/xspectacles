@@ -8,6 +8,9 @@
 
 name: Run XSpec tests with Maven
 
+env:
+  ISOLATED-PATTERNS: 'yes'
+
 on:
   push:
     branches: [ "main" ]
