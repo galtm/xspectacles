@@ -8,7 +8,7 @@
   -->
 
   <x:param name="phase" as="text()" expand-text="1">{
-    if (environment-variable('ISOLATED-PATTERNS') eq 'yes')
+    if (environment-variable('ISOLATED_PATTERNS') eq 'yes')
     then 'id-of-pattern1-phase'
     else '#ALL'
   }</x:param>
