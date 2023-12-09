@@ -18,6 +18,6 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Testing Boolean-Valued Functions: An XSpec Blooper with Easy Fixes](https://github.com/galtm/xspectacles/tree/main/src/boolean-fcn)
 * [Testing Explicit Whitespace in XSpec](https://github.com/galtm/xspectacles/tree/main/src/space-explicit)
 * [Testing Preformatted or Codelike Text in XSpec](https://github.com/galtm/xspectacles/tree/main/src/space-preformatted)
-* **(NEW!)** [Testing Schematron Patterns in Isolation](https://medium.com/@xspectacles/testing-schematron-patterns-in-isolation-06ee5e28a71f)
+* **(NEW!)** [Testing Schematron Patterns in Isolation](https://github.com/galtm/xspectacles/tree/main/src/isolated-patterns)
 * [The Equality Check that's Neither True Nor False](https://github.com/galtm/xspectacles/tree/main/src/non-boolean-eq)
 * [Ways to Access XSLT Result in XSpec Testing: Dot Versus Result Variable](https://github.com/galtm/xspectacles/tree/main/src/dot-versus-result)
