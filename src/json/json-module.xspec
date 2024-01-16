@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:json"
+  query-at="json-module.xqm"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:mf="urn:x-xspectacles:functions:json"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+  
+  <!--
+    Sample code for "6 Tips for Embedding JSON in XSpec Tests"
+    https://medium.com/@xspectacles/6-tips-for-embedding-json-in-xspec-tests-97306ae5578f
+  -->
+
+  <x:scenario label="Tip #1, #4: Function returns JSON string">
+    <x:call function="mf:json-output"/>
+    <!-- '{"a": ["b","c"],"d": {"e": 1, "f": true}}' -->
+    <x:scenario label="Tip #1: XML format">
+      <x:expect label="Match entire result as XML"
+        test="json-to-xml($x:result)/*">
+        <map xmlns="http://www.w3.org/2005/xpath-functions">
+          <array key="a">
+            <string>b</string>
+            <string>c</string>
+          </array>
+          <map key="d">
+            <number key="e">1</number>
+            <boolean key="f">true</boolean>
+          </map>
+        </map>
+      </x:expect>
+      <x:expect label="Match part of result as XML"
+        test="json-to-xml($x:result)/fn:map/fn:map[@key='d']">
+        <map key="d" xmlns="http://www.w3.org/2005/xpath-functions">
+          <number key="e">1</number>
+          <boolean key="...">...</boolean>
+        </map>
+      </x:expect>
+      <x:expect label="Match part of result as XML"
+        test="json-to-xml($x:result)/
+        fn:map/fn:map[@key='d']/fn:number[@key='e']/text()">1</x:expect>
+    </x:scenario>
+    <x:scenario label="How XSpec report shows diffs in case of failure"
+      pending="fails deliberately">
+      <x:expect label="Convert actual result from JSON to XML; compare XML"
+        test="json-to-xml($x:result)/*">
+        <map xmlns="http://www.w3.org/2005/xpath-functions">
+          <array key="a">
+            <string>b</string>
+            <string>c1</string>
+          </array>
+          <map key="d">
+            <number key="e">1</number>
+            <boolean key="f">true</boolean>
+          </map>
+        </map>
+      </x:expect>
+      <x:expect label="Convert expected result to JSON; compare JSON"
+        select="xml-to-json(/)">
+        <map xmlns="http://www.w3.org/2005/xpath-functions">
+          <array key="a">
+            <string>b</string>
+            <string>c1</string>
+          </array>
+          <map key="d">
+            <number key="e">1</number>
+            <boolean key="f">true</boolean>
+          </map>
+        </map>
+      </x:expect>
+      <x:expect label="Convert expected result to round-tripped JSON; compare JSON"
+        test="$x:result => json-to-xml() => xml-to-json()"
+        select="xml-to-json(/)">
+        <map xmlns="http://www.w3.org/2005/xpath-functions">
+          <array key="a">
+            <string>b</string>
+            <string>c1</string>
+          </array>
+          <map key="d">
+            <number key="e">1</number>
+            <boolean key="f">true</boolean>
+          </map>
+        </map>
+      </x:expect>
+    </x:scenario>
+    <x:scenario label="Tip #4: Map/array format">
+      <x:expect label="Match entire result"
+        test="parse-json($x:result)"
+        select="map{
+        'a': ['b', 'c'],
+        'd': map{'e': 1, 'f': true()}
+        }"/>
+      <x:expect label="Match part of result as map"
+        test="parse-json($x:result)?d"
+        select="map{'e': 1, 'f': true()}"/>
+      <x:expect label="Match part of result as map"
+        test="parse-json($x:result)?d?e"
+        select="1"/>
+    </x:scenario>
+    <x:scenario label="Solutions that don't use the tips in this topic:">
+      <x:scenario label="String delimited by double quotes, with duplicated double quotes inside">
+        <x:expect label="Match entire result as string"
+          select='"{""a"": [""b"",""c""],""d"": {""e"": 1, ""f"": true}}"'/>
+      </x:scenario>
+      <x:scenario label="Text value template">
+        <x:expect label="Match entire result as string converted from text node"
+          expand-text="yes"
+          select="string()">{'{"a": ["b","c"],"d": {"e": 1, "f": true}}'}</x:expect>
+      </x:scenario>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Tip #3: Function returns element with JSON content">
+    <x:call function="mf:json-in-element"/>
+    <x:expect label="Check the element without its content">
+      <script>...</script>
+    </x:expect>
+    <x:expect label="Check the element content"
+      test="json-to-xml($x:result/node())/*">
+      <map xmlns="http://www.w3.org/2005/xpath-functions">
+        <array key="a">
+          <string>b</string>
+          <string>c</string>
+        </array>
+        <map key="d">
+          <number key="e">1</number>
+          <boolean key="f">true</boolean>
+        </map>
+      </map>
+    </x:expect>
+    <x:expect label="Check everything"
+      expand-text="yes">
+      <script>{'{"a": ["b","c"],"d": {"e": 1, "f": true}}'}</script>
+    </x:expect>
+  </x:scenario>
+
+  <x:scenario label="Tip #5: Function takes JSON string as input">
+    <x:call function="mf:json-input">
+      <!-- json-to-xml('{"a":3}') -->
+      <x:param select="xml-to-json(/)">
+        <map xmlns="http://www.w3.org/2005/xpath-functions">
+          <number key="a">3</number>
+        </map>
+      </x:param>
+    </x:call>
+    <x:expect label="Value of 'a' property" select="3"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
