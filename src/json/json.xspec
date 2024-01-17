@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="json.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "6 Tips for Embedding JSON in XSpec Tests"
+    https://medium.com/@xspectacles/6-tips-for-embedding-json-in-xspec-tests-97306ae5578f
+  -->
+
+  <x:import href="json-module.xspec"/>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
