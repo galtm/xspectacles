@@ -12,7 +12,7 @@ version="3.0">
   -->
     
   <xsl:function name="mf:json-output" as="xs:string">
-    <xsl:sequence expand-text="1">{'{"a": ["b","c"],"d": {"e": 1, "f": true}}'}</xsl:sequence>
+    <xsl:sequence expand-text="1">{'{"a": ["b","c"],"d": {"e": 1,"f": true}}'}</xsl:sequence>
   </xsl:function>
 
   <xsl:function name="mf:json-in-element" as="element(script)">

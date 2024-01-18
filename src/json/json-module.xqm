@@ -9,7 +9,7 @@ declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 :)
 
 declare function mf:json-output() as xs:string {
-  let $json1 := '{"e": 1, "f": true}'
+  let $json1 := '{"e": 1,"f": true}'
   let $json2 := '{"a": ["b","c"],"d": ' || $json1 || '}'
   return $json2
 };
