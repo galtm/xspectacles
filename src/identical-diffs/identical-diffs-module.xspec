@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:identical-diffs"
+	query-at="identical-diffs-module.xqm"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec">
+	
+	<!--
+		Sample code for "But the Diffs Look the Same"
+		https://medium.com/@xspectacles/but-the-diffs-look-the-same-9f03c025c547
+	-->
+
+	<x:scenario label="Generate glossentry from string" pending="fails">
+		<x:call function="mf:generate-glossentry"
+			xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+			<x:param select="'TERM1'"/>
+		</x:call>
+		<x:expect label="glossentry">
+      <glossentry>
+      	<glossterm>TERM1</glossterm>
+      	<glossdef>
+      		<p>Definition of TERM1 goes here
+      		as a paragraph</p>
+      	</glossdef>
+      </glossentry>
+    </x:expect>
+	</x:scenario>
+
+	<x:scenario label="Generate glossentry from string" pending="fails">
+		<x:call function="mf:generate-glossentry"
+			xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+			<x:param select="'TERM1'"/>
+		</x:call>
+		<x:expect label="document with glossentry" select="/">
+      <glossentry>
+      	<glossterm>TERM1</glossterm>
+      	<glossdef>
+      		<p>Definition of TERM1 goes here
+      		as a paragraph</p>
+      	</glossdef>
+      </glossentry>
+    </x:expect>
+	</x:scenario>
+
+	<x:scenario label="Generate glossentry from string" pending="fails"
+		xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+		<x:call function="mf:generate-glossentry">
+			<x:param select="'TERM1'"/>
+		</x:call>
+	  <x:expect label="Examine codepoints in p content"
+			test="$x:result//p => string-to-codepoints()"
+			select="//p => string-to-codepoints()">
+      <glossentry>
+      	<glossterm>TERM1</glossterm>
+      	<glossdef>
+      		<p>Definition of TERM1 goes here
+      		as a paragraph</p>
+      	</glossdef>
+      </glossentry>
+    </x:expect>
+	</x:scenario>
+
+    <x:scenario label="(Passes) Generate glossentry from string"
+        xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+        <x:call function="mf:generate-glossentry">
+            <x:param select="'TERM1'"/>
+        </x:call>
+        <x:expect label="document with glossentry" select="/">
+            <glossentry>
+                <glossterm>TERM1</glossterm>
+                <glossdef>
+                    <p>Definition of TERM1 goes here
+                as a paragraph</p>
+                </glossdef>
+            </glossentry>
+        </x:expect>
+    </x:scenario>
+
+		<x:scenario label="(Passes) Generate glossentry from string"
+				xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+				<x:call function="mf:generate-glossentry">
+						<x:param select="'TERM1'"/>
+				</x:call>
+				<x:expect label="document with glossentry" select="/">
+						<glossentry>
+								<glossterm>TERM1</glossterm>
+								<glossdef>
+										<p>Definition of TERM1 goes here
+                as a paragraph</p>
+								</glossdef>
+						</glossentry>
+				</x:expect>
+		</x:scenario>
+
+    <x:scenario label="(Passes) Generate glossentry from string"
+        xmlns:mf="urn:x-xspectacles:functions:identical-diffs">
+        <x:call function="mf:generate-glossentry">
+            <x:param select="'TERM1'"/>
+        </x:call>
+        <x:expect label="Verify glossentry element alone"
+            test="$x:result/self::document-node()/*">
+            <glossentry>
+                <glossterm>TERM1</glossterm>
+                <glossdef>
+                    <p>Definition of TERM1 goes here
+                as a paragraph</p>
+                </glossdef>
+            </glossentry>
+        </x:expect>
+    </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
