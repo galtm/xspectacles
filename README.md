@@ -5,9 +5,10 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 
 ## Browse by Title
 
-* **(NEW!)** [6 Tips for Embedding JSON in XSpec Tests](https://medium.com/@xspectacles/6-tips-for-embedding-json-in-xspec-tests-97306ae5578f)
+* [6 Tips for Embedding JSON in XSpec Tests](https://github.com/galtm/xspectacles/tree/main/src/json)
 * [Adaptable Code Reuse in XSpec, Part 1: Value Templates](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part1)
 * [Adaptable Code Reuse in XSpec, Part 2: XPath Matching](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part2)
+* **(NEW!)** [But the Diffs Look the Same](https://github.com/galtm/xspectacles/tree/main/src/identical-diffs)
 * [Code Reuse at the File Level in XSpec](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-file-level)
 * [Code Reuse in XSpec: How to Use x:like](https://github.com/galtm/xspectacles/tree/main/src/code-reuse)
 * [Fixing Surprise Spaces in XSpec Actual Result](https://github.com/galtm/xspectacles/tree/main/src/space-actual)

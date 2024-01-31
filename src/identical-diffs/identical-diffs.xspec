@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="identical-diffs.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "But the Diffs Look the Same"
+    https://medium.com/@xspectacles/but-the-diffs-look-the-same-9f03c025c547
+  -->
+
+  <x:import href="identical-diffs-module.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
