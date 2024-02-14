@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description schematron="out-of-scope.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Content Outside the Selection in XSpec"
+    https://medium.com/@xspectacles/content-outside-the-selection-in-xspec-058643f390d5
+  -->
+
+  <x:scenario label="Report nodes reachable from rule or report">
+    <x:scenario label="Select child">
+      <x:context select="parent/child">
+        <parent>
+          <child/>
+          <sibling/>
+        </parent>
+      </x:context>
+      <x:expect-rule context="child"/>
+      <x:expect-rule context="parent/child" pending="Fails"/>
+      <x:expect-report id="found-child"/>
+      <x:scenario label="and look for unselected elements">
+        <x:expect-not-report id="found-sibling"/>
+        <x:expect-not-report id="found-child-within-parent"/>
+        <x:expect-not-report id="found-sibling-within-parent"/>
+      </x:scenario>
+    </x:scenario>
+  
+    <x:scenario label="Select entire document">
+      <x:context select="/">
+        <parent>
+          <child/>
+          <sibling/>
+        </parent>
+      </x:context>
+      <x:expect-rule context="child"/>
+      <x:expect-rule context="parent/child"/>
+      <x:expect-report id="found-child"/>
+      <x:expect-report id="found-sibling"/>
+      <x:expect-report id="found-child-within-parent"/>
+      <x:expect-report id="found-sibling-within-parent"/>
+    </x:scenario>
+  </x:scenario>
+
+  <!-- The function parameter case works in Schematron as in XSLT and XQuery -->
+  <x:import href="out-of-scope-xq.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

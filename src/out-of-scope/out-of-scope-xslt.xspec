@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="out-of-scope.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Content Outside the Selection in XSpec"
+    https://medium.com/@xspectacles/content-outside-the-selection-in-xspec-058643f390d5
+  -->
+
+  <x:scenario label="Report matches of template rules">
+    <x:scenario label="Select child">
+      <x:context select="parent/child">
+        <parent>
+          <child/>
+          <sibling/>
+        </parent>
+      </x:context>
+      <x:expect label="Child within parent, sibling">
+        <found-child-within-parent/>
+        <found-sibling/>
+      </x:expect>
+    </x:scenario>
+
+    <x:scenario label="Select entire document">
+      <x:context select="/">
+        <parent>
+          <child/>
+          <sibling/>
+        </parent>
+      </x:context>
+      <x:expect>
+        <x:label>Child within parent, sibling twice:
+          Once from parent and once from parent/child template rule
+        </x:label>
+        <found-child-within-parent/>
+        <found-sibling/>
+        <found-sibling/>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+  <!-- The function parameter case works in XSLT as in XQuery -->
+  <x:import href="out-of-scope-xq.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
