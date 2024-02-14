@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:out-of-scope"
+  query-at="out-of-scope.xqm"
+  xmlns:mf="urn:x-xspectacles:functions:out-of-scope"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+  
+  <!--
+    Sample code for "Content Outside the Selection in XSpec"
+    https://medium.com/@xspectacles/content-outside-the-selection-in-xspec-058643f390d5
+  -->
+
+  <x:scenario label="Find nearby nodes of function parameter">
+    <x:scenario label="Find parent of function parameter">
+      <x:call function="mf:parent">
+        <x:param select="parent/child">
+          <parent>
+            <child/>
+            <sibling/>
+          </parent>
+        </x:param>
+      </x:call>
+      <x:expect label="Parent element">
+        <parent>
+          <child/>
+          <sibling/>
+        </parent>
+      </x:expect>
+    </x:scenario>
+    <x:scenario label="Find following sibling of function parameter">
+      <x:call function="mf:following-sibling">
+        <x:param select="parent/child">
+          <parent>
+            <child/>
+            <sibling/>
+          </parent>
+        </x:param>
+      </x:call>
+      <x:expect label="Sibling element">
+        <sibling/>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
