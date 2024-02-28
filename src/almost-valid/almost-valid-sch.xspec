@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="almost-valid.sch"
+  xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for 'Saying "Almost Valid" or "Beyond Valid" in XSpec Tests for Schematron'
+    https://medium.com/@xspectacles/saying-almost-valid-or-beyond-valid-in-xspec-tests-for-schematron-720c2f778680
+  -->
+
+  <!-- How to Check for Exactly One Kind of Assertion/Report -->
+  <x:scenario label="Throws assertion for child p element">
+    <x:context>
+      <glossentry>
+        <glossterm>term A</glossterm>
+        <glossdef>Definition of term A</glossdef>
+      </glossentry>
+    </x:context>
+    <x:expect-assert id="abc"/>
+    <x:expect-assert count="1"/>
+    <x:expect-not-report/>
+  </x:scenario>
+  <x:scenario label="Throws report about too many child p elements">
+    <x:context>
+      <glossentry>
+        <glossterm>term A</glossterm>
+        <glossdef condition="c1">
+          <p>Text</p><p/><p/><p/><p/>
+        </glossdef>
+        <glossdef condition="c2">
+          <p>Text</p><p/><p/><p/><p/>
+        </glossdef>
+      </glossentry>
+    </x:context>
+    <x:expect-report id="xyz" count="2"/>
+    <x:expect-report count="2"/>
+    <x:expect-not-assert/>
+  </x:scenario>
+
+  <!-- Reusable Way to Check for Exactly One Kind of Assertion/Report -->
+  <x:scenario label="Throws assertion for child p element">
+    <x:context>
+      <glossentry>
+        <glossterm>term A</glossterm>
+        <glossdef>Definition of term A</glossdef>
+      </glossentry>
+    </x:context>
+    <x:like label="No assertions or reports except one type"/>
+    <x:expect-assert id="abc"/>
+  </x:scenario>
+  <x:scenario label="Throws report about too many child p elements">
+    <x:context>
+      <glossentry>
+        <glossterm>term A</glossterm>
+        <glossdef condition="c1">
+          <p>Text</p><p/><p/><p/><p/>
+        </glossdef>
+        <glossdef condition="c2">
+          <p>Text</p><p/><p/><p/><p/>
+        </glossdef>
+      </glossentry>
+    </x:context>
+    <x:like label="No assertions or reports except one type"/>
+    <x:expect-report id="xyz" count="2"/>
+  </x:scenario>
+
+  <x:scenario label="No assertions or reports except one type"
+    shared="yes">
+    <x:expect label="No assertions or reports except one type"
+      test="count(distinct-values(
+      (svrl:schematron-output/svrl:failed-assert/@id/string(),
+      svrl:schematron-output/svrl:successful-report/@id/string())
+      )) eq 1"/>    
+  </x:scenario>
+
+  <!-- How to Check for Absence of Assertions and Reports -->
+  <x:scenario label="No assertion for child p element">
+    <x:context>
+      <glossentry>
+        <glossterm>term A</glossterm>
+        <glossdef>
+          <p>Definition of term A</p>
+        </glossdef>
+      </glossentry>
+    </x:context>
+    <x:expect-not-assert id="abc"/>
+    <x:scenario label="Nothing extraneous (only Schematron-specific verifications)">
+      <x:expect-not-assert/>
+      <x:expect-not-report/>
+    </x:scenario>
+    <x:scenario label="Nothing extraneous (generic x:expect)">
+      <x:expect label="No assertions or reports"
+        test="empty(
+        (svrl:schematron-output/svrl:failed-assert,
+        svrl:schematron-output/svrl:successful-report)
+        )"/>
+      <x:expect label="No assertions or reports, and a rule fires"
+        test="empty(
+        (svrl:schematron-output/svrl:failed-assert,
+        svrl:schematron-output/svrl:successful-report)
+        ) and
+        svrl:schematron-output[svrl:fired-rule]"/>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
