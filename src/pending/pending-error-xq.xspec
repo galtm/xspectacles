@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:pending"
+  query-at="pending.xqm"
+  xmlns:mf="urn:x-xspectacles:functions:pending"
+  xmlns:mv="urn:x-xspectacles:variables:pending"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+  
+  <!--
+    Sample code for 'Saying "Not Yet" in XSpec'
+    https://medium.com/@xspectacles/saying-not-yet-in-xspec-759dff9ed50d
+  -->
+
+  <x:scenario label="Example of a pending scenario that errors out"
+    pending="Mark as pending to illustrate error">
+    <x:variable name="mv:variable-in-pending-scenario" as="item()*"/>
+    <x:call function="mf:myfunc">
+      <x:param>
+        <x y="{$mv:variable-in-pending-scenario}"/>
+      </x:param>
+    </x:call>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

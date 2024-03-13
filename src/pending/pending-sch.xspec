@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description schematron="pending.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for 'Saying "Not Yet" in XSpec'
+    https://medium.com/@xspectacles/saying-not-yet-in-xspec-759dff9ed50d
+  -->
+
+  <x:scenario label="Test case 1">
+    <x:context select="parent/child">
+      <parent>
+        <child>
+          <grandchild/>
+        </child>
+      </parent>
+    </x:context>
+    <x:expect-rule context="child"/>
+    <x:expect-report id="found-element" location="child"/>
+    <x:scenario label="Other aspects of test case 1"
+      pending="not written yet">
+      <x:expect-rule context="child/*"/>
+      <x:expect-assert id="new-feature"/>
+      <x:expect-assert count="1"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Test case 1">
+    <x:context select="parent/child">
+      <parent>
+        <child>
+          <grandchild/>
+        </child>
+      </parent>
+    </x:context>
+    <x:expect-rule context="child"/>
+    <x:expect-report id="found-element" location="child"/>
+    <x:scenario label="Other aspects of test case 1">
+      <x:expect-rule context="child/*"/>
+      <x:expect-assert id="new-feature" pending="not written yet"/>
+      <x:expect-assert count="1" pending="not written yet"/>
+    </x:scenario>
+  </x:scenario>  
+
+  <x:scenario label="Test case 1">
+    <x:context select="parent/child">
+      <parent>
+        <child>
+          <grandchild/>
+        </child>
+      </parent>
+    </x:context>
+    <x:expect-rule context="child"/>
+    <x:expect-report id="found-element" location="child"/>
+    <x:scenario label="Other aspects of test case 1">
+      <x:expect-rule context="child/*"/>
+      <x:pending label="not written yet">
+        <x:expect-assert id="new-feature"/>
+        <x:expect-assert count="1"/>        
+      </x:pending>
+    </x:scenario>
+    <x:scenario label="Other aspects of test case 1">
+      <x:pending label="not written yet">
+        <x:expect-assert id="new-feature"/>
+        <x:expect-assert count="1"/>        
+      </x:pending>
+      <x:expect-rule context="child/*"/>
+    </x:scenario>
+  </x:scenario>  
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
