@@ -53,6 +53,7 @@
                     <testDir>${project.basedir}/src</testDir>
                     <excludes>
                         <!-- Exclude tests that fail deliberately. -->
+                        <exclude>pending/pending-error-xq.xspec</exclude>
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
                     </excludes>

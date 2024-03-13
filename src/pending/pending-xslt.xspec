@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="pending.xsl"
+  xslt-version="3.0"
+  xmlns:mf="urn:x-xspectacles:functions:pending"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for 'Saying "Not Yet" in XSpec'
+    https://medium.com/@xspectacles/saying-not-yet-in-xspec-759dff9ed50d
+  -->
+
+  <x:scenario
+    label="Example of mixed message between focus and pending"
+    focus="yes, yes, run this code!">
+    <x:scenario label="Pending scenario"
+      pending="don't run this code">
+      <x:call function="mf:myfunc">
+        <x:param><x/></x:param>
+      </x:call>
+      <x:expect label="returns element x, if scenario executes">
+        <x/>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario
+    label="Example of pending scenario"
+    pending="don't run this code">
+    <x:call function="mf:myfunc">
+      <x:param><x/></x:param>
+    </x:call>
+    <x:expect label="returns element x, if scenario executes">
+      <x/>
+    </x:expect>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
