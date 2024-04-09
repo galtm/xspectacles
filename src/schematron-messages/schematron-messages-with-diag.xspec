@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="schematron-messages-with-diag.sch"
+  xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  version="3.0">
+
+  <!--
+    Sample code for "Testing Schematron Messages with XSpec 3.0"
+    https://medium.com/@xspectacles/testing-schematron-messages-with-xspec-3-0-1adc9be69a4d
+  -->
+
+  <!-- This test requires XSpec 3.0 -->
+
+  <!-- "Verifying Diagnostic Messages" -->
+  <x:scenario label="Subsection with info element">
+    <x:context href="schematron-messages.xml"/>
+    <x:expect-assert
+      id="subsection-no-info">
+      Subsection must not contain info.
+      Move children to "Top-Level Section" info.
+    </x:expect-assert>
+    <x:expect-assert label="Check diagnostic:"
+      id="subsection-no-info">[WG 1.2] q</x:expect-assert>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

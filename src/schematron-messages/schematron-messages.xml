@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="schematron-messages.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<section xml:id="top-section">
+  <title>Top-Level Section</title>
+  <info xml:id="top-info"><!-- metadata belongs here --></info>
+  <para>Introductory content</para>
+  <section>
+    <title>Subsection</title>
+    <info>
+      <authorinitials>TSE</authorinitials>
+    </info>
+    <para>Subsection content</para>
+  </section>
+</section>
+<!-- Copyright © 2024 by Amanda Galtman. -->
