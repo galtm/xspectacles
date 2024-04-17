@@ -21,7 +21,7 @@
       Move children to "Top-Level Section" info.
     </x:expect-assert>
     <x:expect-assert label="Check diagnostic:"
-      id="subsection-no-info">[WG 1.2] q</x:expect-assert>
+      id="subsection-no-info">[WG 1.2]</x:expect-assert>
   </x:scenario>
 
 </x:description>
