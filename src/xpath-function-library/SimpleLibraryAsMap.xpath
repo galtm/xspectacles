@@ -1,0 +1,33 @@
+xquery version "3.1";
+module namespace SL = "urn:x-xspectacles:functions:simple-library";
+
+declare variable $SL:vMath as map(*) :=
+ let
+         $incr := function($n as xs:integer)
+                   {$n +1},
+         $mult := function($m as xs:integer, $n as xs:integer)
+                   {$m * $n},
+         $decr := function($n as xs:integer)
+                   {$n -1},
+         $idiv := function($m as xs:integer, $n as xs:integer)
+                   {$m idiv $n}
+
+ (: Provide the function library as a map :)
+ return
+      map {
+           'incr'     : $incr,
+           'mult'     : $mult,
+           'decr'     : $decr,
+           'idiv'     : $idiv
+          }
+;
+          
+(:
+This code is adapted from the following paper, with the module
+namespace declaration and variable declaration added as the
+paper suggests. 
+
+Novatchev, Dimitre. “Programming in XPath 3.0.” Presented at Balisage: The Markup Conference 2013,
+Montréal, Canada, August 6 - 9, 2013. In Proceedings of Balisage: The Markup Conference 2013.
+Balisage Series on Markup Technologies, vol. 10 (2013). https://doi.org/10.4242/BalisageVol10.Novatchev01.
+:)
