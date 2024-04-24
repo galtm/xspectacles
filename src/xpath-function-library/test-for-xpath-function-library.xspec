@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="urn:x-xspectacles:functions:simple-library"
+  query-at="SimpleLibraryAsMap.xpath"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:SL="urn:x-xspectacles:functions:simple-library">
+
+  <!--
+    Sample Code for "Testing an XPath Function Library with XSpec 3.0"
+    https://medium.com/@xspectacles/testing-an-xpath-function-library-with-xspec-3-0-1f324b0837cb
+  -->
+
+  <x:scenario label="incr function">
+    <x:call function="SL:vMath" call-as="variable">
+      <x:param select="'incr'"/>
+    </x:call>
+    <x:expect label="$x:result is a function with one integer parameter"
+      test="$x:result instance of function(xs:integer) as item()*"/>
+    <x:expect label="Incrementing 4 produces 5"
+      test="$x:result(4)"
+      select="5"/>
+    <x:scenario label="Alternative syntax, less useful in case of failure">
+      <x:expect label="Incrementing 4 produces 5"
+        test="$x:result(4) eq 5"/>        
+    </x:scenario>
+  </x:scenario>
+  <x:scenario label="mult function">
+    <x:call function="SL:vMath" call-as="variable">
+      <x:param select="'mult'"/>
+    </x:call>
+    <x:expect label="$x:result is a function with two integer parameters"
+      test="$x:result instance of function(xs:integer, xs:integer) as item()*"/>
+    <x:expect label="4 times 2 equals 8"
+      test="$x:result(4,2)"
+      select="8"/>
+  </x:scenario>
+
+  <x:scenario label="Incorrect syntax" pending="Error">
+    <x:call function="SL:vMath('incr')" call-as="variable">
+      <x:param select="4"/>
+    </x:call>
+    <x:expect label="Incrementing 4 produces 5"
+      select="5"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
