@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="three-dots-attrs.sch"
+  xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Comparing Attributes Selectively in XSpec 3.0"
+    https://medium.com/@xspectacles/comparing-attributes-selectively-in-xspec-3-0-f3a457fe8e04
+  -->
+
+  <x:param name="phase">phase1</x:param>
+
+  <!-- Example Skipping Comparison of Schematron SVRL Attributes -->
+  <x:scenario label="Check for active pattern">
+    <x:context>
+      <any-element/>
+    </x:context>
+    <x:expect label="pattern1 is the only active one (XSpec 3.0)"
+      test="/svrl:schematron-output/svrl:active-pattern">
+      <svrl:active-pattern id="pattern1" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="pattern1 is the only active one"
+      test="exactly-one(/svrl:schematron-output/svrl:active-pattern)/@id/string()"
+      select="'pattern1'"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
