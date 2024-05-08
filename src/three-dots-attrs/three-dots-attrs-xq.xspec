@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="x-urn:my-xq"
+  query-at="three-dots-attrs.xqm"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:my-xq="x-urn:my-xq"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Comparing Attributes Selectively in XSpec 3.0"
+    https://medium.com/@xspectacles/comparing-attributes-selectively-in-xspec-3-0-f3a457fe8e04
+  -->
+
+  <!-- Verifying All Attributes at Once -->
+  <x:scenario label="Check all attributes at once">
+    <x:call function="my-xq:spaceship-img"/>
+    <x:expect>
+      <x:label>img element with class, src, onclick,
+        and data attributes representing ship ID,
+        weapons, shields, and coordinates</x:label>
+      <img xmlns="http://www.w3.org/1999/xhtml"
+        class="spaceship cruiserX3"
+        src="shipX3.png"
+        onclick="spaceships[this.dataset.shipId].blasted()"
+        data-ship-id="324"
+        data-weapons="laserI laserII"
+        data-shields="72%"
+        data-x="414354"
+        data-y="85160"
+        data-z="31940"/>
+    </x:expect>
+  </x:scenario>
+
+  <!-- XSpec 2.x, Verifying Attributes in Stages -->
+  <x:scenario label="Check attributes in groups, XSpec 2.x"
+    xmlns="http://www.w3.org/1999/xhtml">
+    <x:call function="my-xq:spaceship-img"/>
+    <x:expect label="Correct CSS class">
+      <img
+        class="spaceship cruiserX3"
+        src="..."
+        onclick="..."
+        data-ship-id="..."
+        data-weapons="..."
+        data-shields="..."
+        data-x="..."
+        data-y="..."
+        data-z="..."/>
+    </x:expect>
+    <!-- And other <x:expect> elements where <img> always
+      names all the attributes -->
+  </x:scenario>
+
+  <!-- XSpec 3.0, Verifying Attributes in Stages -->
+  <x:scenario label="Check attributes in groups, XSpec 3.0"
+    xmlns="http://www.w3.org/1999/xhtml">
+    <x:call function="my-xq:spaceship-img"/>
+    <x:expect label="Correct CSS class">
+      <img class="spaceship cruiserX3" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="Correct PNG file">
+      <img src="shipX3.png" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="Correct ship ID">
+      <img data-ship-id="324" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="Correct weapons and shields">
+      <img data-weapons="laserI laserII" data-shields="72%" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="Correct coordinates">
+      <img data-x="414354" data-y="85160" data-z="31940" x:attrs="..."/>
+    </x:expect>
+    <x:expect label="Correct click callback">
+      <img onclick="spaceships[this.dataset.shipId].blasted()"
+        x:attrs="..."/>
+    </x:expect>
+    <x:expect label="No unexpected attributes"
+      test="sort($x:result/@*/name())"
+      select="sort(
+      ('class', 'src', 'data-ship-id', 'data-weapons', 'data-shields',
+       'data-x', 'data-y', 'data-z', 'onclick')
+      )"
+    />
+  </x:scenario>
+
+  <!-- Three Dots Can Match Nothing -->
+  <x:scenario label="Three dots in absence of attributes">
+    <x:call function="my-xq:heading">
+      <x:param>Heading Content</x:param>
+    </x:call>
+    <x:expect label="h1 with class attribute">
+      <h1 class="main">Heading Content</h1>
+    </x:expect>
+    <x:expect label="h1 with class attribute and possibly others">
+      <h1 class="main" x:attrs="...">Heading Content</h1>
+    </x:expect>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

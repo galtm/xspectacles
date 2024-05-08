@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description
+  query="x-urn:my-xq"
+  query-at="three-dots-attrs.xqm"
+  xmlns="http://www.jenitennison.com/xslt/xspec"
+  xmlns:h="http://www.w3.org/1999/xhtml"
+  xmlns:my-xq="x-urn:my-xq">
+
+  <!--
+    Sample code for "Comparing Attributes Selectively in XSpec 3.0"
+    https://medium.com/@xspectacles/comparing-attributes-selectively-in-xspec-3-0-f3a457fe8e04
+  -->
+
+  <!-- This code is not explicitly in the topic but
+    shows how the x:attrs="..." technique would work
+    in a situation with different usage of namespace
+    prefixes. In this file, the XSpec namespace is
+    the default element namespace. -->
+    
+  <!-- Verifying All Attributes at Once -->
+  <scenario label="Check all attributes at once">
+    <call function="my-xq:spaceship-img"/>
+    <expect>
+      <label>img element with class, src, onclick,
+        and data attributes representing ship ID,
+        weapons, shields, and coordinates</label>
+      <h:img
+        class="spaceship cruiserX3"
+        src="shipX3.png"
+        onclick="spaceships[this.dataset.shipId].blasted()"
+        data-ship-id="324"
+        data-weapons="laserI laserII"
+        data-shields="72%"
+        data-x="414354"
+        data-y="85160"
+        data-z="31940"/>
+    </expect>
+  </scenario>
+
+  <!-- XSpec 2.x, Verifying Attributes in Stages -->
+  <scenario label="Check attributes in groups, XSpec 2.x">
+    <call function="my-xq:spaceship-img"/>
+    <expect label="Correct CSS class">
+      <h:img
+        class="spaceship cruiserX3"
+        src="..."
+        onclick="..."
+        data-ship-id="..."
+        data-weapons="..."
+        data-shields="..."
+        data-x="..."
+        data-y="..."
+        data-z="..."/>
+    </expect>
+    <!-- And other <expect> elements where <h:img> always
+      names all the attributes -->
+  </scenario>
+
+  <!-- XSpec 3.0, Verifying Attributes in Stages -->
+  <scenario label="Check attributes in groups"
+    xmlns:xsp="http://www.jenitennison.com/xslt/xspec">
+    <call function="my-xq:spaceship-img"/>
+    <expect label="Correct CSS class">
+      <h:img class="spaceship cruiserX3"
+        xsp:attrs="..."/>
+    </expect>
+    <expect label="Correct PNG file">
+      <h:img src="shipX3.png"
+        xsp:attrs="..."/>
+    </expect>
+    <expect label="Correct ship ID">
+      <h:img data-ship-id="324"
+        xsp:attrs="..."/>
+    </expect>
+    <expect label="Correct weapons and shields">
+      <h:img data-weapons="laserI laserII"
+        data-shields="72%"
+        xsp:attrs="..."/>
+    </expect>
+    <expect label="Correct coordinates">
+      <h:img data-x="414354"
+        data-y="85160"
+        data-z="31940"
+        xsp:attrs="..."/>
+    </expect>
+    <expect label="Correct click callback">
+      <h:img onclick="spaceships[this.dataset.shipId].blasted()"
+        xsp:attrs="..."/>
+    </expect>
+    <!-- $xsp:result in a test for XQuery would require the declaration
+      xmlns:xsp="http://www.jenitennison.com/xslt/xspec"
+      on the XSpec <description> element. An alternative shown here is:
+      $Q{http://www.jenitennison.com/xslt/xspec}result -->
+    <expect label="No unexpected attributes"
+      test="sort($Q{http://www.jenitennison.com/xslt/xspec}result/@*/name())"
+      select="sort(
+      ('class', 'src', 'data-ship-id', 'data-weapons', 'data-shields',
+       'data-x', 'data-y', 'data-z', 'onclick')
+      )"
+    />
+  </scenario>
+
+  <!-- Three Dots Can Match Nothing -->
+  <scenario label="Three dots in absence of attributes">
+    <call function="my-xq:heading">
+      <param>Heading Content</param>
+    </call>
+    <expect label="h1 with class attribute">
+      <h:h1 class="main">Heading Content</h:h1>
+    </expect>
+    <expect label="h1 with class attribute and possibly others"
+      xmlns:xsp="http://www.jenitennison.com/xslt/xspec">
+      <h:h1 class="main" xsp:attrs="...">Heading Content</h:h1>
+    </expect>
+  </scenario>
+
+</description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
