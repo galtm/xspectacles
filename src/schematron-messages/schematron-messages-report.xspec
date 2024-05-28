@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description
   schematron="schematron-messages-report.sch"
+  version="3.0"
   xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-  xmlns:x="http://www.jenitennison.com/xslt/xspec"
-  version="3.0">
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
 
   <!--
     Sample code for "Testing Schematron Messages with XSpec 3.0"

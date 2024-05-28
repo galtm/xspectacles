@@ -2,6 +2,7 @@
 <x:description
   query="x-urn:my-xq"
   query-at="three-dots-attrs.xqm"
+  version="3.0"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:my-xq="x-urn:my-xq"
   xmlns:x="http://www.jenitennison.com/xslt/xspec"

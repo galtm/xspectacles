@@ -2,6 +2,7 @@
 <x:description
   query="urn:x-xspectacles:functions:simple-library"
   query-at="SimpleLibraryAsMap.xpath"
+  version="3.0"
   xmlns:x="http://www.jenitennison.com/xslt/xspec"
   xmlns:SL="urn:x-xspectacles:functions:simple-library">
 
