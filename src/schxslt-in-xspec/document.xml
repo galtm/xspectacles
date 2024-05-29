@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic>
+  <info>
+    <title>Schematron for Text Nodes</title>
+  </info>
+  <para xml:id="para-1"> Paragraph one</para>
+  <para xml:id="para-2"><phrase>Paragraph</phrase> two</para>
+</topic>

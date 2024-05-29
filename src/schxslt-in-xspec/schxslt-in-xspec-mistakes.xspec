@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="schxslt-in-xspec.sch"
+  version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Text Nodes and Locations in XSpec Tests for Schematron"
+    https://medium.com/@xspectacles/text-nodes-and-locations-in-xspec-tests-for-schematron-2174e7c943b3
+  -->
+
+  <x:scenario label="Mistake in location attribute">
+    <x:context href="document.xml"/>
+    <x:pending label="Errors">
+      <x:expect-not-assert id="sp"
+        location="//para[@xml:id='para2']/text()"/>
+      <x:expect-not-assert id="sp"
+        location="//para/text()"/>
+    </x:pending>
+
+    <!-- Troubleshooting -->
+    <x:expect test="$x:context">
+      <x:label>What is in the document?</x:label>
+      placeholder
+    </x:expect>
+    <x:expect test="$x:context//para[@xml:id='para2']/text()">
+      <x:label>What does location attribute find at
+        //para[@xml:id='para2']/text() ? </x:label>
+      placeholder
+    </x:expect>
+    <x:expect test="$x:context//para/text()">
+      <x:label>What does location attribute find at
+        //para/text() ? </x:label>
+      placeholder
+    </x:expect>
+  </x:scenario>
+
+  <x:scenario label="Fix for mistake in location attribute">
+    <x:context href="document.xml"/>
+    <x:expect-not-assert id="sp"
+      location="//para[@xml:id='para-2']/text()"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
