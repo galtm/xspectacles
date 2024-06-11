@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="xml-content-error.xsl"
+  xslt-version="3.0"
+  xmlns:mf="urn:x-xspectacles:functions:xml-content-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "My XML Content in XSpec Causes an Error"
+    https://medium.com/@xspectacles/my-xml-content-in-xspec-causes-an-error-90028056d6a0
+  -->
+
+  <x:scenario label="Get attribute value">
+    <!-- The commented-out scenario and ones like it lead to errors like
+      the following, in an XSLT or XQuery test:
+
+      XPST0003  Invalid character '\' (x5c) in expression
+      XPST0003  Unexpected token "}" at start of expression
+      XPST0003  Unexpected token "|" at start of expression
+      XTSE0350  Missing curly brace after expression in value template
+      XPST0003  Left operand of '>' needs parentheses. Or perhaps an XQuery element constructor
+        appears where it is not allowed
+    -->
+    <!--
+    <x:scenario label="Expression in curly braces is not XPath">
+      <x:call function="mf:attr-value">
+        <x:param>
+          <elem attr="e^{\pi i}"/>
+        </x:param>
+      </x:call>
+      <x:expect label="Error message before reaching here">...</x:expect>
+    </x:scenario>
+    -->
+    <x:scenario label="Fix 1: External XML file." expand-text="no">
+      <x:scenario label="LaTeX">
+        <x:call function="mf:attr-value">
+          <x:param href="param-value.xml" select="/root/elem[1]"/>
+        </x:call>
+        <x:expect label="Attribute value">e^{\pi i}</x:expect>
+      </x:scenario>
+      <x:scenario label="Regular expression">
+        <x:call function="mf:attr-value">
+          <x:param href="param-value.xml" select="/root/elem[2]"/>
+        </x:call>
+        <x:expect label="Attribute value">a{3,}</x:expect>
+      </x:scenario>
+      <x:scenario label="Handlebars">
+        <x:call function="mf:attr-value">
+          <x:param href="param-value.xml" select="/root/elem[3]"/>
+        </x:call>
+        <x:expect label="Attribute value">{{@x.y.z}}</x:expect>
+      </x:scenario>
+      <x:scenario label="ASCII art">
+        <x:call function="mf:attr-value">
+          <x:param href="param-value.xml" select="/root/elem[4]"/>
+        </x:call>
+        <x:expect label="Attribute value">:-{|</x:expect>
+      </x:scenario>
+    </x:scenario>
+    <x:scenario label="Fix 2: Double curly braces." expand-text="no">
+      <x:scenario label="LaTeX">
+        <x:call function="mf:attr-value">
+          <x:param>
+            <elem attr="e^{{\pi i}}"/>
+          </x:param>
+        </x:call>
+        <x:expect label="Attribute value using single braces">e^{\pi i}</x:expect>
+      </x:scenario>
+      <x:scenario label="Regular expression">
+        <x:call function="mf:attr-value">
+          <x:param>
+            <elem attr="a{{3,}}"/>
+          </x:param>
+        </x:call>
+        <x:expect label="Attribute value using single braces">a{3,}</x:expect>
+      </x:scenario>
+      <x:scenario label="Handlebars">
+        <x:call function="mf:attr-value">
+          <x:param>
+            <elem attr="{{{{@x.y.z}}}}"/>
+          </x:param>
+        </x:call>
+        <x:expect label="Attribute value using single braces">{{@x.y.z}}</x:expect>
+      </x:scenario>
+      <x:scenario label="ASCII art">
+        <x:call function="mf:attr-value">
+          <x:param>
+            <elem attr=":-{{|"/>
+          </x:param>
+        </x:call>
+        <x:expect label="Attribute value using single brace">:-{|</x:expect>
+      </x:scenario>
+    </x:scenario>
+    <x:scenario label="Expression in curly braces happens to be valid as XPath">
+      <x:call function="mf:attr-value">
+        <x:param>
+          <elem attr="x^{10}"/>
+        </x:param>
+      </x:call>
+      <x:expect label="Processor evaluates expression as XPath">x^10</x:expect>
+    </x:scenario>
+    <x:scenario label="Fix 2: Expression in double curly braces is LaTeX but is also valid as XPath">
+      <x:call function="mf:attr-value">
+        <x:param>
+          <elem attr="x^{{10}}"/>
+        </x:param>
+      </x:call>
+      <x:expect label="Attribute value using single brace">x^{10}</x:expect>
+    </x:scenario>
+    <x:scenario label="Expression in curly braces is meant to be evaluated as XPath">
+      <x:call function="mf:attr-value">
+        <x:param>
+          <elem attr="val{round(avg((1,2,4,8)))}"/>
+        </x:param>
+      </x:call>
+      <x:expect label="Processor evaluates XPath expression">val4</x:expect>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

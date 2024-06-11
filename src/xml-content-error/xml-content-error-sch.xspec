@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description schematron="xml-content-error.sch"
+  version="3.0"
+  xmlns:mf="urn:x-xspectacles:functions:xml-content-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+  <!--
+    Sample Code for "My XML Content in XSpec Causes an Error"
+    https://medium.com/@xspectacles/my-xml-content-in-xspec-causes-an-error-90028056d6a0
+  -->
+
+  <!-- Note: Text content inside x:expect-report requires XSpec v3.0 -->
+
+  <!-- The commented-out scenario leads to errors like the following:
+      XPST0003  Invalid character '\' (x5c) in expression
+      XPST0003  Unexpected token "}" at start of expression
+      XPST0003  Unexpected token "|" at start of expression
+    -->
+  <!--
+  <x:scenario label="Expression in curly braces is not XPath">
+    <x:context>
+      <root>
+        <elem attr="e^{\pi i}"/>
+        <elem attr="a{3,}"/>
+        <elem attr="{{@x.y.z}}"/>
+        <elem attr=":-{|"/>
+      </root>
+    </x:context>
+    <x:expect-report/>
+  </x:scenario>
+  -->
+  <x:scenario label="Fix 1: External XML file">
+    <x:context href="param-value.xml"/>
+    <x:expect-report>Value of attr is e^{\pi i}</x:expect-report>
+    <x:expect-report>Value of attr is a{3,}</x:expect-report>
+    <x:expect-report>Value of attr is {{@x.y.z}}</x:expect-report>
+    <x:expect-report>Value of attr is :-{|</x:expect-report>
+  </x:scenario>
+  <x:scenario label="Fix 2: Double curly braces">
+    <x:context>
+      <root>
+        <elem attr="e^{{\pi i}}"/>
+        <elem attr="a{{3,}}"/>
+        <elem attr="{{{{@x.y.z}}}}"/>
+        <elem attr=":-{{|"/>
+      </root>
+    </x:context>
+    <x:expect-report>Value of attr is e^{\pi i}</x:expect-report>
+    <x:expect-report>Value of attr is a{3,}</x:expect-report>
+    <x:expect-report>Value of attr is {{@x.y.z}}</x:expect-report>
+    <x:expect-report>Value of attr is :-{|</x:expect-report>
+  </x:scenario>
+  <x:scenario label="Expression in curly braces is meant to be evaluated as XPath">
+    <x:context>
+      <root>
+        <elem attr="val{round(avg((1,2,4,8)))}"/>
+      </root>
+    </x:context>
+    <x:expect-report>Value of attr is val4</x:expect-report>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

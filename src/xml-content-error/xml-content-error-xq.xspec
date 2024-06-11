@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:xml-content-error"
+  query-at="xml-content-error.xqm"
+  xmlns:mf="urn:x-xspectacles:functions:xml-content-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "My XML Content in XSpec Causes an Error"
+    https://medium.com/@xspectacles/my-xml-content-in-xspec-causes-an-error-90028056d6a0
+  -->
+
+  <x:import href="xml-content-error-xslt.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
