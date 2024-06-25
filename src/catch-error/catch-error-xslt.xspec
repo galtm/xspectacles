@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  stylesheet="catch-error.xsl"
+  xmlns:f="urn:x-xspectacles:functions:catch-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample Code for "How to Test Error Handling in XSpec"
+    https://medium.com/@xspectacles/how-to-test-error-handling-in-xspec-cdd83f498204
+  -->
+
+  <x:scenario label="Tests for f:one-over function">
+    <x:scenario label="Trying to compute reciprocal of 0"
+      catch="yes">
+      <x:call function="f:one-over">
+        <x:param select="0" as="xs:numeric"/>
+      </x:call>
+      <x:pending label="Use during exploration or troubleshooting">
+        <x:expect label="A map"/>
+      </x:pending>
+      <x:expect label="produces an error message (string)"
+        test="$x:result?err?value ! string(.)"
+        select="'one-over() does not support n=0'"/>
+      <x:expect label="produces an error message (context item - XSLT only)"
+        test="?err?value ! string(.)"
+        select="'one-over() does not support n=0'"/>
+      <!-- The next two verifications work in Saxon 11 or later -->
+      <x:expect label="produces an error message"
+        test="$x:result?err?value"
+        select="/">one-over() does not support n=0</x:expect>
+      <x:expect label="produces an error message (function syntax)"
+        test="$x:result('err')('value')"
+        select="/">one-over() does not support n=0</x:expect>
+      <!-- The following verifications work in Saxon 10 or later -->
+      <x:expect label="(Saxon 10) produces an error message"
+        test="$x:result?err?value/text()">one-over() does not support n=0</x:expect>
+      <x:expect label="(Saxon 10) produces an error message (function syntax)"
+        test="$x:result('err')('value')/text()">one-over() does not support n=0</x:expect>
+    </x:scenario>
+    <x:scenario label="Reciprocal of 2">
+      <x:call function="f:one-over">
+        <x:param select="2" as="xs:numeric"/>
+      </x:call>
+      <x:expect label="is one-half" select="0.5"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Test of my-mode with multiple context items" catch="yes">
+    <x:context mode="my-mode" select="/*">
+      <foo>There is a template rule for this element</foo>
+      <bar>No template rule for this element</bar>
+    </x:context>
+    <x:expect label="x:result reports error for bar and omits actual result for foo"
+      test="$x:result?err?description"
+      select="'No user-defined template rule in mode my-mode matches the node /bar'"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

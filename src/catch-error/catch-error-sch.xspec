@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="catch-error.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "How to Test Error Handling in XSpec"
+    https://medium.com/@xspectacles/how-to-test-error-handling-in-xspec-cdd83f498204
+  -->
+
+  <x:scenario label="Tests for assertion with id=unknown-type">
+    <x:scenario label="Document of unknown type" catch="yes">
+      <x:context>
+        <unknown/>
+      </x:context>
+      <x:pending label="Use during exploration or troubleshooting">
+        <x:expect label="A map"/>
+      </x:pending>
+      <x:expect label="produces an error message"
+        test="$x:result?err?description"
+        select="'Document is an unknown type!'"/>
+    </x:scenario>
+    <x:scenario label="Document of known type">
+      <x:context>
+        <topic/>
+      </x:context>
+      <x:expect-not-assert id="unknown-type"/>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
