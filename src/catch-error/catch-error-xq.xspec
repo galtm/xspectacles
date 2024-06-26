@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="urn:x-xspectacles:functions:catch-error"
+  query-at="catch-error.xqm"
+  xmlns:f="urn:x-xspectacles:functions:catch-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample Code for "How to Test Error Handling in XSpec"
+    https://medium.com/@xspectacles/how-to-test-error-handling-in-xspec-cdd83f498204
+  -->
+
+  <x:scenario label="Tests for f:one-over function">
+    <x:scenario label="Trying to compute reciprocal of 0"
+      catch="yes">
+      <x:call function="f:one-over">
+        <x:param select="0" as="xs:numeric"/>
+      </x:call>
+      <x:pending label="Use during exploration or troubleshooting">
+        <x:expect label="A map"/>
+      </x:pending>
+      <x:expect label="produces an error message"
+        test="$x:result?err?description"
+        select="'one-over() does not support n=0'"/>
+      <x:expect label="produces an error message (function syntax)"
+        test="$x:result('err')('description')"
+        select="'one-over() does not support n=0'"/>
+      <x:expect label="produces an error message (text node)"
+        test="$x:result?err?description"
+        select="string(.)">one-over() does not support n=0</x:expect>      
+    </x:scenario>
+    <x:scenario label="Reciprocal of 2">
+      <x:call function="f:one-over">
+        <x:param select="2" as="xs:numeric"/>
+      </x:call>
+      <x:expect label="is one-half" select="0.5"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
