@@ -14,7 +14,7 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Comparing Attributes Selectively in XSpec 3.0](https://github.com/galtm/xspectacles/tree/main/src/three-dots-attrs)
 * [Content Outside the Selection in XSpec](https://github.com/galtm/xspectacles/tree/main/src/out-of-scope)
 * [Fixing Surprise Spaces in XSpec Actual Result](https://github.com/galtm/xspectacles/tree/main/src/space-actual)
-* **(NEW!)** [How to Test Error Handling in XSpec](https://github.com/galtm/xspectacles/tree/main/src/catch-error)
+* [How to Test Error Handling in XSpec](https://github.com/galtm/xspectacles/tree/main/src/catch-error)
 * [Inheritance as a Form of Reuse in XSpec](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-call)
 * [Multiple Cases in One XSpec Scenario](https://github.com/galtm/xspectacles/tree/main/src/context-sequence)
 * [My XML Content in XSpec Causes an Error](https://github.com/galtm/xspectacles/tree/main/src/xml-content-error)
@@ -32,3 +32,4 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Text Nodes and Locations in XSpec Tests for Schematron](https://github.com/galtm/xspectacles/tree/main/src/schxslt-in-xspec)
 * [The Equality Check that's Neither True Nor False](https://github.com/galtm/xspectacles/tree/main/src/non-boolean-eq)
 * [Ways to Access XSLT Result in XSpec Testing: Dot Versus Result Variable](https://github.com/galtm/xspectacles/tree/main/src/dot-versus-result)
+* **(NEW!)** [XQuery Makeover to Improve Testability with XSpec](https://github.com/galtm/xspectacles/tree/main/src/xquery-modules)
