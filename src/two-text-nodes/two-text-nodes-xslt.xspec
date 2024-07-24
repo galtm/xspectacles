@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  stylesheet="two-text-nodes.xsl"
+  xmlns:f="urn:x-xspectacles:functions:two-text-nodes"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xv="urn:x-xspectacles:xspec:variables">
+
+  <!--
+    Sample Code for "A Tale of Two Text Nodes, Plus Balisage 2024"
+    https://medium.com/@xspectacles/a-tale-of-two-text-nodes-plus-balisage-2024-a4d03b8e4a26
+  -->
+
+  <x:scenario label="Compare f:two-text-nodes output with 3 text nodes">
+    <x:call function="f:two-text-nodes"/>
+    <x:variable name="xv:three-nodes-same-chars"
+      as="text()+"
+      select="/tn/text()">
+      <tn>ab</tn>
+      <tn>cd</tn>
+      <tn>ef</tn>
+    </x:variable>
+    <x:expect label="Different organization among text nodes"
+      select="$xv:three-nodes-same-chars"/>
+    <x:expect label="Confirm that actual result has 2 nodes"
+      test="count($x:result)" select="2"/>
+    <x:expect label="Confirm that variable has 3 nodes"
+      test="count($xv:three-nodes-same-chars)" select="3"/>
+
+    <!-- Arrays keep text nodes separate -->
+    <x:expect label="Same organization"
+      test="for $t in $x:result return [$t]"
+      select="for $t in /tn/text() return [$t]">
+      <tn>abc</tn>
+      <tn>def</tn>
+    </x:expect>
+    <x:expect label="Different organization (FAILS)"
+      pending="Fails, as expected"
+      test="for $t in $x:result return [$t]"
+      select="for $t in $xv:three-nodes-same-chars return [$t]"/>
+  </x:scenario>
+
+  <!-- Extra case not in topic narrative -->
+  <x:scenario label="Compare f:two-text-nodes output with single text node">
+    <x:call function="f:two-text-nodes"/>
+    <x:variable name="xv:one-node"
+      as="text()">abcdef</x:variable>
+    <x:expect label="Compare with single text node"
+      select="$xv:one-node"/>
+    <x:expect label="Confirm that actual result has 2 nodes"
+      test="count($x:result)" select="2"/>
+    <x:expect label="Confirm that variable has 1 node"
+      test="count($xv:one-node)" select="1"/>
+    <x:expect label="Standard XPath deep-equal says they are not equal"
+      test="deep-equal($x:result, $xv:one-node) eq false()"/>
+    <x:expect label="XSpec deq:deep-equal says they are equal"
+      xmlns:deq="urn:x-xspec:common:deep-equal"
+      test="deq:deep-equal($x:result, $xv:one-node, '') eq true()"/>
+
+    <!-- Arrays keep text nodes separate -->
+    <x:expect label="Same organization"
+      test="for $t in $x:result return [$t]"
+      select="for $t in /tn/text() return [$t]">
+      <tn>abc</tn>
+      <tn>def</tn>
+    </x:expect>
+    <x:expect label="Different organization (FAILS)"
+      pending="Fails, as expected"
+      test="for $t in $x:result return [$t]"
+      select="for $t in $xv:one-node return [$t]"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->

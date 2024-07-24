@@ -6,6 +6,7 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 ## Browse by Title
 
 * [6 Tips for Embedding JSON in XSpec Tests](https://github.com/galtm/xspectacles/tree/main/src/json)
+* **(NEW!)** [A Tale of Two Text Nodes, Plus Balisage 2024](https://github.com/galtm/xspectacles/tree/main/src/two-text-nodes)
 * [Adaptable Code Reuse in XSpec, Part 1: Value Templates](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part1)
 * [Adaptable Code Reuse in XSpec, Part 2: XPath Matching](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part2)
 * [But the Diffs Look the Same](https://github.com/galtm/xspectacles/tree/main/src/identical-diffs)
@@ -32,4 +33,4 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Text Nodes and Locations in XSpec Tests for Schematron](https://github.com/galtm/xspectacles/tree/main/src/schxslt-in-xspec)
 * [The Equality Check that's Neither True Nor False](https://github.com/galtm/xspectacles/tree/main/src/non-boolean-eq)
 * [Ways to Access XSLT Result in XSpec Testing: Dot Versus Result Variable](https://github.com/galtm/xspectacles/tree/main/src/dot-versus-result)
-* **(NEW!)** [XQuery Makeover to Improve Testability with XSpec](https://github.com/galtm/xspectacles/tree/main/src/xquery-modules)
+* [XQuery Makeover to Improve Testability with XSpec](https://github.com/galtm/xspectacles/tree/main/src/xquery-modules)
