@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="urn:x-xspectacles:functions:ixml"
+  query-at="no-op.xqm"
+  xquery-version="4.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Testing Invisible XML using XSpec"
+    https://medium.com/@xspectacles/testing-invisible-xml-using-xspec-e2b11b24b486
+  -->
+
+  <!--
+  
+  Run this test with BaseX 11.0+, with Markup Blitz on the classpath.
+  
+  ## Setup: Fill in your own paths in the following environment variables.
+  
+  set XSPEC_HOME_URI=file:///C:/.../xspec/
+  set BASEX_HOME=C:\...\BaseX111
+  set XMLCALABASH_JAR=C:\...\xmlcalabash-1.5.7-120\xmlcalabash-1.5.7-120.jar
+  
+  ## Run test, from the directory where this .xspec file is located
+  
+  java -jar "%XMLCALABASH_JAR%" -i source=./ixml-design1.xspec -p xspec-home=%XSPEC_HOME_URI% -p basex-jar="%BASEX_HOME%\lib\markup-blitz-1.4.jar;%BASEX_HOME%\BaseX.jar"  -o result=./ixml-design1-result.html %XSPEC_HOME_URI%src\harnesses\basex\basex-standalone-xquery-harness.xproc
+  
+  -->
+  <x:scenario>
+    <x:label>Generate the iXML function via x:call, and
+      provide input in x:expect/@test</x:label>
+    <x:call function="invisible-xml">
+      <x:param
+        select="'my-ixml-grammar.txt'
+        => resolve-uri($x:xspec-uri)
+        => unparsed-text()"/>
+    </x:call>
+    <!-- The extra x:scenario hierarchy layer below is optional -->
+    <x:scenario label="2024-08-07">
+      <x:expect label="date element with year, month, and day children"
+        test="$x:result('2024-08-07')" select="/">
+        <date>
+          <year>2024</year>
+          <month>08</month>
+          <day>07</day>
+        </date>
+      </x:expect>
+    </x:scenario>
+    <x:scenario label="Deliberately fail so we see how test report depicts failure"
+      pending="skip">
+      <x:expect label="date element with year, month, and day children"
+        test="$x:result('1254-08-30')" select="/">
+        <date>
+          <year>2024</year>
+          <month>08</month>
+          <day>30</day>
+        </date>
+      </x:expect>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->

@@ -1,0 +1,7 @@
+ date = year, -'-', month, -'-', day .
+ year = d, d, d, d .
+month = '0', d | '1', ['0'|'1'|'2'] .
+  day = ['0'|'1'|'2'], d | '3', ['0'|'1'] .
+   -d = ['0'-'9'] .
+   
+{ From https://qt4cg.org/specifications/xpath-functions-40/Overview.html#func-invisible-xml }

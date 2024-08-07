@@ -57,6 +57,9 @@
                         <exclude>schxslt-in-xspec/schxslt-in-xspec-mistakes.xspec</exclude>
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
+                        <!-- Exclude tests that run only with BaseX -->
+                        <exclude>ixml/ixml-design1.xspec</exclude>
+                        <exclude>ixml/ixml-design2.xspec</exclude>
                     </excludes>
                 </configuration>
             </plugin>

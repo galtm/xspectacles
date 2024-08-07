@@ -6,7 +6,7 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 ## Browse by Title
 
 * [6 Tips for Embedding JSON in XSpec Tests](https://github.com/galtm/xspectacles/tree/main/src/json)
-* **(NEW!)** [A Tale of Two Text Nodes, Plus Balisage 2024](https://github.com/galtm/xspectacles/tree/main/src/two-text-nodes)
+* [A Tale of Two Text Nodes, Plus Balisage 2024](https://github.com/galtm/xspectacles/tree/main/src/two-text-nodes)
 * [Adaptable Code Reuse in XSpec, Part 1: Value Templates](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part1)
 * [Adaptable Code Reuse in XSpec, Part 2: XPath Matching](https://github.com/galtm/xspectacles/tree/main/src/code-reuse-adaptable-part2)
 * [But the Diffs Look the Same](https://github.com/galtm/xspectacles/tree/main/src/identical-diffs)
@@ -27,6 +27,7 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Testing an XPath Function Library with XSpec 3.0](https://github.com/galtm/xspectacles/tree/main/src/xpath-function-library)
 * [Testing Boolean-Valued Functions: An XSpec Blooper with Easy Fixes](https://github.com/galtm/xspectacles/tree/main/src/boolean-fcn)
 * [Testing Explicit Whitespace in XSpec](https://github.com/galtm/xspectacles/tree/main/src/space-explicit)
+* **(NEW!)** [Testing Invisible XML using XSpec](https://github.com/galtm/xspectacles/tree/main/src/ixml)
 * [Testing Preformatted or Codelike Text in XSpec](https://github.com/galtm/xspectacles/tree/main/src/space-preformatted)
 * [Testing Schematron Messages with XSpec 3.0](https://github.com/galtm/xspectacles/tree/main/src/schematron-messages)
 * [Testing Schematron Patterns in Isolation](https://github.com/galtm/xspectacles/tree/main/src/isolated-patterns)
