@@ -1,0 +1,12 @@
+# Sample Code for "Testing a RELAX NG Schema Using XSpec"
+# https://medium.com/@xspectacles/testing-a-relax-ng-schema-using-xspec-f238df8bd103
+
+element palette {
+  element color {
+    (attribute red { xsd:nonNegativeInteger },
+     attribute green { xsd:nonNegativeInteger },
+     attribute blue { xsd:nonNegativeInteger })?,
+    element name { text }
+  }+
+}
+# Copyright © 2024 by Amanda Galtman.

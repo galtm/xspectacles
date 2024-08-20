@@ -60,6 +60,7 @@
                         <!-- Exclude tests that run only with BaseX -->
                         <exclude>ixml/ixml-design1.xspec</exclude>
                         <exclude>ixml/ixml-design2.xspec</exclude>
+                        <exclude>relaxng/relaxng-test.xspec</exclude>
                     </excludes>
                 </configuration>
             </plugin>
