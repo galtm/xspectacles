@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample Code for "Testing a RELAX NG Schema Using XSpec"
+  https://medium.com/@xspectacles/testing-a-relax-ng-schema-using-xspec-f238df8bd103
+-->
+<element name="palette" xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <oneOrMore>
+    <element name="color">
+      <optional>
+        <attribute name="red">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+        <attribute name="green">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+        <attribute name="blue">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+      </optional>
+      <element name="name">
+        <text/>
+      </element>
+    </element>
+  </oneOrMore>
+</element>
+<!-- Copyright © 2024 by Amanda Galtman. -->

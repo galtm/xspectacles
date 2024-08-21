@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="palette-schema.rnc" type="application/relax-ng-compact-syntax"?>
+<!--
+  Sample Code for "Testing a RELAX NG Schema Using XSpec"
+  https://medium.com/@xspectacles/testing-a-relax-ng-schema-using-xspec-f238df8bd103
+-->
+<palette>
+  <color red="0" green="138" blue="194">
+    <name>Medium blue</name>
+  </color>
+  <color red="255" green="109" blue="109">
+    <name>Coral</name>
+  </color>
+  <color>
+    <name>Pale yellow</name>
+  </color>
+</palette>
+<!-- Copyright © 2024 by Amanda Galtman. -->

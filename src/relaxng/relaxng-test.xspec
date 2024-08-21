@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  xmlns:validate="http://basex.org/modules/validate"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xv="urn:x-xspectacles:xspec:variables"
+  query="urn:x-xspectacles:functions:noop"
+  query-at="no-op.xqm">
+
+  <!--
+    Sample Code for "Testing a RELAX NG Schema Using XSpec"
+    https://medium.com/@xspectacles/testing-a-relax-ng-schema-using-xspec-f238df8bd103
+  -->
+
+  <!--
+  
+  Run this test with BaseX, with Jing on the classpath.
+  
+  ## Setup: Fill in your own paths in the following environment variables.
+  
+  set XSPEC_HOME_URI=file:///C:/.../xspec/
+  set BASEX_HOME=C:\...\BaseX111
+  set XMLCALABASH_JAR=C:\...\xmlcalabash-1.5.7-120\xmlcalabash-1.5.7-120.jar
+  
+  ## Run test, from the directory where this .xspec file is located
+  
+  java -jar "%XMLCALABASH_JAR%" -i source=./relaxng-test.xspec -p xspec-home=%XSPEC_HOME_URI% -p basex-jar="%BASEX_HOME%\lib\jing-20220510.jar;%BASEX_HOME%\BaseX.jar"  -o result=./relaxng-test-result.html %XSPEC_HOME_URI%src\harnesses\basex\basex-standalone-xquery-harness.xproc
+  
+  -->
+  
+  <x:scenario label="Valid document">
+    <x:call function="validate:rng-report">
+      <x:param name="input" href="document-valid.xml"/>
+      <x:param name="schema"
+        select="'palette-schema.rnc' => resolve-uri($x:xspec-uri)"/>
+      <x:param name="compact" select="true()"/>
+    </x:call>
+    <x:expect label="Valid"
+      test="$x:result/status/text()">valid</x:expect>
+  </x:scenario>
+  <x:scenario label="Invalid document">
+    <x:call function="validate:rng-report">
+      <x:param name="input" href="document-invalid.xml"/>
+      <x:param name="schema" select="resolve-uri('palette-schema.rnc',$x:xspec-uri)"/>
+      <x:param name="compact" select="true()"/>
+    </x:call>
+    <x:expect label="Not valid"
+      test="$x:result/status/text()">invalid</x:expect>
+    <x:scenario label="Check text of validation errors">
+      <x:variable name="xv:actual-error-strings" as="xs:string+"
+        select="$x:result/message/string()"/>
+      <x:variable name="xv:expected-string1" as="xs:string"
+        >element "color" missing required attribute "red"</x:variable>
+      <x:variable name="xv:expected-string2" as="xs:string"
+        >element "name" not allowed here; expected the element end-tag</x:variable>
+      <x:variable name="xv:expected-string2-partial" as="xs:string"
+        >element "name" not allowed here;</x:variable>
+      <x:expect label="Check for validation error 1"
+        test="$xv:expected-string1 = $xv:actual-error-strings"/>
+      <x:expect label="Check for partial validation error 2"
+        test="some $s in $xv:actual-error-strings satisfies
+        contains($s, $xv:expected-string2-partial)"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2024 by Amanda Galtman. -->
