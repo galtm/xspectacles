@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  schematron="../../target/generated-resources/xml/xslt/palette-schema.sch">
+
+  <!--
+    Sample Code for "Testing Schematron Code Embedded in RELAX NG"
+    https://medium.com/@xspectacles/testing-schematron-code-embedded-in-relax-ng-2d5efd63f086
+  -->
+  <x:scenario label="Constraint on name element">
+    <x:scenario label="name element containing a letter">
+      <x:context>
+        <name>A</name>
+      </x:context>
+      <x:expect-not-assert id="name-content"/>
+    </x:scenario>
+    <x:scenario label="Empty name element">
+      <x:context>
+        <palette>
+          <color>
+            <name/>
+          </color>  
+        </palette>
+      </x:context>
+      <x:expect-assert id="name-content"/>
+    </x:scenario>
+    <x:scenario label="Whitespace-only name element">
+      <x:context>
+        <name xml:space="preserve"> </name>
+      </x:context>
+      <x:expect-assert id="name-content"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->

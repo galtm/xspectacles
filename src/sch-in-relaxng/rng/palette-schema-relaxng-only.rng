@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample Code for "Testing Schematron Code Embedded in RELAX NG"
+  https://medium.com/@xspectacles/testing-schematron-code-embedded-in-relax-ng-2d5efd63f086
+-->
+<element name="palette" xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <oneOrMore>
+    <element name="color">
+      <optional>
+        <attribute name="red">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+        <attribute name="green">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+        <attribute name="blue">
+          <data type="nonNegativeInteger"/>
+        </attribute>
+      </optional>
+      <element name="name">
+        <text/>
+      </element>
+    </element>
+  </oneOrMore>
+</element>
+<!-- Copyright © 2024 by Amanda Galtman. -->
