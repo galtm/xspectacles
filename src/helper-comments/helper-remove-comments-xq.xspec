@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:report"
+  query-at="test-target.xqm"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Ignoring Code Comments During XSpec Testing"
+    https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb
+  -->
+
+  <x:helper query="urn:x-xspectacles:functions:helper:remove-comments"
+    query-at="helper-remove-comments.xqm"/>
+
+  <!-- Scenarios for XSLT also work for XQuery, and 
+    XSpec ignores XSLT helper in a test for XQuery.-->
+  <x:import href="helper-remove-comments-xslt.xspec"/>
+
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->

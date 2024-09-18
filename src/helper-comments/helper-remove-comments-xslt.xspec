@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments"
+  xmlns:rpt="urn:x-xspectacles:functions:report"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Ignoring Code Comments During XSpec Testing"
+    https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb
+  -->
+
+  <x:helper stylesheet="helper-remove-comments.xsl"/>
+
+  <x:scenario label="Use helper function">
+    <x:call function="rpt:report">
+      <x:param select="frc:remove-comments(dataset)">
+        <dataset>
+          <data>100</data>
+          <!-- TEST NOTE: Next data element exceeds 2^8. -->
+          <data>257</data>
+          <data>0</data>
+        </dataset>
+      </x:param>
+    </x:call>
+    <x:expect label="String length data for elements"
+      select="frc:remove-comments(report)">
+      <report>
+        <!--Report about data-->
+        <report-item>Sum: 357</report-item>
+        <!-- TEST NOTE: Mean happens to be an integer here. -->
+        <report-item>Mean: 119</report-item>
+      </report>
+    </x:expect>
+  </x:scenario>
+
+  <x:scenario label="Without helper function"
+    pending="Fails due to TEST NOTE: comments">
+    <x:call function="rpt:report">
+      <x:param>
+        <dataset>
+          <data>100</data>
+          <!-- TEST NOTE: Next data element exceeds 2^8. -->
+          <data>257</data>
+          <data>0</data>
+        </dataset>
+      </x:param>
+    </x:call>
+    <x:expect label="Report with standard comment">
+      <report>
+        <!--Report about data-->
+        <report-item>Sum: 357</report-item>
+        <!-- TEST NOTE: Mean happens to be an integer here. -->
+        <report-item>Mean: 119</report-item>
+      </report>
+    </x:expect>
+  </x:scenario>
+
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->
