@@ -22,7 +22,7 @@
         </dataset>
       </x:param>
     </x:call>
-    <x:expect label="String length data for elements"
+    <x:expect label="Report with standard comment"
       select="frc:remove-comments(report)">
       <report>
         <!--Report about data-->
