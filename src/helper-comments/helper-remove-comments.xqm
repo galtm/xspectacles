@@ -37,7 +37,7 @@ $node as element()
     for $n in in-scope-prefixes($node)
     return
       namespace {$n} {namespace-uri-for-prefix($n, $node)},
-    $node/@attribute(),
+    $node/@*,
     for $child in $node/node()
     return
       frc:remove-comments($child)
