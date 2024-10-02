@@ -11,12 +11,13 @@
   -->
 
   <!--
-    Removes certain comments from $node, assumed to be an element,
+    Remove certain comments from $node, assumed to be an element,
     document node, or empty sequence. The comments to remove are those
     whose space-normalized content starts with 'TEST NOTE:'.
   -->
-  <xsl:function name="frc:remove-comments" as="node()" visibility="public">
-    <xsl:param name="element-or-document-node" as="node()"/>
+  <xsl:function name="frc:remove-comments" as="node()?"
+    visibility="public">
+    <xsl:param name="element-or-document-node" as="node()?"/>
     <xsl:apply-templates select="$element-or-document-node"
       mode="mrc:remove-comments"/>
   </xsl:function>

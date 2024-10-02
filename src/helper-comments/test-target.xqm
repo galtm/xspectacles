@@ -1,9 +1,9 @@
-xquery version "3.1";
+xquery version "1.0";
 module namespace rpt = "urn:x-xspectacles:functions:report";
 
 (:
-  Sample Code for "Ignoring Code Comments During XSpec Testing"
-  https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb
+  Sample Code for "Ignoring Code Comments During XSpec Testing, Part 2"
+  https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-part-2-8266ee8ceccc
 :)
 
 declare function rpt:report(
