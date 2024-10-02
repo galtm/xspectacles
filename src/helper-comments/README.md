@@ -13,5 +13,7 @@ Example files for XQuery:
 - `helper-remove-comments-xq.xspec`
 
 
-#### Link to Topic
-[Ignoring Code Comments During XSpec Testing](https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb)
+#### Links to Topics
+
+- [Ignoring Code Comments During XSpec Testing, Part 1](https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb)
+- [Ignoring Code Comments During XSpec Testing, Part 2](https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-part-2-8266ee8ceccc)

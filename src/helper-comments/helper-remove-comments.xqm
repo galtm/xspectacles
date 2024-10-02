@@ -1,20 +1,21 @@
-xquery version "3.1";
+xquery version "1.0";
 module namespace frc = "urn:x-xspectacles:functions:helper:remove-comments";
 
 (:
-  Sample Code for "Ignoring Code Comments During XSpec Testing"
-  https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb
+  Sample Code for "Ignoring Code Comments During XSpec Testing, Part 2"
+  https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-part-2-8266ee8ceccc
 :)
 
 declare variable $frc:prefix as xs:string := 'TEST NOTE:';
+
 (:
-Removes certain comments from $node, assumed to be an element,
+Remove certain comments from $node, assumed to be an element,
 document node, or empty sequence. The comments to remove are those
 whose space-normalized content starts with 'TEST NOTE:'.
 :)
-declare %public function frc:remove-comments(
+declare function frc:remove-comments(
 $node as node()?
-) {
+) as node()? {
   typeswitch ($node)
     case comment()
       return
@@ -30,7 +31,30 @@ $node as node()?
         $node
 };
 
-declare %private function frc:element-handler(
+(: Discard comment nodes that start with specified prefix. :)
+declare function frc:comment-handler(
+$node as comment()
+) as comment()? {
+  if (starts-with(normalize-space($node), $frc:prefix))
+  then
+    ()
+  else
+    $node
+};
+
+(: Create document node and process children. :)
+declare function frc:doc-node-handler(
+$node as document-node()
+) as document-node() {
+  document {
+    for $child in $node/node()
+    return
+      frc:remove-comments($child)
+  }
+};
+
+(: Create element wrapper and process children. :)
+declare function frc:element-handler(
 $node as element()
 ) as element() {
   element {node-name($node)} {
@@ -42,26 +66,6 @@ $node as element()
     return
       frc:remove-comments($child)
   }
-};
-
-declare %private function frc:doc-node-handler(
-$node as document-node()
-) as document-node() {
-  document {
-    for $child in $node/node()
-    return
-      frc:remove-comments($child)
-  }
-};
-
-declare %private function frc:comment-handler(
-$node as comment()
-) as comment()? {
-  if (starts-with(normalize-space($node), $frc:prefix))
-  then
-    ()
-  else
-    $node
 };
 
 (: Copyright © 2024 by Amanda Galtman. :)

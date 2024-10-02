@@ -5,8 +5,8 @@
   xmlns:x="http://www.jenitennison.com/xslt/xspec">
 
   <!--
-    Sample Code for "Ignoring Code Comments During XSpec Testing"
-    https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-a460f35a25bb
+    Sample Code for "Ignoring Code Comments During XSpec Testing, Part 2"
+    https://medium.com/@xspectacles/ignoring-code-comments-during-xspec-testing-part-2-8266ee8ceccc
   -->
 
   <x:helper query="urn:x-xspectacles:functions:helper:remove-comments"
