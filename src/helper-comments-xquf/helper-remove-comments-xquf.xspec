@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:report"
+  query-at="../helper-comments/test-target.xqm"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments:xquf"
+  xmlns:rpt="urn:x-xspectacles:functions:report"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "XQuery Update Facility Can Simplify XSpec Test Helper Functions"
+    https://medium.com/@xspectacles/xquery-update-facility-can-simplify-xspec-test-helper-functions-803a7b362002
+  -->
+
+  <x:helper
+    query="urn:x-xspectacles:functions:helper:remove-comments:xquf"
+    query-at="helper-remove-comments-xquf.xqm"/>
+
+  <x:import href="../helper-comments/helper-remove-comments-xslt.xspec"/>
+
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->
