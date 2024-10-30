@@ -93,6 +93,7 @@
                         <exclude>ixml/ixml-design1.xspec</exclude>
                         <exclude>ixml/ixml-design2.xspec</exclude>
                         <exclude>relaxng/relaxng-test.xspec</exclude>
+                        <exclude>helper-comments-xquf/helper-remove-comments-xquf.xspec</exclude>
                     </excludes>
                 </configuration>
             </plugin>
