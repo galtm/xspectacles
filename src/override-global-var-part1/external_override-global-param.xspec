@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<x:description run-as="external"
+  stylesheet="test-target-for-external.xsl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Overriding Global XSLT Variables in XSpec, Part 1"
+    https://medium.com/@xspectacles/overriding-global-xslt-variables-in-xspec-part1-d5c00bd1550d
+  -->
+
+  <x:scenario label="Replace xsl:variable with xsl:param in XSLT">
+    <x:scenario label="With x:param, template uses">
+      <x:param name="my-param" select="'from x:param'"/>
+      <x:param name="data-file-name" select="'test-data1.xml'"/>
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="the provided values"
+        select="('from x:param', 'test-data1.xml')"/>
+    </x:scenario>
+    <x:scenario label="Without x:param, template uses">
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="default values from XSLT"
+        select="('from production', 'production.xml')"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->
