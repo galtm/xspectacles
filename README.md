@@ -21,6 +21,7 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [Multiple Cases in One XSpec Scenario](https://github.com/galtm/xspectacles/tree/main/src/context-sequence)
 * [My XML Content in XSpec Causes an Error](https://github.com/galtm/xspectacles/tree/main/src/xml-content-error)
 * [One-or-More Ways to Foil Empty-Sequence Surprises in XSpec](https://github.com/galtm/xspectacles/tree/main/src/one-or-more)
+* **(NEW!)** [Overriding Global XSLT Variables in XSpec, Part 1](https://github.com/galtm/xspectacles/tree/main/src/override-global-var-part1)
 * [Saying "Almost Valid" or "Beyond Valid" in XSpec Tests for Schematron](https://github.com/galtm/xspectacles/tree/main/src/almost-valid)
 * [Saying "Not Yet" in XSpec](https://github.com/galtm/xspectacles/tree/main/src/pending)
 * [Saying "Whatever" in XSpec: How, Why, When](https://github.com/galtm/xspectacles/tree/main/src/three-dots)
@@ -38,4 +39,4 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [The Equality Check that's Neither True Nor False](https://github.com/galtm/xspectacles/tree/main/src/non-boolean-eq)
 * [Ways to Access XSLT Result in XSpec Testing: Dot Versus Result Variable](https://github.com/galtm/xspectacles/tree/main/src/dot-versus-result)
 * [XQuery Makeover to Improve Testability with XSpec](https://github.com/galtm/xspectacles/tree/main/src/xquery-modules)
-* **(NEW!)** [XQuery Update Facility Can Simplify XSpec Test Helper Functions](https://github.com/galtm/xspectacles/tree/main/src/helper-comments-xquf)
+* [XQuery Update Facility Can Simplify XSpec Test Helper Functions](https://github.com/galtm/xspectacles/tree/main/src/helper-comments-xquf)
