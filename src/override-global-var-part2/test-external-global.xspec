@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  run-as="external" stylesheet="test-only-stylesheet.xsl"
+  xslt-version="2.0">
+
+  <!--
+    Sample Code for "Overriding Global XSLT Variables in XSpec, Part 2"
+    https://medium.com/@xspectacles/overriding-global-xslt-variables-in-xspec-part-2-31829081f982
+  -->
+
+  <x:scenario>
+    <x:label>
+      Test-only stylesheet overrides global xsl:variable as xsl:param
+      during external transformation
+    </x:label>
+    <x:scenario label="x:param selects values A and test-data1.xml">
+      <x:param name="my-param" select="'A'"/>
+      <x:param name="data-file-name" select="'test-data1.xml'"/>
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="Result reflects values from XSpec"
+        select="('A', 'test-data1.xml')"/>
+    </x:scenario>
+    <x:scenario label="x:param selects values A and test-data2.xml">
+      <x:param name="my-param" select="'A'"/>
+      <x:param name="data-file-name" select="'test-data2.xml'"/>
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="Result reflects values from XSpec"
+        select="('A', 'test-data2.xml')"/>
+    </x:scenario>
+    <x:scenario label="x:param selects values B and test-data1.xml">
+      <x:param name="my-param" select="'B'"/>
+      <x:param name="data-file-name" select="'test-data1.xml'"/>
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="Result reflects values from XSpec"
+        select="('B', 'test-data1.xml')"/>
+    </x:scenario>
+    <!-- And so on, for other combinations of values -->
+  </x:scenario>
+
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->
