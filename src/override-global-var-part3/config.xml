@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample Code for "Overriding Global XSLT Variables in XSpec, Part 3"
+  https://medium.com/@xspectacles/overriding-global-xslt-variables-in-xspec-part-3-545205cef963
+-->
+<configuration xmlns="http://saxon.sf.net/ns/configuration">
+  <xsltPackages>
+    <package name="urn:x-xspectacles:pkgs:production-pkg"
+      version="1.0"
+      sourceLocation="production-pkg/production-pkg.xsl"/>
+    <package name="urn:x-xspectacles:pkgs:test-only-pkg"
+      version="1.0"
+      sourceLocation="test-only-pkg/test-only-pkg.xsl"/>
+  </xsltPackages>
+</configuration>
+<!-- Copyright © 2024 by Amanda Galtman. -->
