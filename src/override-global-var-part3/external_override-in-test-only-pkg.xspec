@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<x:description run-as="external"
+  stylesheet="test-only-pkg/test-only-pkg.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Overriding Global XSLT Variables in XSpec, Part 3"
+    https://medium.com/@xspectacles/overriding-global-xslt-variables-in-xspec-part-3-545205cef963
+  -->
+
+  <x:variable name="x:saxon-config" href="config.xml"/>
+  <x:scenario>
+    <x:label>
+      Test-only package overrides global xsl:variable as xsl:param
+      during external transformation to test an XSLT package
+    </x:label>
+    <x:scenario label="With x:param, template uses">
+      <x:param name="my-param" select="'from x:param'"/>
+      <x:param name="data-file-name" select="'test-data1.xml'"/>
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="the provided values"
+        select="('from x:param', 'test-data1.xml')"/>
+    </x:scenario>
+    <x:scenario label="Without x:param, template uses">
+      <x:call template="show-values-of-globals"/>
+      <x:expect label="values from production and xsl:override"
+        select="('from production', 'test-data-from-override.xml')"/>
+    </x:scenario>
+  </x:scenario>
+</x:description>
+<!-- Copyright © 2024 by Amanda Galtman. -->
