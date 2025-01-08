@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:diff-colors"
+  query-at="diff-colors.xqm" xquery-version="1.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Interpreting XML Diffs in XSpec Test Reports"
+    https://medium.com/@xspectacles/interpreting-xml-diffs-in-xspec-test-reports-ce37358ac2bd
+  -->
+
+  <x:scenario label="Deliberate failure to illustrate diffs in report">
+    <x:call function="mf:make-doc"
+      xmlns:mf="urn:x-xspectacles:functions:diff-colors"/>
+    <x:expect label="Document">
+      <doc>
+        <section class="sect1">
+          <title class="heading">Elements</title>
+          <para>Alpha</para>
+          <remark>Beta</remark>
+          <para>Gamma</para>
+        </section>
+        <section class="sect1">
+          <title class="heading">Text</title>
+          <para>Some text</para>
+          <para>More interesting text</para>
+        </section>
+        <section class="sect1">
+          <title class="heading">Attributes</title>
+          <para>First</para>
+          <para id="p2">Second</para>
+          <para id="p33">Third</para>
+        </section>
+      </doc>
+    </x:expect>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

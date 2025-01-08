@@ -85,6 +85,7 @@
                     <testDir>${project.basedir}/src</testDir>
                     <excludes>
                         <!-- Exclude tests that fail deliberately. -->
+                        <exclude>diff-colors/diff-colors.xspec</exclude>
                         <exclude>pending/pending-error-xq.xspec</exclude>
                         <exclude>schxslt-in-xspec/schxslt-in-xspec-mistakes.xspec</exclude>
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
