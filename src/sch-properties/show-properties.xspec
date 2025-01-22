@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  schematron="show-properties.sch">
+
+  <!--
+    Sample code for "Troubleshooting Schematron? XSpec Can Help."
+    https://medium.com/@xspectacles/troubleshooting-schematron-xspec-can-help-d389fd51aa9f
+  -->
+
+  <x:scenario label="Link with href">
+    <x:context href="sample-link.xml"/>
+    <x:expect-not-assert id="check-href"/>
+    <x:scenario label="Temporary">
+      <x:expect label="Show properties"
+        test="//*[@id = 'investigate-check-href']"
+        as="item()*"/>
+    </x:scenario>
+  </x:scenario>
+  
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

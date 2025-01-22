@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  schematron="show-properties-step2.sch">
+
+  <!--
+    Sample code for "Troubleshooting Schematron? XSpec Can Help."
+    https://medium.com/@xspectacles/troubleshooting-schematron-xspec-can-help-d389fd51aa9f
+  -->
+
+  <x:import href="show-properties.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
