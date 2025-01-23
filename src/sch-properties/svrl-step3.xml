@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  location="/Q{}link[1]"
+  id="investigate-check-href"
+  test="true()">
+  <svrl:property-reference property="topic-source-uri">
+    <svrl:text>file:/.../sch-properties/html/target-topic.html</svrl:text>
+  </svrl:property-reference>
+  <svrl:property-reference property="available">
+    <svrl:text>true</svrl:text>
+  </svrl:property-reference>
+  <svrl:property-reference property="doc">
+    <svrl:text>
+      <html xmlns="http://www.w3.org/1999/xhtml"
+        id="topic-id">\n␣␣<head>\n␣␣␣␣<title>Some Target Topic</title>\n␣␣</head>\n␣␣<body>\n␣␣␣␣<p id="some-target-id">A paragraph</p>\n␣␣</body>\n</html>
+    </svrl:text>
+  </svrl:property-reference>
+  <svrl:property-reference property="all-ids">
+    <svrl:text>topic-id some-target-id</svrl:text>
+  </svrl:property-reference>
+</svrl:successful-report>

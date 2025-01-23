@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+  location="/Q{}link[1]"
+  id="investigate-check-href"
+  test="true()">
+  <svrl:property-reference property="anchor">
+    <svrl:text>some-target-id</svrl:text>
+  </svrl:property-reference>
+  <svrl:property-reference property="all-ids">
+    <svrl:text />
+  </svrl:property-reference>
+</svrl:successful-report>

@@ -87,6 +87,9 @@
                         <!-- Exclude tests that fail deliberately. -->
                         <exclude>diff-colors/diff-colors.xspec</exclude>
                         <exclude>pending/pending-error-xq.xspec</exclude>
+                        <exclude>sch-properties/show-properties.xspec</exclude>
+                        <exclude>sch-properties/show-properties-step2.xspec</exclude>
+                        <exclude>sch-properties/show-properties-step3.xspec</exclude>
                         <exclude>schxslt-in-xspec/schxslt-in-xspec-mistakes.xspec</exclude>
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
