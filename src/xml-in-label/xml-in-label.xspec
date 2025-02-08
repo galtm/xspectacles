@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "How to Write XML Markup in XSpec Labels"
+    https://medium.com/@xspectacles/how-to-write-xml-markup-in-xspec-labels-8b24c9829196
+  -->
+
+  <x:scenario label="Using label attribute">
+    <x:scenario label="Creating a two-column table when the context node is a
+      'data' element containing three 'value' elements">
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario label='Creating a two-column table when the context node is a
+      "data" element containing three "value" elements'>
+      <x:like label='Interior content of scenario'/>
+    </x:scenario>
+    <x:scenario label="(Both brackets escaped) Creating a two-column table when the context node is a
+      &lt;data&gt; element containing three &lt;value&gt; elements">
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario label="(Left brackets escaped) Creating a two-column table when the context node is a
+      &lt;data> element containing three &lt;value> elements">
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Using x:label element">
+    <x:scenario>
+      <x:label>Creating a two-column table when the context node is a
+        'data' element containing three 'value' elements</x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label>Creating a two-column table when the context node is a
+        "data" element containing three "value" elements</x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label>(Both brackets escaped) Creating a two-column table when the context node is a
+        &lt;data&gt; element containing three &lt;value&gt; elements</x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label>(Left brackets escaped) Creating a two-column table when the context node is a
+        &lt;data> element containing three &lt;value> elements</x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label><![CDATA[
+      (CDATA section) Creating a two-column table when the context
+      node is a <data> element containing three <value> elements
+      ]]></x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label><![CDATA[I can type < & > here!]]></x:label>
+      <x:like label="Interior content of scenario"/>
+    </x:scenario>
+  </x:scenario>
+  
+  <x:scenario shared="yes" label="Interior content of scenario">
+    <x:context>
+      <data>
+        <value>A</value>
+        <value>B</value>
+        <value>C</value>
+      </data>
+    </x:context>
+    <x:call template="createTable">
+      <x:param name="cols" select="2" />
+    </x:call>
+    <x:expect label="distributes the three values along the first column">
+      <table>
+        <thead/>
+        <tbody>
+          <tr>
+            <td>A</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>B</td>
+            <td/>
+          </tr>
+          <tr>
+            <td>C</td>
+            <td/>
+          </tr>
+        </tbody>
+      </table>
+    </x:expect>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
