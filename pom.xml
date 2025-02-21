@@ -85,6 +85,8 @@
                     <testDir>${project.basedir}/src</testDir>
                     <excludes>
                         <!-- Exclude tests that fail deliberately. -->
+                        <exclude>decimal-comparison/decimal-comparison-failure-xq.xspec</exclude>
+                        <exclude>decimal-comparison/decimal-comparison-failure-xslt.xspec</exclude>
                         <exclude>diff-colors/diff-colors.xspec</exclude>
                         <exclude>pending/pending-error-xq.xspec</exclude>
                         <exclude>sch-properties/show-properties.xspec</exclude>

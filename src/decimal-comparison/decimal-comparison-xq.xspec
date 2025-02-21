@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:decimal-comparison"
+  query-at="test-target.xqm"
+  xmlns:f="urn:x-xspectacles:functions:decimal-comparison"
+  xmlns:hf="urn:x-xspectacles:functions:helper:decimal-comparison"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Decimal Number Comparison in XSpec"
+    https://medium.com/@xspectacles/decimal-number-comparison-in-xspec-86f3246f542b
+  -->
+
+  <x:helper query="urn:x-xspectacles:functions:helper:decimal-comparison"
+    query-at="helper.xqm"/>
+
+  <x:import href="decimal-comparison-xslt.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xmlns:f="urn:x-xspectacles:functions:decimal-comparison"
+  xmlns:hf="urn:x-xspectacles:functions:helper"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Decimal Number Comparison in XSpec"
+    https://medium.com/@xspectacles/decimal-number-comparison-in-xspec-86f3246f542b
+  -->
+
+  <x:helper stylesheet="helper.xsl"/>
+
+  <x:scenario label="Test slope computation">
+    <x:call function="f:slope">
+      <x:param select="(3, 1)"/>
+      <x:param select="(0, 0)"/>
+    </x:call>
+    <x:expect label="Compare approximation of 1/3 (fragile)"
+      select="0.333333333333333333"/>
+    <x:expect label="Compare approximation of 1/3, with tolerance"
+      test="abs($x:result - 0.333) &lt; 0.001"/>
+    <x:expect label="Compare approximation of 1/3, with tolerance"
+      test="hf:compare-with-tolerance-map($x:result, 0.333, 0.001)"
+      select="map{'result': 'Within tolerance'}"/>
+    <x:expect label="Compare approximation of 1/3, with tolerance"
+      test="hf:compare-with-tolerance-text($x:result, 0.333, 0.001)"
+      >Within tolerance</x:expect>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
