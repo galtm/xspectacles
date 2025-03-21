@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xslt-version="3.0"
+  xmlns:f="urn:x-xspectacles:functions:pointing-to-files"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Pointing to XML and Other Files in XSpec"
+    https://medium.com/@xspectacles/pointing-to-xml-and-other-files-in-xspec-fee4dc6c33f1
+  -->
+
+  <x:scenario label="XML document output (xml:base on x:scenario)"
+    xml:base="data/">
+    <x:call function="f:output-some-xml"/>
+    <x:expect label="matches expected result in XML file"
+      href="expected-output.xml" select="/*"/>
+  </x:scenario>
+
+  <x:scenario label="XML document output (xml:base on x:expect)">
+    <x:call function="f:output-some-xml"/>
+    <x:expect label="matches expected result in XML file"
+      href="expected-output.xml" select="/*"
+      xml:base="data/"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

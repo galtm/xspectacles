@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="../test-target.xsl"
+  xslt-version="3.0"
+  xmlns:f="urn:x-xspectacles:functions:pointing-to-files"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Pointing to XML and Other Files in XSpec"
+    https://medium.com/@xspectacles/pointing-to-xml-and-other-files-in-xspec-fee4dc6c33f1
+  -->
+
+  <x:scenario label="XML document output">
+    <x:call function="f:output-some-xml"/>
+    <x:expect label="matches expected result in XML file"
+      href="../data/expected-output.xml" select="/*"/>
+  </x:scenario>
+
+  <x:scenario label="Map output">
+    <x:call function="f:output-some-json"/>
+    <x:pending>
+      <x:label>cannot retrieve
+        file:/.../pointing-to-files/xspec/data/expected-output.json</x:label>
+      <x:expect label="matches expected result in JSON file (INCORRECT PATH)"
+        select="json-doc('../data/expected-output.json')"/>
+    </x:pending>
+    <x:expect select="json-doc('../../data/expected-output.json')"
+      pending="Does not work in CI/CD because files are somewhere else">
+      <x:label>
+        matches expected result in JSON file.
+        Note: Extra ../ assumes intermediate files are in subfolder
+        relative to this file, and that might not always be true.
+      </x:label>
+    </x:expect>
+    <x:expect label="matches expected result in JSON file"
+      select="'../data/expected-output.json'
+      => resolve-uri($x:xspec-uri)
+      => json-doc()"/>
+  </x:scenario>
+
+  <x:scenario label="Text output">
+    <x:call function="f:output-some-text"/>
+    <x:expect test="string($x:result)"
+      select="unparsed-text('../../data/expected-output.md')
+      => replace('&#13;','')"
+      pending="Does not work in CI/CD because files are somewhere else">
+      <x:label>
+        matches expected result in Markdown file.
+        Note: Extra ../ assumes intermediate files are in subfolder
+        relative to this file, and that might not always be true.
+      </x:label>
+    </x:expect>
+    <x:expect label="matches expected result in Markdown file"
+      test="string($x:result)"
+      select="'../data/expected-output.md'
+      => resolve-uri($x:xspec-uri)
+      => unparsed-text()
+      => replace('&#13;','')"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
