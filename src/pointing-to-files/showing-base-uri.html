@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Values of base-uri-of-element Accumulator for Tree in pointing-to-files-xml-base.xspec</title>
+      <style type="text/css">
+.pi       {color: #8B26C9;}
+.comment  {color: #006400;}
+.tag      {color: #0072AA;}
+.attrname {color: #F5844C;}
+.attrval  {color: #993300;}
+h1 { font-size:160%; color: #393E46;}
+p, summary { color: #0072AA; margin-top: 2px; margin-bottom: 5px; font-weight: bold;}
+code, pre { color: #222831; margin-top: 2px; font-weight: normal;}
+table, th, td {border: 1px #222831 dotted;}
+table { border-collapse: collapse; width: 100%; margin-top: 2em;}
+th, td { padding: 0px 8px 0px 8px; }
+th { background-color: #0072AA; color: #EEEEEE; padding: 5px 5px;}</style>
+   </head>
+   <body>
+      <h1>Values of base-uri-of-element Accumulator for Tree in pointing-to-files-xml-base.xspec</h1>
+      <p>Document URI: <code>file:/.../xspectacles/src/pointing-to-files/pointing-to-files-xml-base.xspec</code></p>
+      <p>Accumulator declaration URI: <code>file:/.../xspectacles/src/pointing-to-files/showing-base-uri.xsl</code></p>
+      <details>
+         <summary>Declaration</summary>
+         <pre>
+&lt;xsl:accumulator xmlns:f="urn:x-xspectacles:functions:pointing-to-files"
+                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                 name="base-uri-of-element"
+                 as="xs:string?"
+                 initial-value="()"&gt;
+   &lt;xsl:accumulator-rule match="element()"
+                         select="(base-uri() =&amp;gt; replace('^.*src/','')) ! concat('file:/.../', .)"/&gt;
+   &lt;xsl:accumulator-rule match="document-node()" phase="end" select="()"/&gt;
+   &lt;xsl:accumulator-rule match="text()[normalize-space() eq '']" select="'reset report'"/&gt;
+&lt;/xsl:accumulator&gt;
+</pre>
+      </details>
+      <table>
+         <tbody>
+            <tr>
+               <td>  <span class="tag">&lt;x:description</span><span class="attrname"> stylesheet=</span><span class="attrval">"test-target.xsl"</span><span class="attrname"> xslt-version=</span><span class="attrval">"3.0"</span><span class="tag">&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/pointing-to-files-xml-base.xspec"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>    <span class="tag">&lt;x:scenario</span><span class="attrname"> label=</span><span class="attrval">"XML document output (xml:base on x:scenario)"</span><strong><span class="attrname"> xml:base=</span><span class="attrval">"data/"</span></strong><span class="tag">&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/data/"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>      <span class="tag">&lt;x:call</span><span class="attrname"> function=</span><span class="attrval">"f:output-some-xml"</span><span class="tag">/&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/data/"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>      <span class="tag">&lt;x:expect</span><span class="attrname"> label=</span><span class="attrval">"matches expected result in XML file"</span><span class="attrname"> href=</span><span class="attrval">"expected-output.xml"</span><span class="attrname"> select=</span><span class="attrval">"/*"</span><span class="tag">/&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/data/"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>    <span class="tag">&lt;/x:scenario&gt;</span></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>    <span class="tag">&lt;x:scenario</span><span class="attrname"> label=</span><span class="attrval">"XML document output (xml:base on x:expect)"</span><span class="tag">&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/pointing-to-files-xml-base.xspec"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>      <span class="tag">&lt;x:call</span><span class="attrname"> function=</span><span class="attrval">"f:output-some-xml"</span><span class="tag">/&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/pointing-to-files-xml-base.xspec"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>      <span class="tag">&lt;x:expect</span><span class="attrname"> label=</span><span class="attrval">"matches expected result in XML file"</span><span class="attrname"> href=</span><span class="attrval">"expected-output.xml"</span><span class="attrname"> select=</span><span class="attrval">"/*"</span><strong><span class="attrname"> xml:base=</span><span class="attrval">"data/"</span></strong><span class="tag">/&gt;</span></td>
+               <td>
+                  <pre>"file:/.../pointing-to-files/data/"</pre>
+               </td>
+            </tr>
+            <tr>
+               <td>    <span class="tag">&lt;/x:scenario&gt;</span></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>  <span class="tag">&lt;/x:description&gt;</span></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>
