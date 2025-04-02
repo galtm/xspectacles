@@ -89,6 +89,7 @@
                         <exclude>decimal-comparison/decimal-comparison-failure-xslt.xspec</exclude>
                         <exclude>diff-colors/diff-colors.xspec</exclude>
                         <exclude>pending/pending-error-xq.xspec</exclude>
+                        <exclude>pointing-by-catalog/pointing-without-catalog.xspec</exclude>
                         <exclude>sch-properties/show-properties.xspec</exclude>
                         <exclude>sch-properties/show-properties-step2.xspec</exclude>
                         <exclude>sch-properties/show-properties-step3.xspec</exclude>
@@ -101,6 +102,7 @@
                         <exclude>relaxng/relaxng-test.xspec</exclude>
                         <exclude>helper-comments-xquf/helper-remove-comments-xquf.xspec</exclude>
                     </excludes>
+                    <catalogFile>${project.basedir}/src/pointing-by-catalog/data/DATA-CATALOG.xml</catalogFile>
                 </configuration>
             </plugin>
         </plugins>

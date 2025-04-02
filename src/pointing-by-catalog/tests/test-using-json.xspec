@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="../test-target.xsl"
+  xslt-version="3.0"
+  xmlns:f="urn:x-xspectacles:functions:pointing-by-catalog"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample code for "Portable and Importable File References in XSpec"
+    https://medium.com/@xspectacles/portable-and-importable-file-references-in-xspec-c2aa0adc50fc
+  -->
+
+  <x:scenario label="XML document output">
+    <x:call function="f:output-some-xml"/>
+    <x:expect label="matches expected result in XML file"
+      href="../data/expected-output.xml" select="/*"/>
+  </x:scenario>
+
+  <x:scenario label="Map output">
+    <x:call function="f:output-some-json"/>
+    <x:expect label="matches expected result in JSON file"
+      select="'../data/expected-output.json'
+      => resolve-uri($x:xspec-uri)
+      => json-doc()"/>
+  </x:scenario>
+
+  <x:scenario label="Text output">
+    <x:call function="f:output-some-text"/>
+    <x:expect label="matches expected result in Markdown file"
+      test="string($x:result)"
+      select="'../data/expected-output.md'
+      => resolve-uri($x:xspec-uri)
+      => unparsed-text()
+      => replace('&#13;','')"/>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:pointing-by-catalog"
+  query-at="../test-target.xqm"
+  xmlns:f="urn:x-xspectacles:functions:pointing-by-catalog"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Portable and Importable File References in XSpec"
+    https://medium.com/@xspectacles/portable-and-importable-file-references-in-xspec-c2aa0adc50fc
+  -->
+
+  <!-- Scenarios are the same as in the XSLT case. -->
+  <x:import href="pointing-by-catalog-subfolder.xspec"/>
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
