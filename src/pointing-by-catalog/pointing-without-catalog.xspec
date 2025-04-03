@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xslt-version="3.0"
+  xmlns:f="urn:x-xspectacles:functions:pointing-by-catalog"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Portable and Importable File References in XSpec"
+    https://medium.com/@xspectacles/portable-and-importable-file-references-in-xspec-c2aa0adc50fc
+  -->
+
+  <!-- Error: cannot retrieve file:/.../xspectacles/src/data/expected-output.json -->
+
+  <!-- When this file is executed, the $x:xspec-uri value
+    refers to this parent file location, even in the code coming from
+    the imported file located at a different hierarchy level. -->
+  <x:import href="tests/test-using-json.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="test-target.xsl"
+  xslt-version="3.0"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample code for "Portable and Importable File References in XSpec"
+    https://medium.com/@xspectacles/portable-and-importable-file-references-in-xspec-c2aa0adc50fc
+  -->
+
+  <x:import href="tests/pointing-by-catalog-subfolder.xspec"/>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
