@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is just a schematic and not executable -->
+<x:description stylesheet="test-target.xsl"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">   <!-- here, -->
+  <x:scenario label="Where to declare xh prefix?">    <!-- here, -->
+    <x:scenario label="Child scenario">               <!-- here, -->
+      <x:context href="file.html" select="//xh:div"/> <!-- or here -->
+    </x:scenario>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
