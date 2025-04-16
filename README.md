@@ -46,5 +46,6 @@ Each post corresponds to a [subfolder under `src/`](https://github.com/galtm/xsp
 * [The Equality Check that's Neither True Nor False](https://github.com/galtm/xspectacles/tree/main/src/non-boolean-eq)
 * [Troubleshooting Schematron? XSpec Can Help.](https://github.com/galtm/xspectacles/tree/main/src/sch-properties)
 * [Ways to Access XSLT Result in XSpec Testing: Dot Versus Result Variable](https://github.com/galtm/xspectacles/tree/main/src/dot-versus-result)
+* [Where to Put Namespace Declarations in XSpec Tests](https://github.com/galtm/xspectacles/tree/main/src/namespaces-xquery)
 * [XQuery Makeover to Improve Testability with XSpec](https://github.com/galtm/xspectacles/tree/main/src/xquery-modules)
 * [XQuery Update Facility Can Simplify XSpec Test Helper Functions](https://github.com/galtm/xspectacles/tree/main/src/helper-comments-xquf)

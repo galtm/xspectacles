@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:namespaces-xquery"
+  query-at="test-target.xqm"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Where to Put Namespace Declarations in XSpec Tests"
+    https://medium.com/@xspectacles/where-to-put-namespace-declarations-in-xspec-tests-e98c2852575b
+  -->
+
+  <x:import href="imported-file.xspec"/>
+
+  <!-- This file declares the 'f' prefix on x:scenario. -->
+  <x:scenario shared="yes" label="function call"
+    xmlns:f="urn:x-xspectacles:functions:namespaces-xquery">
+    <x:call function="f:do-something"/>
+  </x:scenario>
+
+  <x:scenario label="(Main XSpec file) Calling the function">
+    <x:like label="function call"/>
+    <x:expect label="returns some element">
+      <some-element/>
+    </x:expect>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
