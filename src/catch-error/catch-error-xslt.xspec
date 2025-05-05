@@ -53,7 +53,12 @@
     </x:context>
     <x:expect label="x:result reports error for bar and omits actual result for foo"
       test="$x:result?err?description"
-      select="'No user-defined template rule in mode my-mode matches the node /bar'"/>
+      select="'No user-defined template rule in mode my-mode matches &lt;bar&gt;'"/>
+    <!--
+      Note: Saxon 12.6 uses the message in x:expect/@select above.
+      Saxon 12.5 has a slightly different message:
+      'No user-defined template rule in mode my-mode matches the node /bar'
+    -->
   </x:scenario>
 </x:description>
 
