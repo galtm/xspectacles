@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="urn:x-xspectacles:functions:catch-error"
+  query-at="../catch-error/catch-error.xqm"
+  xmlns:f="urn:x-xspectacles:functions:catch-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample Code for "Pre-Checking the Result Type in XSpec"
+    https://medium.com/@xspectacles/pre-checking-the-result-type-in-xspec-804d2cc0a3a2
+  -->
+
+  <!-- NOTE: This file requires the x:expect/@result-type feature,
+    upcoming in XSpec v3.3. -->
+
+  <x:scenario label="Scenarios with error catching">
+    <x:scenario label="Reciprocal of 0" catch="yes">
+      <x:call function="f:one-over">
+        <x:param select="25 (: WRONG argument, for illustration :)"/>
+      </x:call>
+      <!-- Expected error does not occur -->
+      <x:expect label="raises an error? Actually, no. (FAILS)"
+        result-type="map(*)"
+        test="$x:result?err?description"
+        select="'one-over() does not support n=0'"/>
+    </x:scenario>
+    <x:scenario label="Reciprocal of 25" catch="yes">
+      <x:call function="f:one-over">
+        <x:param select="0 (: WRONG argument, for illustration :)"/>
+      </x:call>
+      <!-- Unexpected error occurs -->
+      <x:expect label="is less than 1 (FAILS)"
+        result-type="xs:numeric"
+        test="$x:result lt 1"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Ways to check both type and value">
+    <x:call function="data">
+      <x:param select="xs:integer(1)"/>
+    </x:call>
+    <x:scenario label="Less concise, using two x:expect elements">
+      <x:expect label="is an integer"
+        test="$x:result instance of xs:integer"/>
+      <x:expect label="less than 5"
+        test="$x:result lt 5"/>
+    </x:scenario>
+    <x:scenario label="Less concise, using one x:expect element">
+      <x:expect label="is an integer less than 5"
+        test="($x:result instance of xs:integer) and ($x:result lt 5)"/>
+    </x:scenario>
+    <x:scenario label="Concise, but raises error if type mismatch">
+      <x:expect label="is an integer less than 5"
+        test="($x:result treat as xs:integer) lt 5"/>
+    </x:scenario>
+    <x:scenario>
+      <x:label>
+        Using result-type: Concise, plus a type mismatch causes a
+        verification failure, not a fatal error.
+      </x:label>
+      <x:expect label="is an integer less than 5"
+        result-type="xs:integer"
+        test="$x:result lt 5"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="@result-type vs. @as">
+    <x:call function="exactly-one">
+      <x:param>
+        <my-element/>
+      </x:param>
+    </x:call>
+    <x:expect label="returns my-element"
+      result-type="element(my-element)"
+      href="expected.xml" select="/*/*" as="element(my-element)"/>
+  </x:scenario>
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
