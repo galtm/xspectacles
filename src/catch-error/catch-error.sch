@@ -10,9 +10,9 @@
     <sch:rule context="/*">
       <sch:assert id="unknown-type"
         test="local-name() = ('topic','procedure','reference','example')"
-        ><sch:value-of select="error((QName('http://www.w3.org/2005/xqt-errors','blah')),'Document is an unknown type!')"/></sch:assert>
+        ><sch:value-of select="error((QName('urn:x-xspectacles:errors','unknown-type')),'Document is an unknown type!')"/></sch:assert>
     </sch:rule>
   </sch:pattern>
 </sch:schema>
 
-<!-- Copyright © 2024 by Amanda Galtman. -->
+<!-- Copyright © 2024-2025 by Amanda Galtman. -->

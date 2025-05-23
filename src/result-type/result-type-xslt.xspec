@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  stylesheet="../catch-error/catch-error.xsl"
+  xmlns:f="urn:x-xspectacles:functions:catch-error"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--
+    Sample Code for "Pre-Checking the Result Type in XSpec"
+    https://medium.com/@xspectacles/pre-checking-the-result-type-in-xspec-804d2cc0a3a2
+  -->
+
+  <!-- NOTE: This file requires the x:expect/@result-type feature,
+    upcoming in XSpec v3.3. -->
+
+  <x:import href="result-type-xq.xspec"/>
+
+  <x:scenario label="@result-type vs. @as">
+    <x:scenario label="In XSLT tests, @as can convert types">
+      <x:call function="data">
+        <x:param>Text content</x:param>
+      </x:call>
+      <!-- Actual result is an instance of xs:string -->
+      <x:expect label="such as text node into string"
+        as="xs:string">Text content</x:expect>
+    </x:scenario>
+    <x:scenario label="@result-type does not convert types">
+      <x:call function="exactly-one">
+        <x:param>Text content</x:param>
+      </x:call>
+      <!-- Actual result is a text node -->
+      <x:expect label="such as text node into string (FAILS)"
+        result-type="xs:string" select="'Text content'"/>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  schematron="../catch-error/catch-error.sch"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Pre-Checking the Result Type in XSpec"
+    https://medium.com/@xspectacles/pre-checking-the-result-type-in-xspec-804d2cc0a3a2
+  -->
+
+  <!-- NOTE: This file requires the x:expect/@result-type feature,
+    upcoming in XSpec v3.3. -->
+
+  <x:scenario label="Scenarios with error catching">
+    <x:scenario label="Document of unknown type" catch="yes">
+      <x:context>
+        <example/><!-- WRONG context, for illustration -->
+      </x:context>
+      <!-- Expected error does not occur -->
+      <x:expect label="produces an error message (FAILS)"
+        result-type="map(*)"
+        test="$x:result?err?description"
+        select="'Document is an unknown type!'"/>
+    </x:scenario>
+    <x:scenario label="Document of known type" catch="yes">
+      <x:context>
+        <unknown/><!-- WRONG context, for illustration -->
+      </x:context>
+      <!-- Unexpected error occurs -->
+      <x:expect-not-assert id="unknown-type" label="(FAILS)"/>
+    </x:scenario>
+  </x:scenario>
+
+</x:description>
+
+<!-- Copyright © 2025 by Amanda Galtman. -->
