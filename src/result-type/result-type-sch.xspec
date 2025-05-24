@@ -28,6 +28,11 @@
       </x:context>
       <!-- Unexpected error occurs -->
       <x:expect-not-assert id="unknown-type" label="(FAILS)"/>
+      <x:expect-assert count="0" label="(FAILS)"/>
+      <x:expect-not-report label="(FAILS)"/>
+      <x:expect-report count="0" label="(FAILS)"/>
+      <x:expect-rule context="/*" label="(FAILS)"/>
+      <x:expect-valid/><!-- FAILS -->
     </x:scenario>
   </x:scenario>
 
