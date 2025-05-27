@@ -109,6 +109,7 @@
                         <exclude>helper-comments-xquf/helper-remove-comments-xquf.xspec</exclude>
                     </excludes>
                     <catalogFile>${project.basedir}/src/pointing-by-catalog/data/DATA-CATALOG.xml</catalogFile>
+                    <ignoreFocus>false</ignoreFocus>
                 </configuration>
             </plugin>
         </plugins>
