@@ -2,6 +2,7 @@
 <x:description
   xmlns:validate="http://basex.org/modules/validate"
   xmlns:x="http://www.jenitennison.com/xslt/xspec"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xv="urn:x-xspectacles:xspec:variables"
   query="urn:x-xspectacles:functions:noop"
   query-at="no-op.xqm">
