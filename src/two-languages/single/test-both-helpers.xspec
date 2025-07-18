@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+  query="urn:x-xspectacles:functions:helper:remove-comments"
+  query-at="../../helper-comments/helper-remove-comments.xqm"
+  stylesheet="../../helper-comments/helper-remove-comments.xsl"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Reuse XSpec Scenarios Across XSLT and XQuery"
+    https://medium.com/@xspectacles/reuse-xspec-scenarios-across-xslt-and-xquery-211fa86e1b27
+  -->
+
+  <x:scenario label="When a comment starts with 'TEST NOTE:'">
+    <x:call function="frc:remove-comments">
+      <x:param>
+        <element>
+          <!-- TEST NOTE: this comment should be removed -->
+          <!-- this comment should be preserved -->
+          <!-- TEST NOTE: this comment should be removed -->
+        </element>
+      </x:param>
+    </x:call>
+    <x:expect label="the entire comment should be removed">
+      <element>
+        <!-- this comment should be preserved -->
+      </element>
+    </x:expect>
+  </x:scenario>
+
+  <x:scenario label="When entire input is a 'TEST NOTE:' comment">
+    <x:call function="frc:remove-comments">
+      <x:param>
+        <!-- TEST NOTE: this comment should be removed -->
+      </x:param>
+    </x:call>
+    <x:expect label="the output is an empty sequence"
+      as="empty-sequence()"/>
+  </x:scenario>
+
+  <!-- There could be many more scenarios... -->
+
+</x:description>
+<!-- Copyright © 2025 by Amanda Galtman. -->

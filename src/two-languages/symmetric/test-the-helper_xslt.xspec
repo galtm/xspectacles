@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description stylesheet="../../helper-comments/helper-remove-comments.xsl"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "Reuse XSpec Scenarios Across XSLT and XQuery"
+    https://medium.com/@xspectacles/reuse-xspec-scenarios-across-xslt-and-xquery-211fa86e1b27
+  -->
+
+  <x:import href="test-the-helper_scenarios-only.xspec"/>
+
+</x:description>
+<!-- Copyright © 2025 by Amanda Galtman. -->
