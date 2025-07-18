@@ -96,6 +96,8 @@
                         <exclude>schxslt-in-xspec/schxslt-in-xspec-mistakes.xspec</exclude>
                         <exclude>space-actual/problem/space-actual-problem.xspec</exclude>
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
+                        <!-- Exclude tests that are incomplete deliberately. -->
+                        <exclude>two-languages/symmetric/test-the-helper_scenarios-only.xspec</exclude>
                         <!-- Exclude tests that fail deliberately and require XSpec v3.3.
                             When XSpec v3.3 is released, consider adding @pending and removing
                             the exclusions. -->
