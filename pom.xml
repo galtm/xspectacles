@@ -98,12 +98,6 @@
                         <exclude>space-actual/problem-variation/space-actual-problem.xspec</exclude>
                         <!-- Exclude tests that are incomplete deliberately. -->
                         <exclude>two-languages/symmetric/test-the-helper_scenarios-only.xspec</exclude>
-                        <!-- Exclude tests that fail deliberately and require XSpec v3.3.
-                            When XSpec v3.3 is released, consider adding @pending and removing
-                            the exclusions. -->
-                        <exclude>result-type/result-type-sch.xspec</exclude>
-                        <exclude>result-type/result-type-xq.xspec</exclude>
-                        <exclude>result-type/result-type-xslt.xspec</exclude>
                         <!-- Exclude tests that run only with BaseX -->
                         <exclude>ixml/ixml-design1.xspec</exclude>
                         <exclude>ixml/ixml-design2.xspec</exclude>
