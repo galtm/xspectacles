@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description query="urn:x-xspectacles:functions:report"
+  query-at="../helper-comments/test-target.xqm"
+  stylesheet="../helper-comments/test-target.xsl"
+  version="3.3"
+  xmlns:frc="urn:x-xspectacles:functions:helper:remove-comments:xproc"
+  xmlns:rpt="urn:x-xspectacles:functions:report"
+  xmlns:x="http://www.jenitennison.com/xslt/xspec">
+
+  <!--
+    Sample Code for "XProc 3 Steps as XSpec Test Helper Functions"
+    https://medium.com/@xspectacles/xproc-3-steps-as-xspec-test-helper-functions-1ff197c445af
+  -->
+
+  <!--
+    To run this test, you must run the testwrapper-xslt.xpl or testwrapper-xquery.xpl
+    XProc pipeline in XML Calabash, passing this document to the input port named
+    "source".
+
+    Differences between this file and ../helper-comments/helper-remove-comments-xslt.xspec:
+
+    1. No <x:helper>. Instead, the XProc wrapper file, href_query_wrapper.xpl,
+       imports the XProc file that declares the test helper function.
+    2. After using frc:remove-comments(...), you use syntax `?result` to access
+       the step output on the output port named "result".
+    3. In x:expect, `/element()` selects the outermost element of the document that
+       the XProc step returns. The rpt:report function returns an element, not a
+       document node.
+  -->
+  <x:scenario label="Use helper function">
+    <x:call function="rpt:report">
+      <x:param select="frc:remove-comments(dataset)?result">
+        <dataset>
+          <data>100</data>
+          <!-- TEST NOTE: Next data element exceeds 2^8. -->
+          <data>257</data>
+          <data>0</data>
+        </dataset>
+      </x:param>
+    </x:call>
+    <x:expect label="Report with standard comment"
+      select="(frc:remove-comments(report)?result)/element()">
+      <report>
+        <!--Report about data-->
+        <report-item>Sum: 357</report-item>
+        <!-- TEST NOTE: Mean happens to be an integer here. -->
+        <report-item>Mean: 119</report-item>
+      </report>
+    </x:expect>
+  </x:scenario>
+  
+  <x:scenario label="Without helper function"
+    pending="Fails due to TEST NOTE: comments">
+    <x:call function="rpt:report">
+      <x:param>
+        <dataset>
+          <data>100</data>
+          <!-- TEST NOTE: Next data element exceeds 2^8. -->
+          <data>257</data>
+          <data>0</data>
+        </dataset>
+      </x:param>
+    </x:call>
+    <x:expect label="Report with standard comment">
+      <report>
+        <!--Report about data-->
+        <report-item>Sum: 357</report-item>
+        <!-- TEST NOTE: Mean happens to be an integer here. -->
+        <report-item>Mean: 119</report-item>
+      </report>
+    </x:expect>
+  </x:scenario>
+
+</x:description>
+<!-- Copyright © 2025 by Amanda Galtman. -->
