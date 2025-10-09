@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description
   stylesheet="../catch-error/catch-error.xsl"
+  version="3.3"
   xmlns:f="urn:x-xspectacles:functions:catch-error"
   xmlns:x="http://www.jenitennison.com/xslt/xspec"
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -11,7 +12,7 @@
   -->
 
   <!-- NOTE: This file requires the x:expect/@result-type feature,
-    upcoming in XSpec v3.3. -->
+    in XSpec v3.3. -->
 
   <x:import href="result-type-xq.xspec"/>
 
@@ -30,7 +31,8 @@
       </x:call>
       <!-- Actual result is a text node -->
       <x:expect label="such as text node into string (FAILS)"
-        result-type="xs:string" select="'Text content'"/>
+        result-type="xs:string" select="'Text content'"
+        pending="FAILS"/>
     </x:scenario>
   </x:scenario>
 

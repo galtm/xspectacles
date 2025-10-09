@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description
   schematron="../catch-error/catch-error.sch"
+  version="3.3"
   xmlns:x="http://www.jenitennison.com/xslt/xspec">
 
   <!--
@@ -9,9 +10,9 @@
   -->
 
   <!-- NOTE: This file requires the x:expect/@result-type feature,
-    upcoming in XSpec v3.3. -->
+    in XSpec v3.3. -->
 
-  <x:scenario label="Scenarios with error catching">
+  <x:scenario label="Scenarios with error catching" pending="FAILS">
     <x:scenario label="Document of unknown type" catch="yes">
       <x:context>
         <example/><!-- WRONG context, for illustration -->
