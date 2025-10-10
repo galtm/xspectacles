@@ -103,6 +103,8 @@
                         <exclude>ixml/ixml-design2.xspec</exclude>
                         <exclude>relaxng/relaxng-test.xspec</exclude>
                         <exclude>helper-comments-xquf/helper-remove-comments-xquf.xspec</exclude>
+                        <!-- Exclude tests that run only with XProc -->
+                        <exclude>helper-comments-xproc3/helper-remove-comments-xproc3.xspec</exclude>
                     </excludes>
                     <catalogFile>${project.basedir}/src/pointing-by-catalog/data/DATA-CATALOG.xml</catalogFile>
                     <ignoreFocus>false</ignoreFocus>
