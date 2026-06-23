@@ -10,7 +10,11 @@
     https://medium.com/@xspectacles/comparing-attributes-selectively-in-xspec-3-0-f3a457fe8e04
   -->
 
+  <!-- In SchXslt or XQS, use 'phase' in no namespace -->
   <x:param name="phase">phase1</x:param>
+  <!-- In SchXslt2, qualify 'phase' with the right namespace URI -->
+  <x:param
+    name="Q{http://dmaus.name/ns/2023/schxslt}phase">phase1</x:param>
 
   <!-- Example Skipping Comparison of Schematron SVRL Attributes -->
   <x:scenario label="Check for active pattern">
