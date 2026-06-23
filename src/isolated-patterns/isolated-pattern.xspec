@@ -7,7 +7,11 @@
     https://medium.com/@xspectacles/testing-schematron-patterns-in-isolation-06ee5e28a71f
   -->
 
+  <!-- In SchXslt or XQS, use 'phase' in no namespace -->
   <x:param name="phase">id-of-pattern1-phase</x:param>
+  <!-- In SchXslt2, qualify 'phase' with the right namespace URI -->
+  <x:param
+    name="Q{http://dmaus.name/ns/2023/schxslt}phase">id-of-pattern1-phase</x:param>
 
   <x:scenario>
     <x:label>Valid in isolated pattern</x:label>
